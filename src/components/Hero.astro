@@ -1,0 +1,264 @@
+---
+import { getLastPlayed } from "../lib/spotify";
+
+const nowPlaying = await getLastPlayed();
+---
+
+<section id="hero">
+	<div class="hero-main">
+		<p class="status-badge">[Your Name] / [Availability status]</p>
+
+		<div class="hero-text-row">
+			<div class="hero-copy">
+				<h1>[Bold 2–3 line headline statement about what you do]</h1>
+
+				<p class="subhead">
+					[A sentence or two expanding on the headline — what you focus on and how you work]
+				</p>
+			</div>
+
+			<div class="illustration-placeholder">
+				<img src="/images/avatar.png" alt="Illustrated portrait of me" />
+			</div>
+		</div>
+
+		<div class="cta-row">
+			<a href="#work" class="button">[Case Studies]</a>
+			<a href="#about" class="button">[Know me]</a>
+			<a href="#" class="button">[View Resume]</a>
+		</div>
+	</div>
+
+	<div class="widgets">
+		<aside class="widget" id="now-listening">
+			<p class="widget-label">[🎧 Currently listening]</p>
+			<p class="widget-body">{nowPlaying?.title ?? "[Song title]"}</p>
+			<p class="widget-meta">{nowPlaying?.artist ?? "[Artist]"}</p>
+		</aside>
+
+		<aside class="widget flip-card" id="fun-fact">
+			<div class="flip-card-inner">
+				<div class="flip-card-front">
+					<p class="widget-label">[✨ Fun fact]</p>
+					<p>[Did you know?]</p>
+				</div>
+				<div class="flip-card-back">
+					<p class="widget-label">[✨ Fun fact]</p>
+					<p>[A short fun fact about you]</p>
+				</div>
+			</div>
+		</aside>
+
+		<aside class="widget" id="location">
+			<p class="widget-label">[📍 Based in]</p>
+			<p class="widget-body">Valencia</p>
+		</aside>
+
+		<aside class="widget" id="quote">
+			<p class="widget-label">[💬 Quote]</p>
+			<blockquote>[Quote text]</blockquote>
+			<p class="widget-meta">[— Author]</p>
+		</aside>
+	</div>
+</section>
+
+<style>
+	#hero {
+		padding-bottom: 10px;
+	}
+
+	.hero-text-row {
+		display: flex;
+		align-items: flex-start;
+		gap: 2rem;
+		margin-bottom: 1.5rem;
+	}
+
+	.hero-copy {
+		flex: 1;
+		min-width: 0;
+	}
+
+	.illustration-placeholder {
+		flex-shrink: 0;
+		width: 180px;
+		aspect-ratio: 1;
+		border-radius: 50%;
+		overflow: hidden;
+	}
+
+	.illustration-placeholder img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	@media (max-width: 640px) {
+		.hero-text-row {
+			flex-direction: column-reverse;
+		}
+	}
+
+	.cta-row {
+		display: flex;
+		gap: 1rem;
+	}
+
+	.widgets {
+		position: relative;
+		height: 200px;
+		margin-top: 1rem;
+	}
+
+	.widget {
+		position: absolute;
+		width: 260px;
+		border: none;
+		background: #fff59d;
+		padding: 1rem;
+		cursor: grab;
+		touch-action: none;
+		user-select: none;
+		box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.15);
+	}
+
+	.widget.dragging {
+		cursor: grabbing;
+		z-index: 10;
+		box-shadow: 4px 10px 18px rgba(0, 0, 0, 0.25);
+	}
+
+	.widget.dragging .flip-card-front,
+	.widget.dragging .flip-card-back {
+		box-shadow: 4px 10px 18px rgba(0, 0, 0, 0.25);
+	}
+
+	.widget blockquote {
+		margin: 0;
+	}
+
+	.widget.flip-card {
+		border: none;
+		background: none;
+		padding: 0;
+	}
+
+	.flip-card {
+		perspective: 1000px;
+	}
+
+	.flip-card .flip-card-inner {
+		position: relative;
+		width: 100%;
+		transition: transform 0.6s;
+		transform-style: preserve-3d;
+	}
+
+	.flip-card:hover .flip-card-inner {
+		transform: rotateY(180deg);
+	}
+
+	.flip-card-front,
+	.flip-card-back {
+		box-sizing: border-box;
+		border: none;
+		background: #ffccbc;
+		padding: 1rem;
+		box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.15);
+		backface-visibility: hidden;
+	}
+
+	.flip-card-front p,
+	.flip-card-back p {
+		margin: 0;
+	}
+
+	.flip-card-back {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		transform: rotateY(180deg);
+	}
+
+	#now-listening {
+		top: 0;
+		left: 0;
+		z-index: 1;
+		transform: rotate(-3deg);
+	}
+
+	#fun-fact {
+		top: 0;
+		left: 210px;
+		z-index: 2;
+		transform: rotate(2deg);
+	}
+
+	#location {
+		top: 0;
+		left: 420px;
+		z-index: 3;
+		transform: rotate(-1.5deg);
+		background: #b3e5fc;
+	}
+
+	#quote {
+		top: 0;
+		left: 630px;
+		z-index: 4;
+		transform: rotate(4deg);
+		background: #c5e1a5;
+	}
+</style>
+
+<script>
+	function makeDraggable(el: HTMLElement) {
+		const container = el.parentElement;
+		if (!container) return;
+
+		let dragging = false;
+		let startX = 0;
+		let startY = 0;
+		let origLeft = 0;
+		let origTop = 0;
+
+		el.addEventListener("pointerdown", (e) => {
+			if ((e.target as HTMLElement).closest("summary, a")) return;
+
+			dragging = true;
+			el.classList.add("dragging");
+			el.setPointerCapture(e.pointerId);
+
+			const elRect = el.getBoundingClientRect();
+			const containerRect = container.getBoundingClientRect();
+			origLeft = elRect.left - containerRect.left;
+			origTop = elRect.top - containerRect.top;
+			startX = e.clientX;
+			startY = e.clientY;
+		});
+
+		el.addEventListener("pointermove", (e) => {
+			if (!dragging) return;
+			const dx = e.clientX - startX;
+			const dy = e.clientY - startY;
+			el.style.left = `${origLeft + dx}px`;
+			el.style.top = `${origTop + dy}px`;
+		});
+
+		const stopDragging = (e: PointerEvent) => {
+			if (!dragging) return;
+			dragging = false;
+			el.classList.remove("dragging");
+			el.releasePointerCapture(e.pointerId);
+		};
+
+		el.addEventListener("pointerup", stopDragging);
+		el.addEventListener("pointercancel", stopDragging);
+	}
+
+	document
+		.querySelectorAll<HTMLElement>(".widgets .widget")
+		.forEach(makeDraggable);
+</script>

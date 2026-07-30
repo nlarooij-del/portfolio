@@ -1,0 +1,43 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { showcases } from "../../data/showcases";
+
+export function getStaticPaths() {
+	return showcases.map((item) => ({
+		params: { slug: item.slug },
+		props: { item },
+	}));
+}
+
+const { item } = Astro.props;
+---
+
+<Layout title={item.title}>
+	<section>
+		<a href="/#work">[← Back to work]</a>
+		<p class="category">{item.category}</p>
+		<h1>{item.title}</h1>
+		<ul class="tags">
+			{item.tags.map((tag) => (
+				<li>{tag}</li>
+			))}
+		</ul>
+		<p>[Case study write-up goes here]</p>
+	</section>
+</Layout>
+
+<style>
+	.tags {
+		display: flex;
+		gap: 0.5rem;
+		list-style: none;
+		padding: 0;
+		margin: 0.5rem 0 1.5rem;
+	}
+
+	.tags li {
+		border: 1px solid #ddd;
+		padding: 0.15rem 0.5rem;
+		font-size: 0.8rem;
+	}
+</style>

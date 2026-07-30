@@ -8,6 +8,11 @@ astro dev --background
 
 Manage the background server with `astro dev stop`, `astro dev status`, and `astro dev logs`.
 
+## Known gotchas
+
+- **Stale CSS after rapid edits:** the dev server can end up serving an old, cached version of a component's scoped styles after several quick successive edits, even though the source file is correct and the build succeeds. If a styling change doesn't seem to apply, check computed styles before assuming the CSS is wrong — a clean `astro dev stop` followed by `astro dev --background` clears it.
+- **Verify in a fresh browser tab:** when checking layout/behavior in a reused tab, JS-set inline styles from earlier interactions (e.g. dragging an element) can persist across `navigate` calls via the browser's back-forward cache, making the page look like it's in a different state than a real first-time visitor would see. Open a new tab for a trustworthy check.
+
 ## Documentation
 
 Full documentation: https://docs.astro.build

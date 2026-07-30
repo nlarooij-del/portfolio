@@ -1,0 +1,47 @@
+---
+const skills = [
+	"[Skill]",
+	"[Skill]",
+	"[Skill]",
+	"[Skill]",
+	"[Skill]",
+	"[Skill]",
+];
+---
+
+<section id="about">
+	<h2>[Intro line about you]</h2>
+
+	<ul class="skills">
+		{skills.map((skill) => (
+			<li>{skill}</li>
+		))}
+	</ul>
+
+	<p class="quote">"[Things I really enjoy]"</p>
+
+	<p class="role">[Your role] · [Current employer]</p>
+
+	<p>[First bio paragraph — your background and what you focus on]</p>
+	<p>[Second bio paragraph — how you work and what you care about]</p>
+</section>
+
+<style>
+	.skills {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		list-style: none;
+		padding: 0;
+	}
+
+	.skills li {
+		border: 1px solid #ddd;
+		padding: 0.15rem 0.5rem;
+		font-size: 0.8rem;
+	}
+
+	.quote {
+		font-style: italic;
+	}
+</style>

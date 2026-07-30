@@ -1,0 +1,46 @@
+/* Minimal baseline — design pass comes later */
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	font-family: system-ui, sans-serif;
+	line-height: 1.5;
+	color: #111;
+	background: #fff;
+}
+
+section {
+	padding: 3rem 1.5rem;
+	max-width: 960px;
+	margin: 0 auto;
+}
+
+h1, h2, h3 {
+	line-height: 1.2;
+	margin: 0 0 1rem;
+}
+
+a {
+	color: inherit;
+}
+
+#page-content > * {
+	opacity: 0;
+	transform: translateY(0.6em);
+	filter: blur(4px);
+	transition: opacity 0.6s ease, transform 0.6s ease, filter 0.6s ease;
+}
+
+#page-content.revealed > *:nth-child(1) { transition-delay: 0s; }
+#page-content.revealed > *:nth-child(2) { transition-delay: 0.12s; }
+#page-content.revealed > *:nth-child(3) { transition-delay: 0.24s; }
+#page-content.revealed > *:nth-child(4) { transition-delay: 0.36s; }
+
+#page-content.revealed > * {
+	opacity: 1;
+	transform: translateY(0);
+	filter: blur(0);
+}

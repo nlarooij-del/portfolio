@@ -1,0 +1,91 @@
+---
+import { showcases } from "../data/showcases";
+---
+
+<section id="work">
+	<h2>[Intro line about your work]</h2>
+	<div class="showcases">
+		{showcases.map((item) => (
+			<article class="showcase">
+				<p class="category">{item.category}</p>
+				<div class="showcase-row">
+					<div class="showcase-copy">
+						<h3>{item.title}</h3>
+						<ul class="tags">
+							{item.tags.map((tag) => (
+								<li>{tag}</li>
+							))}
+						</ul>
+						<a href={`/work/${item.slug}/`} class="button">[View case study]</a>
+					</div>
+					<div class="showcase-illustration">
+						<p>[Illustration]</p>
+					</div>
+				</div>
+			</article>
+		))}
+	</div>
+</section>
+
+<style>
+	#work {
+		padding-top: 0;
+	}
+
+	.showcases {
+		display: grid;
+		gap: 2rem;
+	}
+
+	.showcase-row {
+		display: flex;
+		align-items: flex-start;
+		gap: 1rem;
+	}
+
+	.showcase-illustration {
+		flex: 1;
+		height: 200px;
+		border: 1px dashed #999;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+		padding: 0.5rem;
+		color: #666;
+		font-size: 0.65rem;
+	}
+
+	.showcase-copy {
+		flex-shrink: 0;
+	}
+
+	.showcase-copy h3 {
+		margin-top: 0;
+	}
+
+	@media (max-width: 480px) {
+		.showcase-row {
+			flex-direction: column;
+		}
+	}
+
+	.tags {
+		display: flex;
+		gap: 0.5rem;
+		list-style: none;
+		padding: 0;
+		margin: 0.5rem 0 0;
+	}
+
+	.tags li {
+		border: 1px solid #ddd;
+		padding: 0.15rem 0.5rem;
+		font-size: 0.8rem;
+	}
+
+	.button {
+		display: inline-block;
+		margin-top: 0.5rem;
+	}
+</style>

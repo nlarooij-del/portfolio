@@ -10,7 +10,7 @@ const skills = [
 ---
 
 <section id="about">
-	<h2>[Intro line about you]</h2>
+	<h2>Get to know me</h2>
 
 	<ul class="skills">
 		{skills.map((skill) => (
@@ -36,12 +36,27 @@ const skills = [
 	}
 
 	.skills li {
-		border: 1px solid #ddd;
-		padding: 0.15rem 0.5rem;
+		border: 2px solid var(--ink);
+		border-radius: 999px;
+		padding: 0.2rem 0.7rem;
+		font-family: var(--font-body);
+		font-weight: 700;
 		font-size: 0.8rem;
+		background: var(--yellow);
+	}
+
+	.skills li:nth-child(3n+2) {
+		background: var(--sky);
+	}
+
+	.skills li:nth-child(3n+3) {
+		background: var(--leaf);
 	}
 
 	.quote {
+		font-family: var(--font-display);
 		font-style: italic;
+		font-size: 1.3rem;
+		color: var(--coral);
 	}
 </style>

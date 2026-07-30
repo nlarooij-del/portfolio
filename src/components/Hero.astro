@@ -6,7 +6,7 @@ const nowPlaying = await getLastPlayed();
 
 <section id="hero">
 	<div class="hero-main">
-		<p class="status-badge">[Your Name] / [Availability status]</p>
+		<p class="status-badge">Niels Larooij</p>
 
 		<div class="hero-text-row">
 			<div class="hero-copy">
@@ -19,52 +19,64 @@ const nowPlaying = await getLastPlayed();
 
 			<div class="illustration-placeholder">
 				<img src="/images/avatar.png" alt="Illustrated portrait of me" />
+				<p class="drop-hint">Drop here for an easter egg</p>
 			</div>
+		</div>
+
+		<div class="widgets">
+			<aside class="widget" id="now-listening">
+				<p class="widget-label">🎧 Currently listening</p>
+				<p class="widget-body">{nowPlaying?.title ?? "[Song title]"}</p>
+				<p class="widget-meta">{nowPlaying?.artist ?? "[Artist]"}</p>
+			</aside>
+
+			<aside class="widget flip-card" id="fun-fact">
+				<div class="flip-card-inner">
+					<div class="flip-card-front">
+						<p class="widget-label">✨ Fun fact</p>
+						<p>Hover me to know the answer</p>
+					</div>
+					<div class="flip-card-back">
+						<p class="widget-label">✨ Fun fact</p>
+						<p>
+						I've created this whole portfolio through Terminal and Claude Code
+						after finishing the <a
+							href="https://aidesignlab.gumroad.com/l/claude-code-for-designers"
+							target="_blank"
+							rel="noopener noreferrer">Claude Code for Designers</a
+						> course from Gumroad.
+					</p>
+					</div>
+				</div>
+			</aside>
+
+			<aside class="widget" id="location">
+				<p class="widget-label">📍 Based in</p>
+				<p class="widget-body">Valencia</p>
+			</aside>
+
+			<aside class="widget" id="quote">
+				<p class="widget-label">💬 Quote</p>
+				<blockquote>[Quote text]</blockquote>
+				<p class="widget-meta">[— Author]</p>
+			</aside>
 		</div>
 
 		<div class="cta-row">
-			<a href="#work" class="button">[Case Studies]</a>
-			<a href="#about" class="button">[Know me]</a>
-			<a href="#" class="button">[View Resume]</a>
+			<a href="#work" class="button">Selected works</a>
+			<a href="#about" class="button button--sky">Get to know me</a>
+			<a href="#" class="button button--coral">View resume</a>
 		</div>
-	</div>
-
-	<div class="widgets">
-		<aside class="widget" id="now-listening">
-			<p class="widget-label">[🎧 Currently listening]</p>
-			<p class="widget-body">{nowPlaying?.title ?? "[Song title]"}</p>
-			<p class="widget-meta">{nowPlaying?.artist ?? "[Artist]"}</p>
-		</aside>
-
-		<aside class="widget flip-card" id="fun-fact">
-			<div class="flip-card-inner">
-				<div class="flip-card-front">
-					<p class="widget-label">[✨ Fun fact]</p>
-					<p>[Did you know?]</p>
-				</div>
-				<div class="flip-card-back">
-					<p class="widget-label">[✨ Fun fact]</p>
-					<p>[A short fun fact about you]</p>
-				</div>
-			</div>
-		</aside>
-
-		<aside class="widget" id="location">
-			<p class="widget-label">[📍 Based in]</p>
-			<p class="widget-body">Valencia</p>
-		</aside>
-
-		<aside class="widget" id="quote">
-			<p class="widget-label">[💬 Quote]</p>
-			<blockquote>[Quote text]</blockquote>
-			<p class="widget-meta">[— Author]</p>
-		</aside>
 	</div>
 </section>
 
 <style>
 	#hero {
-		padding-bottom: 10px;
+		padding-bottom: 3rem;
+	}
+
+	.hero-copy h1 {
+		font-size: 4rem;
 	}
 
 	.hero-text-row {
@@ -79,18 +91,83 @@ const nowPlaying = await getLastPlayed();
 		min-width: 0;
 	}
 
+	.subhead {
+		font-family: var(--font-body);
+		font-weight: 700;
+		font-size: 1.25rem;
+		color: #555;
+		margin-top: 0.5rem;
+	}
+
+	.status-badge {
+		display: inline-block;
+		font-family: var(--font-display);
+		font-weight: 700;
+		font-size: 0.8rem;
+		letter-spacing: 0.02em;
+		padding: 0.35rem 0.9rem;
+		margin: 0 0 1rem;
+		border: 2px solid var(--ink);
+		border-radius: 999px;
+		background: var(--leaf);
+		box-shadow: 3px 3px 0 var(--ink);
+	}
+
 	.illustration-placeholder {
+		position: relative;
 		flex-shrink: 0;
 		width: 180px;
 		aspect-ratio: 1;
 		border-radius: 50%;
+		border: 5px solid var(--ink);
+		box-shadow: 6px 6px 0 var(--yellow);
 		overflow: hidden;
+		outline: 0px dashed var(--sky);
+		outline-offset: 0px;
+		transition: outline-width 0.2s ease, outline-offset 0.2s ease, transform 0.2s ease;
+	}
+
+	.drop-hint {
+		position: absolute;
+		inset: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+		margin: 0;
+		padding: 1rem;
+		font-family: var(--font-display);
+		font-weight: 700;
+		font-size: 0.85rem;
+		line-height: 1.2;
+		color: #fff;
+		background: rgba(26, 26, 26, 0.6);
+		opacity: 0;
+		transition: opacity 0.2s ease;
+		pointer-events: none;
+	}
+
+	.illustration-placeholder.drop-active .drop-hint {
+		opacity: 1;
 	}
 
 	.illustration-placeholder img {
 		width: 100%;
 		height: 100%;
 		object-fit: cover;
+	}
+
+	.illustration-placeholder.drop-active {
+		outline-width: 5px;
+		outline-offset: 6px;
+		transform: scale(1.06);
+		box-shadow: none;
+		animation: drop-pulse 1s ease-in-out infinite;
+	}
+
+	@keyframes drop-pulse {
+		0%, 100% { outline-color: var(--sky); opacity: 1; }
+		50% { outline-color: var(--yellow); opacity: 0.5; }
 	}
 
 	@media (max-width: 640px) {
@@ -102,6 +179,7 @@ const nowPlaying = await getLastPlayed();
 	.cta-row {
 		display: flex;
 		gap: 1rem;
+		margin-top: 1.5rem;
 	}
 
 	.widgets {
@@ -113,24 +191,94 @@ const nowPlaying = await getLastPlayed();
 	.widget {
 		position: absolute;
 		width: 260px;
-		border: none;
+		border: 3px solid var(--ink);
 		background: #fff59d;
 		padding: 1rem;
+		font-family: var(--font-body);
 		cursor: grab;
 		touch-action: none;
 		user-select: none;
-		box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.15);
+		box-shadow: 5px 5px 0 var(--ink);
+		transform: rotate(var(--rot, 0deg));
+		transition: transform 0.15s ease, box-shadow 0.15s ease;
+		z-index: var(--z, 1);
+	}
+
+	.widget::after {
+		content: "⠿";
+		position: absolute;
+		top: 0.3rem;
+		right: 0.6rem;
+		font-size: 1.1rem;
+		line-height: 1;
+		color: var(--ink);
+		opacity: 0.35;
+		pointer-events: none;
+	}
+
+	.widget:hover:not(.dragging) {
+		transform: rotate(var(--rot, 0deg)) translateY(-6px);
+		box-shadow: 7px 9px 0 var(--ink);
+		z-index: 20;
+	}
+
+	.widget:hover:not(.dragging).flip-card {
+		box-shadow: none;
+	}
+
+	.widget.popping {
+		animation: pop-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+	}
+
+	.widget.popping-out {
+		animation: pop-out 0.5s ease-in;
+		animation-fill-mode: forwards;
+	}
+
+	@keyframes pop-in {
+		0% {
+			transform: rotate(var(--rot, 0deg)) scale(0);
+			opacity: 0;
+		}
+		60% {
+			transform: rotate(var(--rot, 0deg)) scale(1.15);
+			opacity: 1;
+		}
+		100% {
+			transform: rotate(var(--rot, 0deg)) scale(1);
+			opacity: 1;
+		}
+	}
+
+	@keyframes pop-out {
+		0% {
+			transform: rotate(var(--rot, 0deg)) scale(1);
+			opacity: 1;
+		}
+		100% {
+			transform: rotate(var(--rot, 0deg)) scale(0);
+			opacity: 0;
+		}
 	}
 
 	.widget.dragging {
 		cursor: grabbing;
 		z-index: 10;
-		box-shadow: 4px 10px 18px rgba(0, 0, 0, 0.25);
+		box-shadow: 8px 8px 0 var(--ink);
+	}
+
+	.widget.dragging.flip-card {
+		box-shadow: none;
 	}
 
 	.widget.dragging .flip-card-front,
 	.widget.dragging .flip-card-back {
-		box-shadow: 4px 10px 18px rgba(0, 0, 0, 0.25);
+		box-shadow: 8px 8px 0 var(--ink);
+	}
+
+	.widget-label {
+		font-family: var(--font-display);
+		font-weight: 700;
 	}
 
 	.widget blockquote {
@@ -141,6 +289,7 @@ const nowPlaying = await getLastPlayed();
 		border: none;
 		background: none;
 		padding: 0;
+		box-shadow: none;
 	}
 
 	.flip-card {
@@ -161,10 +310,10 @@ const nowPlaying = await getLastPlayed();
 	.flip-card-front,
 	.flip-card-back {
 		box-sizing: border-box;
-		border: none;
+		border: 3px solid var(--ink);
 		background: #ffccbc;
 		padding: 1rem;
-		box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.15);
+		box-shadow: 5px 5px 0 var(--ink);
 		backface-visibility: hidden;
 	}
 
@@ -173,47 +322,107 @@ const nowPlaying = await getLastPlayed();
 		margin: 0;
 	}
 
-	.flip-card-back {
+	.flip-card-back a {
+		font-weight: 700;
+		text-decoration: underline;
+		text-underline-offset: 0.15em;
+	}
+
+	.flip-card-front {
 		position: absolute;
 		top: 0;
 		left: 0;
 		width: 100%;
 		height: 100%;
+	}
+
+	.flip-card-back {
 		transform: rotateY(180deg);
 	}
 
 	#now-listening {
 		top: 0;
 		left: 0;
-		z-index: 1;
-		transform: rotate(-3deg);
+		--z: 1;
+		--rot: -3deg;
 	}
 
 	#fun-fact {
 		top: 0;
 		left: 210px;
-		z-index: 2;
-		transform: rotate(2deg);
+		--z: 2;
+		--rot: 2deg;
 	}
 
 	#location {
 		top: 0;
 		left: 420px;
-		z-index: 3;
-		transform: rotate(-1.5deg);
+		--z: 3;
+		--rot: -1.5deg;
 		background: #b3e5fc;
 	}
 
 	#quote {
 		top: 0;
 		left: 630px;
-		z-index: 4;
-		transform: rotate(4deg);
+		--z: 4;
+		--rot: 4deg;
 		background: #c5e1a5;
 	}
 </style>
 
 <script>
+	const illustration = document.querySelector<HTMLElement>(
+		".illustration-placeholder",
+	);
+
+	function spawnEasterEgg(onGone?: () => void) {
+		const egg = document.createElement("div");
+		egg.className = "easter-egg";
+
+		const img = document.createElement("img");
+		img.src = "/images/easter-egg.png";
+		img.alt = "A hidden Easter egg";
+		egg.appendChild(img);
+
+		const size = 120;
+		const maxLeft = Math.max(window.innerWidth - size, 0);
+		const maxTop = Math.max(window.innerHeight - size, 0);
+		egg.style.left = `${Math.random() * maxLeft}px`;
+		egg.style.top = `${Math.random() * maxTop}px`;
+
+		document.body.appendChild(egg);
+
+		let dismissed = false;
+		const dismiss = () => {
+			if (dismissed) return;
+			dismissed = true;
+			clearTimeout(autoTimer);
+			egg.classList.add("leaving");
+			egg.addEventListener(
+				"animationend",
+				() => {
+					egg.remove();
+					onGone?.();
+				},
+				{ once: true },
+			);
+		};
+
+		const removeButton = document.createElement("button");
+		removeButton.type = "button";
+		removeButton.className = "easter-egg-remove";
+		removeButton.textContent = "Remove";
+		removeButton.addEventListener("click", (e) => {
+			e.stopPropagation();
+			dismiss();
+		});
+		egg.appendChild(removeButton);
+
+		egg.addEventListener("click", dismiss);
+		const autoTimer = setTimeout(dismiss, 2500);
+	}
+
 	function makeDraggable(el: HTMLElement) {
 		const container = el.parentElement;
 		if (!container) return;
@@ -229,6 +438,7 @@ const nowPlaying = await getLastPlayed();
 
 			dragging = true;
 			el.classList.add("dragging");
+			illustration?.classList.add("drop-active");
 			el.setPointerCapture(e.pointerId);
 
 			const elRect = el.getBoundingClientRect();
@@ -251,7 +461,44 @@ const nowPlaying = await getLastPlayed();
 			if (!dragging) return;
 			dragging = false;
 			el.classList.remove("dragging");
+			illustration?.classList.remove("drop-active");
 			el.releasePointerCapture(e.pointerId);
+
+			if (illustration) {
+				const widgetRect = el.getBoundingClientRect();
+				const illRect = illustration.getBoundingClientRect();
+				const overlaps =
+					widgetRect.right > illRect.left &&
+					widgetRect.left < illRect.right &&
+					widgetRect.bottom > illRect.top &&
+					widgetRect.top < illRect.bottom;
+
+				if (overlaps) {
+					el.classList.add("popping-out");
+					el.addEventListener(
+						"animationend",
+						() => {
+							el.classList.remove("popping-out");
+							el.style.display = "none";
+							el.style.left = "";
+							el.style.top = "";
+
+							spawnEasterEgg(() => {
+								el.style.display = "";
+								el.classList.add("popping");
+								el.addEventListener(
+									"animationend",
+									() => {
+										el.classList.remove("popping");
+									},
+									{ once: true },
+								);
+							});
+						},
+						{ once: true },
+					);
+				}
+			}
 		};
 
 		el.addEventListener("pointerup", stopDragging);

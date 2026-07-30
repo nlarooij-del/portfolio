@@ -1,11 +1,15 @@
 ---
-const introText = "“All life is problem solving.” — Karl Popper";
-const words = introText.split(" ");
+const quote =
+	"“When you have a great team and you’re having fun, you do great work”";
+const author = "Marc Benioff";
+const words = quote.split(" ");
 ---
 
 <div id="intro-overlay" aria-hidden="true">
 	<p id="intro-text">
 		{words.map((word) => <span>{word}&nbsp;</span>)}
+		<br />
+		<span>— {author}</span>
 	</p>
 </div>
 
@@ -17,7 +21,7 @@ const words = introText.split(" ");
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		background: #fff;
+		background: var(--paper);
 		padding: 1.5rem;
 		text-align: center;
 		transition: opacity 0.6s ease;
@@ -30,7 +34,11 @@ const words = introText.split(" ");
 
 	#intro-text {
 		max-width: 40rem;
-		font-size: 1.5rem;
+		font-family: var(--font-display);
+		font-weight: 800;
+		font-size: 3rem;
+		color: var(--ink);
+		text-shadow: 4px 4px 0 var(--yellow);
 		margin: 0;
 	}
 
@@ -39,7 +47,7 @@ const words = introText.split(" ");
 		opacity: 0;
 		transform: translateY(0.4em);
 		filter: blur(4px);
-		transition: opacity 0.5s ease, transform 0.5s ease, filter 0.5s ease;
+		transition: opacity 0.7s ease, transform 0.7s ease, filter 0.7s ease;
 	}
 
 	#intro-text span.visible {
@@ -65,12 +73,28 @@ const words = introText.split(" ");
 	} else {
 		document.body.style.overflow = "hidden";
 
-		const stepMs = 120;
-		words.forEach((word, i) => {
-			setTimeout(() => word.classList.add("visible"), i * stepMs);
+		// Group words by their rendered line (matching offsetTop) so a whole
+		// wrapped line animates in together, rather than word by word.
+		const lineMap = new Map<number, HTMLElement[]>();
+		words.forEach((word) => {
+			const top = word.offsetTop;
+			const line = lineMap.get(top);
+			if (line) {
+				line.push(word);
+			} else {
+				lineMap.set(top, [word]);
+			}
+		});
+		const lines = [...lineMap.values()];
+
+		const stepMs = 500;
+		lines.forEach((line, i) => {
+			setTimeout(() => {
+				line.forEach((word) => word.classList.add("visible"));
+			}, i * stepMs);
 		});
 
-		const totalDelay = words.length * stepMs + 700;
+		const totalDelay = lines.length * stepMs + 1800;
 		setTimeout(() => {
 			overlay.classList.add("hidden");
 			pageContent?.classList.add("revealed");

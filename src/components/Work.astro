@@ -3,7 +3,7 @@ import { showcases } from "../data/showcases";
 ---
 
 <section id="work">
-	<h2>[Intro line about your work]</h2>
+	<h2>Selected works</h2>
 	<div class="showcases">
 		{showcases.map((item) => (
 			<article class="showcase">
@@ -28,10 +28,6 @@ import { showcases } from "../data/showcases";
 </section>
 
 <style>
-	#work {
-		padding-top: 0;
-	}
-
 	.showcases {
 		display: grid;
 		gap: 2rem;
@@ -46,14 +42,26 @@ import { showcases } from "../data/showcases";
 	.showcase-illustration {
 		flex: 1;
 		height: 200px;
-		border: 1px dashed #999;
+		border: 3px solid var(--ink);
+		box-shadow: 5px 5px 0 var(--ink);
+		background: var(--lavender);
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		text-align: center;
 		padding: 0.5rem;
-		color: #666;
-		font-size: 0.65rem;
+		color: var(--ink);
+		font-family: var(--font-display);
+		font-weight: 700;
+		font-size: 0.75rem;
+	}
+
+	.showcase:nth-of-type(2) .showcase-illustration {
+		background: var(--sky);
+	}
+
+	.showcase:nth-of-type(3) .showcase-illustration {
+		background: var(--leaf);
 	}
 
 	.showcase-copy {
@@ -62,6 +70,15 @@ import { showcases } from "../data/showcases";
 
 	.showcase-copy h3 {
 		margin-top: 0;
+	}
+
+	.category {
+		font-family: var(--font-display);
+		font-weight: 700;
+		font-size: 0.8rem;
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+		color: var(--coral);
 	}
 
 	@media (max-width: 480px) {
@@ -79,9 +96,13 @@ import { showcases } from "../data/showcases";
 	}
 
 	.tags li {
-		border: 1px solid #ddd;
-		padding: 0.15rem 0.5rem;
+		border: 2px solid var(--ink);
+		border-radius: 999px;
+		padding: 0.2rem 0.7rem;
+		font-family: var(--font-body);
+		font-weight: 700;
 		font-size: 0.8rem;
+		background: var(--paper);
 	}
 
 	.button {

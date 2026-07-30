@@ -36,8 +36,21 @@ const { item } = Astro.props;
 	}
 
 	.tags li {
-		border: 1px solid #ddd;
-		padding: 0.15rem 0.5rem;
+		border: 2px solid var(--ink);
+		border-radius: 999px;
+		padding: 0.2rem 0.7rem;
+		font-family: var(--font-body);
+		font-weight: 700;
 		font-size: 0.8rem;
+		background: var(--paper);
+	}
+
+	.category {
+		font-family: var(--font-display);
+		font-weight: 700;
+		font-size: 0.8rem;
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+		color: var(--coral);
 	}
 </style>

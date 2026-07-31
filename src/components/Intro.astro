@@ -1,16 +1,5 @@
----
-const quote =
-	"“When you have a great team and you’re having fun, you do great work”";
-const author = "Marc Benioff";
-const words = quote.split(" ");
----
-
 <div id="intro-overlay" aria-hidden="true">
-	<p id="intro-text">
-		{words.map((word) => <span>{word}&nbsp;</span>)}
-		<br />
-		<span class="author">{author}</span>
-	</p>
+	<p id="intro-text"></p>
 </div>
 
 <style>
@@ -64,27 +53,130 @@ const words = quote.split(" ");
 <script>
 	const overlay = document.getElementById("intro-overlay");
 	const pageContent = document.getElementById("page-content");
-	const words = document.querySelectorAll<HTMLElement>("#intro-text span");
+	const introText = document.getElementById("intro-text");
 	const prefersReducedMotion = window.matchMedia(
 		"(prefers-reduced-motion: reduce)",
 	).matches;
 
-	if (!overlay || words.length === 0) {
-		pageContent?.classList.add("revealed");
-	} else if (prefersReducedMotion) {
-		overlay.classList.add("hidden");
-		pageContent?.classList.add("revealed");
-	} else {
+	const FALLBACK_LINE = "Hey there — hope you're having a good one today";
+
+	const WEATHER_ADJECTIVES: Record<number, string> = {
+		0: "clear",
+		1: "mostly clear",
+		2: "partly cloudy",
+		3: "cloudy",
+		45: "foggy",
+		48: "foggy",
+		51: "drizzly",
+		53: "drizzly",
+		55: "drizzly",
+		56: "icy",
+		57: "icy",
+		61: "rainy",
+		63: "rainy",
+		65: "rainy",
+		66: "icy",
+		67: "icy",
+		71: "snowy",
+		73: "snowy",
+		75: "snowy",
+		77: "snowy",
+		80: "rainy",
+		81: "rainy",
+		82: "rainy",
+		85: "snowy",
+		86: "snowy",
+		95: "stormy",
+		96: "stormy",
+		99: "stormy",
+	};
+
+	function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
+		return new Promise((resolve, reject) => {
+			const timer = setTimeout(() => reject(new Error("timeout")), ms);
+			promise.then(
+				(value) => {
+					clearTimeout(timer);
+					resolve(value);
+				},
+				(err) => {
+					clearTimeout(timer);
+					reject(err);
+				},
+			);
+		});
+	}
+
+	async function buildGreeting(): Promise<string> {
+		const geoRes = await fetch("https://ipwho.is/");
+		const geo = await geoRes.json();
+		if (!geo.success) throw new Error("geolocation failed");
+
+		const { city, latitude, longitude } = geo;
+
+		const weatherRes = await fetch(
+			`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,weather_code`,
+		);
+		const weather = await weatherRes.json();
+		const temp = Math.round(weather.current?.temperature_2m);
+		const code = weather.current?.weather_code;
+		const adjective = WEATHER_ADJECTIVES[code] ?? "unpredictable";
+
+		if (!city || Number.isNaN(temp)) throw new Error("incomplete weather data");
+
+		return `It's a ${adjective} ${temp}°C in ${city} right now — hope you're having a good one`;
+	}
+
+	function renderWords(line: string) {
+		if (!introText) return [] as HTMLElement[];
+		introText.innerHTML = "";
+		const words = line.split(" ");
+		return words.map((word) => {
+			const span = document.createElement("span");
+			span.textContent = word;
+			span.append(document.createTextNode(" "));
+			introText.appendChild(span);
+			return span;
+		});
+	}
+
+	async function init() {
+		if (!overlay || !introText) {
+			pageContent?.classList.add("revealed");
+			return;
+		}
+
+		if (prefersReducedMotion) {
+			overlay.classList.add("hidden");
+			pageContent?.classList.add("revealed");
+			return;
+		}
+
 		document.body.style.overflow = "hidden";
+
+		let line = FALLBACK_LINE;
+		try {
+			line = await withTimeout(buildGreeting(), 2500);
+		} catch {
+			line = FALLBACK_LINE;
+		}
+
+		const words = renderWords(line);
+		if (words.length === 0) {
+			overlay.classList.add("hidden");
+			pageContent?.classList.add("revealed");
+			document.body.style.overflow = "";
+			return;
+		}
 
 		// Group words by their rendered line (matching offsetTop) so a whole
 		// wrapped line animates in together, rather than word by word.
 		const lineMap = new Map<number, HTMLElement[]>();
 		words.forEach((word) => {
 			const top = word.offsetTop;
-			const line = lineMap.get(top);
-			if (line) {
-				line.push(word);
+			const group = lineMap.get(top);
+			if (group) {
+				group.push(word);
 			} else {
 				lineMap.set(top, [word]);
 			}
@@ -92,9 +184,9 @@ const words = quote.split(" ");
 		const lines = [...lineMap.values()];
 
 		const stepMs = 500;
-		lines.forEach((line, i) => {
+		lines.forEach((lineWords, i) => {
 			setTimeout(() => {
-				line.forEach((word) => word.classList.add("visible"));
+				lineWords.forEach((word) => word.classList.add("visible"));
 			}, i * stepMs);
 		});
 
@@ -105,4 +197,6 @@ const words = quote.split(" ");
 			document.body.style.overflow = "";
 		}, totalDelay);
 	}
+
+	init();
 </script>

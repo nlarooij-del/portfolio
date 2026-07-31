@@ -19,7 +19,11 @@ import { showcases } from "../data/showcases";
 						<a href={`/work/${item.slug}/`} class="button">[View case study]</a>
 					</div>
 					<div class="showcase-illustration">
-						<p>[Illustration]</p>
+						{item.cardImage ? (
+							<img src={item.cardImage} alt={item.title} />
+						) : (
+							<p>[Illustration]</p>
+						)}
 					</div>
 				</div>
 			</article>
@@ -54,6 +58,14 @@ import { showcases } from "../data/showcases";
 		font-family: var(--font-display);
 		font-weight: 700;
 		font-size: 0.75rem;
+		overflow: hidden;
+	}
+
+	.showcase-illustration img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: top;
 	}
 
 	.showcase:nth-of-type(2) .showcase-illustration {

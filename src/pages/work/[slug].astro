@@ -10,11 +10,12 @@ export function getStaticPaths() {
 }
 
 const { item } = Astro.props;
+const cs = item.caseStudy;
 ---
 
 <Layout title={item.title}>
-	<section>
-		<a href="/#work">[← Back to work]</a>
+	<section class="header">
+		<a href="/#work" class="back">← Back to work</a>
 		<p class="category">{item.category}</p>
 		<h1>{item.title}</h1>
 		<ul class="tags">
@@ -22,17 +23,140 @@ const { item } = Astro.props;
 				<li>{tag}</li>
 			))}
 		</ul>
-		<p>[Case study write-up goes here]</p>
+
+		{cs && (
+			<div class="meta-row">
+				<div class="meta-card meta-card--yellow">
+					<p class="meta-label">When</p>
+					<p>{cs.when}</p>
+				</div>
+				<div class="meta-card meta-card--coral">
+					<p class="meta-label">Responsibilities</p>
+					<p>{cs.role}</p>
+				</div>
+				<div class="meta-card meta-card--sky">
+					<p class="meta-label">Tools</p>
+					<p>{cs.tools}</p>
+				</div>
+			</div>
+		)}
 	</section>
+
+	{cs?.heroImage && (
+		<section class="hero-image-section">
+			<img class="framed-image" src={cs.heroImage} alt={`${item.title} — product screenshot`} />
+		</section>
+	)}
+
+	{cs ? (
+		<>
+			<section>
+				<h2>The problem</h2>
+				<p>{cs.problem}</p>
+			</section>
+
+			<section class="callouts">
+				<div class="callout callout--lavender">
+					<p class="callout-label">Business challenge</p>
+					<p>{cs.businessChallenge}</p>
+				</div>
+				<div class="callout callout--leaf">
+					<p class="callout-label">How might we</p>
+					<p>{cs.howMightWe}</p>
+				</div>
+			</section>
+
+			<section>
+				<h2>My impact</h2>
+				<ul class="impact-list">
+					{cs.impact.map((line) => (
+						<li>{line}</li>
+					))}
+				</ul>
+			</section>
+
+			<section>
+				<h2>My process</h2>
+				<ol class="process-list">
+					{cs.process.map((step, i) => (
+						<li class="process-step">
+							<span class="process-number">{i + 1}</span>
+							<div>
+								<h3>{step.name}</h3>
+								<p>{step.description}</p>
+								{step.images && (
+									<div class="step-images">
+										{step.images.map((src) => (
+											<img class="framed-image" src={src} alt={`${step.name} artifact`} />
+										))}
+									</div>
+								)}
+							</div>
+						</li>
+					))}
+				</ol>
+			</section>
+
+			<section>
+				<h2>The core, explained</h2>
+				<div class="core-grid">
+					{cs.coreExplained.map((highlight) => (
+						<div class="core-card">
+							<h3>{highlight.title}</h3>
+							<p>{highlight.description}</p>
+							{highlight.image && (
+								<img class="framed-image core-card-image" src={highlight.image} alt={highlight.title} />
+							)}
+						</div>
+					))}
+				</div>
+			</section>
+
+			<section>
+				<h2>Key learnings</h2>
+				<ul class="learnings-list">
+					{cs.keyLearnings.map((line) => (
+						<li>{line}</li>
+					))}
+				</ul>
+			</section>
+
+			<section class="footer-nav">
+				<a href="/#work" class="button">← Back to work</a>
+			</section>
+		</>
+	) : (
+		<section>
+			<p>[Case study write-up goes here]</p>
+		</section>
+	)}
 </Layout>
 
 <style>
+	.header {
+		padding-bottom: 0;
+	}
+
+	.back {
+		display: inline-block;
+		margin-bottom: 1rem;
+		font-family: var(--font-display);
+		font-weight: 700;
+		font-size: 0.9rem;
+		text-decoration: none;
+	}
+
+	.back:hover {
+		text-decoration: underline;
+	}
+
 	.tags {
 		display: flex;
 		gap: 0.5rem;
 		list-style: none;
 		padding: 0;
 		margin: 0.5rem 0 1.5rem;
+		flex-wrap: wrap;
 	}
 
 	.tags li {
@@ -52,5 +176,175 @@ const { item } = Astro.props;
 		text-transform: uppercase;
 		letter-spacing: 0.04em;
 		color: var(--coral);
+	}
+
+	.meta-row {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1rem;
+		margin: 1.5rem 0 1rem;
+	}
+
+	.meta-card {
+		flex: 1 1 180px;
+		border: 3px solid var(--ink);
+		border-radius: 0.6rem;
+		box-shadow: 4px 4px 0 var(--ink);
+		padding: 0.75rem 1rem;
+		background: var(--paper);
+	}
+
+	.meta-card--yellow { background: var(--yellow); }
+	.meta-card--coral { background: var(--coral); color: #fff; }
+	.meta-card--sky { background: var(--sky); color: #fff; }
+
+	.meta-card p {
+		margin: 0;
+	}
+
+	.meta-label {
+		font-family: var(--font-display);
+		font-weight: 700;
+		font-size: 0.75rem;
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+		margin-bottom: 0.2rem !important;
+		opacity: 0.75;
+	}
+
+	.callouts {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 1.5rem;
+	}
+
+	.callout {
+		border: 3px solid var(--ink);
+		border-radius: 0.6rem;
+		box-shadow: 5px 5px 0 var(--ink);
+		padding: 1.2rem 1.4rem;
+	}
+
+	.callout--lavender { background: var(--lavender); }
+	.callout--leaf { background: var(--leaf); }
+
+	.callout p:last-child {
+		margin: 0;
+		font-family: var(--font-display);
+		font-weight: 600;
+	}
+
+	.callout-label {
+		font-family: var(--font-body);
+		font-weight: 800;
+		font-size: 0.75rem;
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+		margin: 0 0 0.4rem;
+		opacity: 0.7;
+	}
+
+	.impact-list,
+	.learnings-list {
+		padding-left: 1.2rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.6rem;
+	}
+
+	.process-list {
+		list-style: none;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 1.5rem;
+	}
+
+	.process-step {
+		display: flex;
+		gap: 1rem;
+		align-items: flex-start;
+	}
+
+	.process-number {
+		flex-shrink: 0;
+		width: 2.2rem;
+		height: 2.2rem;
+		border: 3px solid var(--ink);
+		border-radius: 50%;
+		background: var(--yellow);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-family: var(--font-display);
+		font-weight: 800;
+	}
+
+	.process-step h3 {
+		margin: 0 0 0.3rem;
+		font-size: 1.1rem;
+	}
+
+	.process-step p {
+		margin: 0;
+	}
+
+	.core-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 1.2rem;
+	}
+
+	.core-card {
+		border: 3px solid var(--ink);
+		border-radius: 0.6rem;
+		box-shadow: 4px 4px 0 var(--ink);
+		background: var(--paper);
+		padding: 1.1rem 1.3rem;
+	}
+
+	.core-card h3 {
+		margin: 0 0 0.4rem;
+		font-size: 1rem;
+	}
+
+	.core-card p {
+		margin: 0;
+	}
+
+	.footer-nav {
+		padding-top: 0;
+	}
+
+	.framed-image {
+		display: block;
+		width: 100%;
+		height: auto;
+		border: 3px solid var(--ink);
+		border-radius: 0.8rem;
+		box-shadow: 5px 5px 0 var(--ink);
+	}
+
+	.hero-image-section {
+		padding-top: 0;
+	}
+
+	.step-images {
+		display: flex;
+		flex-direction: column;
+		gap: 1.2rem;
+		margin-top: 1rem;
+		max-width: 640px;
+	}
+
+	.core-card-image {
+		margin-top: 0.9rem;
+	}
+
+	@media (max-width: 640px) {
+		.callouts,
+		.core-grid {
+			grid-template-columns: 1fr;
+		}
 	}
 </style>

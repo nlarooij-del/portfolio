@@ -166,12 +166,16 @@ const cs = item.caseStudy;
 		padding-bottom: 0;
 	}
 
+	.header h1 {
+		font-size: var(--font-size-heading);
+	}
+
 	.back {
 		display: inline-block;
 		margin-bottom: 1rem;
 		font-family: var(--font-display);
 		font-weight: 700;
-		font-size: 0.9rem;
+		font-size: var(--font-size-caption);
 		text-decoration: none;
 	}
 
@@ -191,17 +195,17 @@ const cs = item.caseStudy;
 	.tags li {
 		border: 2px solid var(--ink);
 		border-radius: 999px;
-		padding: 0.2rem 0.7rem;
+		padding: 0.25rem 0.75rem;
 		font-family: var(--font-body);
 		font-weight: 700;
-		font-size: 0.8rem;
+		font-size: var(--font-size-overline);
 		background: var(--paper);
 	}
 
 	.category {
 		font-family: var(--font-display);
 		font-weight: 700;
-		font-size: 0.8rem;
+		font-size: var(--font-size-overline);
 		text-transform: uppercase;
 		letter-spacing: 0.04em;
 		color: var(--coral);
@@ -234,10 +238,10 @@ const cs = item.caseStudy;
 	.meta-label {
 		font-family: var(--font-display);
 		font-weight: 700;
-		font-size: 0.75rem;
+		font-size: var(--font-size-overline);
 		text-transform: uppercase;
 		letter-spacing: 0.04em;
-		margin-bottom: 0.2rem !important;
+		margin-bottom: 0.25rem !important;
 		opacity: 0.75;
 	}
 
@@ -251,7 +255,7 @@ const cs = item.caseStudy;
 		border: 3px solid var(--ink);
 		border-radius: 0.6rem;
 		box-shadow: 5px 5px 0 var(--ink);
-		padding: 1.2rem 1.4rem;
+		padding: 1rem 1.5rem;
 	}
 
 	.callout--lavender { background: var(--lavender); }
@@ -266,7 +270,7 @@ const cs = item.caseStudy;
 	.callout-label {
 		font-family: var(--font-body);
 		font-weight: 800;
-		font-size: 0.75rem;
+		font-size: var(--font-size-overline);
 		text-transform: uppercase;
 		letter-spacing: 0.04em;
 		margin: 0 0 0.4rem;
@@ -275,10 +279,10 @@ const cs = item.caseStudy;
 
 	.impact-list,
 	.learnings-list {
-		padding-left: 1.2rem;
+		padding-left: 1rem;
 		display: flex;
 		flex-direction: column;
-		gap: 0.6rem;
+		gap: 0.5rem;
 	}
 
 	.process-list {
@@ -311,7 +315,6 @@ const cs = item.caseStudy;
 
 	.process-step h3 {
 		margin: 0 0 0.3rem;
-		font-size: 1.1rem;
 	}
 
 	.process-step p {
@@ -321,7 +324,7 @@ const cs = item.caseStudy;
 	.core-grid {
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
-		gap: 1.2rem;
+		gap: 1rem;
 	}
 
 	.core-card {
@@ -329,12 +332,11 @@ const cs = item.caseStudy;
 		border-radius: 0.6rem;
 		box-shadow: 4px 4px 0 var(--ink);
 		background: var(--paper);
-		padding: 1.1rem 1.3rem;
+		padding: 1rem 1.5rem;
 	}
 
 	.core-card h3 {
 		margin: 0 0 0.4rem;
-		font-size: 1rem;
 	}
 
 	.core-card p {
@@ -361,17 +363,17 @@ const cs = item.caseStudy;
 	.step-images {
 		display: flex;
 		flex-direction: column;
-		gap: 1.2rem;
+		gap: 1rem;
 		margin-top: 1rem;
 		max-width: 640px;
 	}
 
 	.core-card-image {
-		margin-top: 0.9rem;
+		margin-top: 1rem;
 	}
 
 	.whats-next-list {
-		gap: 1.2rem;
+		gap: 1rem;
 	}
 
 	.whats-next-list .process-step h3 {

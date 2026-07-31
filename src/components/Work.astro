@@ -57,7 +57,7 @@ import { showcases } from "../data/showcases";
 		color: var(--ink);
 		font-family: var(--font-display);
 		font-weight: 700;
-		font-size: 0.75rem;
+		font-size: var(--font-size-overline);
 		overflow: hidden;
 	}
 
@@ -87,15 +87,20 @@ import { showcases } from "../data/showcases";
 	.category {
 		font-family: var(--font-display);
 		font-weight: 700;
-		font-size: 0.8rem;
+		font-size: var(--font-size-overline);
 		text-transform: uppercase;
 		letter-spacing: 0.04em;
 		color: var(--coral);
 	}
 
-	@media (max-width: 480px) {
+	@media (max-width: 768px) {
 		.showcase-row {
 			flex-direction: column;
+		}
+
+		.showcase-illustration {
+			flex: none;
+			width: 100%;
 		}
 	}
 
@@ -110,10 +115,10 @@ import { showcases } from "../data/showcases";
 	.tags li {
 		border: 2px solid var(--ink);
 		border-radius: 999px;
-		padding: 0.2rem 0.7rem;
+		padding: 0.25rem 0.75rem;
 		font-family: var(--font-body);
 		font-weight: 700;
-		font-size: 0.8rem;
+		font-size: var(--font-size-overline);
 		background: var(--paper);
 	}
 

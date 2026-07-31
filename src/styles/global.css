@@ -9,6 +9,15 @@
 
 	--font-display: "Baloo 2", system-ui, sans-serif;
 	--font-body: "Nunito", system-ui, sans-serif;
+
+	/* Type scale: overline < caption < body < subheading < heading < display < display-lg */
+	--font-size-overline: 0.75rem;
+	--font-size-caption: 0.875rem;
+	--font-size-body: 1rem;
+	--font-size-subheading: 1.25rem;
+	--font-size-heading: 2rem;
+	--font-size-display: 3rem;
+	--font-size-display-lg: 4rem;
 }
 
 * {
@@ -39,6 +48,13 @@ section {
 	margin: 0 auto;
 }
 
+/* Cap prose measure at a comfortable reading width regardless of the
+   section's own max-width. Purely a ceiling — narrower containers
+   (cards, widgets) are unaffected since they're already under this. */
+p {
+	max-width: 70ch;
+}
+
 h1, h2, h3 {
 	font-family: var(--font-display);
 	font-weight: 800;
@@ -54,6 +70,11 @@ h2 {
 	position: relative;
 	display: inline-block;
 	z-index: 0;
+	font-size: var(--font-size-heading);
+}
+
+h3 {
+	font-size: var(--font-size-subheading);
 }
 
 h2::after {
@@ -82,8 +103,8 @@ blockquote {
 	display: inline-block;
 	font-family: var(--font-display);
 	font-weight: 700;
-	font-size: 0.95rem;
-	padding: 0.6rem 1.3rem;
+	font-size: var(--font-size-caption);
+	padding: 0.5rem 1.5rem;
 	border-radius: 999px;
 	border: 3px solid var(--ink);
 	background: var(--yellow);
@@ -155,8 +176,8 @@ blockquote {
 	transform: translate(-50%, -50%);
 	font-family: var(--font-display);
 	font-weight: 700;
-	font-size: 0.65rem;
-	padding: 0.2rem 0.6rem;
+	font-size: var(--font-size-overline);
+	padding: 0.25rem 0.5rem;
 	border: 2px solid var(--ink);
 	border-radius: 999px;
 	background: var(--coral);

@@ -121,6 +121,29 @@ const cs = item.caseStudy;
 				</ul>
 			</section>
 
+			{cs.whatsNext && (
+				<section>
+					<h2>What's next</h2>
+					<ol class="process-list whats-next-list">
+						{cs.whatsNext.map((step) => (
+							<li class="process-step">
+								<div>
+									<h3>{step.name}</h3>
+									<p>{step.description}</p>
+									{step.images && (
+										<div class="step-images">
+											{step.images.map((src) => (
+												<img class="framed-image" src={src} alt={`${step.name} artifact`} />
+											))}
+										</div>
+									)}
+								</div>
+							</li>
+						))}
+					</ol>
+				</section>
+			)}
+
 			<section class="footer-nav">
 				<a href="/#work" class="button">← Back to work</a>
 			</section>
@@ -339,6 +362,14 @@ const cs = item.caseStudy;
 
 	.core-card-image {
 		margin-top: 0.9rem;
+	}
+
+	.whats-next-list {
+		gap: 1.2rem;
+	}
+
+	.whats-next-list .process-step h3 {
+		font-family: var(--font-display);
 	}
 
 	@media (max-width: 640px) {

@@ -22,6 +22,7 @@ export interface CaseStudy {
 	process: ProcessStep[];
 	keyLearnings: string[];
 	coreExplained: CoreHighlight[];
+	whatsNext?: ProcessStep[];
 }
 
 export interface Showcase {
@@ -133,9 +134,130 @@ export const showcases: Showcase[] = [
 	},
 	{
 		slug: "project-two",
-		category: "[Showcase 2: project type]",
-		title: "[Project Two: outcome-focused title]",
-		tags: ["[TAG]", "[TAG]", "[TAG]"],
+		category: "UX Research & Design · Banking",
+		title: "Scaling a marketplace for entrepreneurs that compares third-party products",
+		tags: ["UX Research", "Design Systems", "Fintech"],
+		cardImage: "/images/work/project-two/hero.png",
+		caseStudy: {
+			when: "2019",
+			role: "Senior UX Designer, Usability Researcher",
+			tools: "Sketch, InVision",
+			heroImage: "/images/work/project-two/hero.png",
+			problem:
+				"ING Business Banking wanted to become the default relationship for entrepreneurs: a bank-agnostic platform hosting both ING's own and third-party business services, built to stay future-proof against new competitors. One of its main initiatives, a marketplace called ING+Partners, guided entrepreneurs to the right third-party product in an objective, fee-based way. I joined after the first product category had gone live, with scaling to at least 10 categories planned within a year — and within a few weeks found usability and scalability issues serious enough to advise a redesign before scaling any further.",
+			businessChallenge:
+				"Scale ING+Partners from a single live category to at least 10 within a year, without every new category needing its own one-off redesign.",
+			howMightWe:
+				"How might we redesign the category and product pages so every current and future product category can launch on the same scalable, reusable components?",
+			impact: [
+				"Redesigned the category and product-detail pages around fully configurable, reusable components — not a one-off design for a single category, but a system every future category could launch on.",
+				"Ran persona walkthroughs and squad reviews to pressure-test the designs before they shipped, presenting findings back as a story from each persona's perspective.",
+				"Validated the redesign with real users on the most complex category, payment solutions, reaching an average System Usability Score of 75 against an above-average benchmark of 68.",
+			],
+			process: [
+				{
+					name: "Expert review",
+					description:
+						"Quickly ran through the existing pages to spot pain points and create focus for the steps that followed.",
+				},
+				{
+					name: "Benchmark",
+					description:
+						"Decided together with the Squad which 10 competitors and e-commerce parties to benchmark the experience against.",
+				},
+				{
+					name: "Desk research",
+					description:
+						"Investigated e-commerce and UX best practices and lessons learned for category pages, product pages, and their individual elements.",
+				},
+				{
+					name: "Prioritized list of findings",
+					description:
+						"Turned the expert review, benchmark, and desk research into an Excel-based list of usability findings, rated by severity and impact, then grouped into slices — creating planning clarity and an easier scope conversation with the Product Owner.",
+				},
+				{
+					name: "First designs",
+					description:
+						"With the big- and medium-impact slices approved by the Product Owner, designed the first happy-flow desktop screens for the bookkeeping category — the platform's most-used screen and category.",
+				},
+				{
+					name: "Persona walkthroughs & squad review",
+					description:
+						"Walked through the designs as the bookkeeping category's own personas to test and refine them, then presented the design back to the squad as a story told from each persona's perspective.",
+				},
+				{
+					name: "Full design & scalable components",
+					description:
+						"After processing feedback from users and the squad, finalized the design for every screen size and turned every page component into something reusable across all current and upcoming product categories.",
+					images: [
+						"/images/work/project-two/category-before-after.png",
+						"/images/work/project-two/detail-before-after.png",
+					],
+				},
+			],
+			keyLearnings: [
+				"The original IA clicked a product straight into a partner page showing a subset of products — restructuring to one product per detail page matched how users actually expected to browse.",
+				"USPs on product cards weren't comparable across categories; replacing them with three overlapping, category-dependent attributes made every card genuinely scannable.",
+				"The detail page's content column was too wide for comfortable reading, and its primary CTA disappeared on scroll — a sticky product summary card in the corner fixed both problems at once.",
+				"Sorting defaulted to alphabetical, but users arrived with no idea of providers or product names — switching the default to price low-to-high matched how they actually decided.",
+			],
+			coreExplained: [
+				{
+					title: "Smarter, scalable filters",
+					description:
+						"Let users choose multiple filters, see which ones are active, and clear them easily — built as a repeatable pattern so any new category can just add another single- or multi-select dropdown.",
+					image: "/images/work/project-two/core-filters.png",
+				},
+				{
+					title: "Sort by price, not the alphabet",
+					description:
+						"Moved the default sort from alphabetical to price low-to-high, since entrepreneurs came in with no idea of providers or product names, and de-emphasized the label so focus stayed on the products.",
+					image: "/images/work/project-two/core-sorting.png",
+				},
+				{
+					title: "Configurable product cards",
+					description:
+						"Split each card into a header and detail section for easier scanning, dropped incomparable USPs for three overlapping category-dependent attributes, and specced it as a fully configurable component for every future category.",
+					image: "/images/work/project-two/core-cards.png",
+				},
+				{
+					title: "One product, one page",
+					description:
+						"The original IA clicked into a partner page showing a subset of products; restructuring to one product per detail page made the page consistent with what users expected again.",
+					image: "/images/work/project-two/core-partners-to-products.png",
+				},
+				{
+					title: "Everything that matters, above the fold",
+					description:
+						"Prioritized primary, summarizing content and quick navigation above the fold, so users could get the gist before deciding to dive deeper.",
+					image: "/images/work/project-two/core-fold.png",
+				},
+				{
+					title: "A summary card that sticks",
+					description:
+						"A product summary card pinned to the upper-right corner kept the primary CTA in reach and narrowed the reading column for the detail content — solving two problems with one component.",
+					image: "/images/work/project-two/core-sticky-summary.png",
+				},
+			],
+			whatsNext: [
+				{
+					name: "User testing",
+					description:
+						"Set up and ran user tests on the most complex category, payment solutions, reaching an average System Usability Score of 75 (68 is considered above average), with clear next steps for improvement.",
+				},
+				{
+					name: "Designing compare & select",
+					description:
+						"Prototyped a compare-and-select pattern — pick up to two products, then jump into a side-by-side comparison — as the next logical step once browsing and detail pages were solid.",
+					images: ["/images/work/project-two/compare-select.png"],
+				},
+				{
+					name: "Long-term vision prototype",
+					description:
+						"Advised the Product Owner on further features and bigger framework optimizations, then visualized the long-term vision as a clickable prototype for stakeholder demos.",
+				},
+			],
+		},
 	},
 	{
 		slug: "project-three",

@@ -40,7 +40,7 @@ export const showcases: Showcase[] = [
 		category: "AI Product Design · Fintech",
 		title: "De-risking Adyen's move to AI-powered fraud protection",
 		tags: ["AI/UX", "Fintech", "Enterprise SaaS"],
-		cardImage: "/images/work/project-one/hero.png",
+		// cardImage: "/images/work/project-one/hero.png",
 		caseStudy: {
 			when: "2023–2024",
 			role: "End-to-end design & validation, supported by a UX Writer",
@@ -137,7 +137,7 @@ export const showcases: Showcase[] = [
 		category: "UX Research & Design · Banking",
 		title: "Scaling a marketplace for entrepreneurs that compares third-party products",
 		tags: ["UX Research", "Design Systems", "Fintech"],
-		cardImage: "/images/work/project-two/hero.png",
+		// cardImage: "/images/work/project-two/hero.png",
 		caseStudy: {
 			when: "2019",
 			role: "Senior UX Designer, Usability Researcher",
@@ -264,7 +264,7 @@ export const showcases: Showcase[] = [
 		category: "UX Design · Mortgages",
 		title: "Designing a monthly mortgage costs calculator used on an external platform",
 		tags: ["UX Design", "Fintech", "Conversion"],
-		cardImage: "/images/work/project-three/hero.png",
+		// cardImage: "/images/work/project-three/hero.png",
 		caseStudy: {
 			when: "2021–2022",
 			role: "Senior UX Designer",

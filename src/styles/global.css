@@ -133,6 +133,11 @@ blockquote {
 	color: #fff;
 }
 
+.button--paper {
+	background: #fff;
+	color: var(--ink);
+}
+
 #page-content > * {
 	opacity: 0;
 	transform: translateY(0.6em);

@@ -70,11 +70,11 @@ h2 {
 	position: relative;
 	display: inline-block;
 	z-index: 0;
-	font-size: var(--font-size-heading);
+	font-size: var(--font-size-display);
 }
 
 h3 {
-	font-size: var(--font-size-subheading);
+	font-size: var(--font-size-heading);
 }
 
 h2::after {

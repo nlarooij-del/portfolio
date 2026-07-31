@@ -124,20 +124,26 @@
 
 		if (!city) throw new Error("missing city");
 
-		return `${capitalized} day in ${city}? Perfect weather for looking at portfolios.`;
+		return `${capitalized} day in ${city}?
+Perfect weather for looking at portfolios.`;
 	}
 
 	function renderWords(line: string) {
 		if (!introText) return [] as HTMLElement[];
 		introText.innerHTML = "";
-		const words = line.split(" ");
-		return words.map((word) => {
-			const span = document.createElement("span");
-			span.textContent = word;
-			span.append(document.createTextNode(" "));
-			introText.appendChild(span);
-			return span;
+		const rows = line.split("\n");
+		const spans: HTMLElement[] = [];
+		rows.forEach((row, i) => {
+			row.split(" ").forEach((word) => {
+				const span = document.createElement("span");
+				span.textContent = word;
+				span.append(document.createTextNode(" "));
+				introText.appendChild(span);
+				spans.push(span);
+			});
+			if (i < rows.length - 1) introText.appendChild(document.createElement("br"));
 		});
+		return spans;
 	}
 
 	async function init() {

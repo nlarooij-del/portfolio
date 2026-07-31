@@ -58,7 +58,7 @@
 		"(prefers-reduced-motion: reduce)",
 	).matches;
 
-	const FALLBACK_LINE = "Hey there — hope you're having a good one today";
+	const FALLBACK_LINE = "Good day for looking at portfolios.";
 
 	const WEATHER_ADJECTIVES: Record<number, string> = {
 		0: "clear",
@@ -115,16 +115,16 @@
 		const { city, latitude, longitude } = geo;
 
 		const weatherRes = await fetch(
-			`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,weather_code`,
+			`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=weather_code`,
 		);
 		const weather = await weatherRes.json();
-		const temp = Math.round(weather.current?.temperature_2m);
 		const code = weather.current?.weather_code;
-		const adjective = WEATHER_ADJECTIVES[code] ?? "unpredictable";
+		const adjective = WEATHER_ADJECTIVES[code] ?? "Unpredictable";
+		const capitalized = adjective.charAt(0).toUpperCase() + adjective.slice(1);
 
-		if (!city || Number.isNaN(temp)) throw new Error("incomplete weather data");
+		if (!city) throw new Error("missing city");
 
-		return `It's a ${adjective} ${temp}°C in ${city} right now — hope you're having a good one`;
+		return `${capitalized} day in ${city}? Perfect weather for looking at portfolios.`;
 	}
 
 	function renderWords(line: string) {

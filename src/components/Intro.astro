@@ -9,7 +9,7 @@ const words = quote.split(" ");
 	<p id="intro-text">
 		{words.map((word) => <span>{word}&nbsp;</span>)}
 		<br />
-		<span>— {author}</span>
+		<span class="author">{author}</span>
 	</p>
 </div>
 
@@ -54,6 +54,10 @@ const words = quote.split(" ");
 		opacity: 1;
 		transform: translateY(0);
 		filter: blur(0);
+	}
+
+	#intro-text span.author {
+		font-size: 1.5rem;
 	}
 </style>
 

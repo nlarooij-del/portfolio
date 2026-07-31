@@ -4,7 +4,7 @@ import { exec } from "node:child_process";
 const CLIENT_ID = process.env.SPOTIFY_CLIENT_ID;
 const CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET;
 const REDIRECT_URI = "http://127.0.0.1:8888/callback";
-const SCOPE = "user-read-recently-played";
+const SCOPE = "user-read-recently-played user-read-playback-state";
 
 if (!CLIENT_ID || !CLIENT_SECRET) {
 	console.error(

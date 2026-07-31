@@ -24,44 +24,37 @@ const nowPlaying = await getLastPlayed();
 		</div>
 
 		<div class="widgets">
-			<aside
-				class:list={["widget", "flip-card", { "is-playing": nowPlaying?.isPlaying }]}
-				id="now-listening"
-			>
-				<div class="flip-card-inner">
-					<div class="flip-card-front">
-						<p class="widget-label">Currently listening</p>
-						<p>Hover to see</p>
-						<p class="widget-fineprint">Yes, it's really connected to my Spotify</p>
-					</div>
-					<div class="flip-card-back">
-						{nowPlaying ? (
-							<>
-							<p class="widget-label">Currently listening</p>
-							<iframe
-								class="spotify-embed"
-								src={`https://open.spotify.com/embed/track/${nowPlaying.id}?utm_source=generator&theme=0`}
-								width="100%"
-								height="80"
-								frameborder="0"
-								allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-								loading="lazy"
-								title={`${nowPlaying.title} — ${nowPlaying.artist}`}
-							/>
-							</>
-						) : (
-							<>
-								<p class="widget-label">Currently listening</p>
-								<p class="widget-body">[Song title]</p>
-								<p class="widget-meta">[Artist]</p>
-							</>
-						)}
-					</div>
-				</div>
+			<aside class="widget" id="now-listening">
+				<p class="widget-label">Currently listening</p>
+				{nowPlaying ? (
+					<a
+						class="now-playing"
+						href={nowPlaying.url}
+						target="_blank"
+						rel="noopener noreferrer"
+						aria-label={`Play “${nowPlaying.title}” by ${nowPlaying.artist} on Spotify`}
+					>
+						<div class="now-playing-art-wrap">
+							{nowPlaying.albumArt && (
+								<img class="now-playing-art" src={nowPlaying.albumArt} alt="" />
+							)}
+							<span class="now-playing-play" aria-hidden="true">▶</span>
+						</div>
+						<span class="now-playing-info">
+							<span class="now-playing-title">{nowPlaying.title}</span>
+							<span class="now-playing-artist">{nowPlaying.artist}</span>
+						</span>
+					</a>
+				) : (
+					<>
+						<p class="widget-body">[Song title]</p>
+						<p class="widget-meta">[Artist]</p>
+					</>
+				)}
 			</aside>
 
 			<aside class="widget" id="fun-fact">
-				<p class="widget-label">Fun fact</p>
+				<p class="widget-label">Where I'm at with AI</p>
 				<p>
 					I've created this whole portfolio through Terminal and Claude Code
 					after finishing the <a
@@ -78,7 +71,7 @@ const nowPlaying = await getLastPlayed();
 			</aside>
 
 			<aside class="widget" id="quote">
-				<p class="widget-label">What I'm looking for</p>
+				<p class="widget-label">Team first</p>
 				<blockquote>“When you have a great team and you're having fun, you do great work”</blockquote>
 				<p class="widget-meta">— Marc Benioff</p>
 			</aside>
@@ -87,7 +80,7 @@ const nowPlaying = await getLastPlayed();
 		<div class="cta-row">
 			<a href="#work" class="button">Selected works</a>
 			{/* <a href="#about" class="button button--sky">Get to know me</a> — hidden until bio content is filled in */}
-			<a href="#" class="button button--coral">View resume</a>
+			<a href="/resume.pdf" target="_blank" rel="noopener noreferrer" class="button button--coral">View resume <span aria-hidden="true">↗</span></a>
 		</div>
 	</div>
 </section>
@@ -233,20 +226,7 @@ const nowPlaying = await getLastPlayed();
 		z-index: var(--z, 1);
 	}
 
-	.widget:not(.flip-card)::after {
-		content: "⠿";
-		position: absolute;
-		top: 0.3rem;
-		right: 0.6rem;
-		font-size: 1.1rem;
-		line-height: 1;
-		color: var(--ink);
-		opacity: 0.35;
-		pointer-events: none;
-	}
-
-	.flip-card-front::after,
-	.flip-card-back::after {
+	.widget::after {
 		content: "⠿";
 		position: absolute;
 		top: 0.3rem;
@@ -262,10 +242,6 @@ const nowPlaying = await getLastPlayed();
 		transform: rotate(var(--rot, 0deg)) translateY(-6px);
 		box-shadow: 7px 9px 0 var(--ink);
 		z-index: 20;
-	}
-
-	.widget:hover:not(.dragging).flip-card {
-		box-shadow: none;
 	}
 
 	.widget.popping {
@@ -309,15 +285,6 @@ const nowPlaying = await getLastPlayed();
 		box-shadow: 8px 8px 0 var(--ink);
 	}
 
-	.widget.dragging.flip-card {
-		box-shadow: none;
-	}
-
-	.widget.dragging .flip-card-front,
-	.widget.dragging .flip-card-back {
-		box-shadow: 8px 8px 0 var(--ink);
-	}
-
 	.widget-label {
 		font-family: var(--font-display);
 		font-weight: 700;
@@ -333,114 +300,103 @@ const nowPlaying = await getLastPlayed();
 		margin: 0;
 	}
 
-	.widget-fineprint {
-		margin: 0;
-		font-size: 0.75rem;
-		opacity: 0.65;
-	}
-
 	.widget blockquote {
 		margin: 0;
 	}
 
-	.widget.flip-card {
-		border: none;
-		background: none;
-		padding: 0;
-		box-shadow: none;
+	.now-playing {
+		display: flex;
+		align-items: center;
+		gap: 0.6rem;
+		color: inherit;
+		text-decoration: none;
 	}
 
-	.flip-card {
-		perspective: 1000px;
-	}
-
-	.flip-card .flip-card-inner {
+	.now-playing-art-wrap {
 		position: relative;
-		width: 100%;
-		transition: transform 0.6s;
-		transform-style: preserve-3d;
+		flex-shrink: 0;
 	}
 
-	.flip-card:hover .flip-card-inner,
-	.flip-card.is-playing .flip-card-inner {
-		transform: rotateY(180deg);
+	.now-playing-art {
+		display: block;
+		width: 48px;
+		height: 48px;
+		object-fit: cover;
+		border: 2px solid var(--ink);
+		border-radius: 0.4rem;
+		box-shadow: 3px 3px 0 var(--ink);
 	}
 
-	.flip-card-front,
-	.flip-card-back {
-		box-sizing: border-box;
-		border: 3px solid var(--ink);
-		background: #ffccbc;
-		padding: 1rem;
-		box-shadow: 5px 5px 0 var(--ink);
-		backface-visibility: hidden;
+	.now-playing-play {
+		position: absolute;
+		inset: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border: 2px solid var(--ink);
+		border-radius: 0.4rem;
+		background: rgba(255, 255, 255, 0.55);
+		color: var(--ink);
+		font-size: 0.8rem;
+		line-height: 1;
+		opacity: 0;
+		transition: opacity 0.15s ease;
+	}
+
+	.now-playing:hover .now-playing-play {
+		opacity: 1;
+	}
+
+	.now-playing-info {
 		display: flex;
 		flex-direction: column;
-		gap: 0.5rem;
+		min-width: 0;
 	}
 
-	.flip-card-front p,
-	.flip-card-back p {
-		margin: 0;
-	}
-
-	.spotify-embed {
-		border: none;
-		border-radius: 8px;
-		display: block;
-	}
-
-	.flip-card-back a {
+	.now-playing-title {
+		font-family: var(--font-display);
 		font-weight: 700;
-		text-decoration: underline;
-		text-underline-offset: 0.15em;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 
-	.flip-card-front {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
+	.now-playing-artist {
+		font-size: 0.85rem;
+		opacity: 0.7;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 
-	.flip-card-back {
-		transform: rotateY(180deg);
-	}
 
 	#now-listening {
 		top: 0;
-		left: 0;
-		width: 320px;
-		--z: 1;
+		left: 630px;
+		--z: 4;
 		--rot: -3deg;
-	}
-
-	#now-listening .flip-card-front,
-	#now-listening .flip-card-back {
-		background: #fff59d;
 	}
 
 	#fun-fact {
 		top: 0;
-		left: 630px;
-		--z: 4;
+		left: 420px;
+		--z: 3;
 		--rot: 4deg;
 		background: #c5e1a5;
 	}
 
 	#location {
 		top: 0;
-		left: 420px;
-		--z: 3;
+		left: 210px;
+		--z: 2;
 		--rot: -1.5deg;
 		background: #b3e5fc;
 	}
 
 	#quote {
 		top: 0;
-		left: 210px;
-		--z: 2;
+		left: 0px;
+		--z: 1;
 		--rot: 2deg;
 		background: #ffccbc;
 	}

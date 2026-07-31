@@ -8,20 +8,27 @@ export interface NowPlaying {
 	title: string;
 	artist: string;
 	isPlaying: boolean;
+	albumArt: string | null;
+	url: string;
 }
 
 interface SpotifyTrack {
 	id: string;
 	name: string;
 	artists: { name: string }[];
+	album?: { images?: { url: string; width: number; height: number }[] };
+	external_urls?: { spotify?: string };
 }
 
 function toNowPlaying(track: SpotifyTrack, isPlaying: boolean): NowPlaying {
+	const images = track.album?.images ?? [];
 	return {
 		id: track.id,
 		title: track.name,
 		artist: track.artists.map((artist) => artist.name).join(", "),
 		isPlaying,
+		albumArt: images[images.length - 1]?.url ?? images[0]?.url ?? null,
+		url: track.external_urls?.spotify ?? `https://open.spotify.com/track/${track.id}`,
 	};
 }
 

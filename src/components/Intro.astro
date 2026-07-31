@@ -1,4 +1,5 @@
 <div id="intro-overlay" aria-hidden="true">
+	<div id="intro-emoji"></div>
 	<p id="intro-text"></p>
 </div>
 
@@ -8,8 +9,10 @@
 		inset: 0;
 		z-index: 100;
 		display: flex;
+		flex-direction: column;
 		align-items: center;
 		justify-content: center;
+		gap: 1rem;
 		background: var(--paper);
 		padding: 1.5rem;
 		text-align: center;
@@ -21,17 +24,40 @@
 		pointer-events: none;
 	}
 
+	#intro-emoji {
+		font-size: 4rem;
+		line-height: 1;
+		opacity: 0;
+		transform: translateY(0.4em);
+		filter: blur(4px);
+		transition: opacity 0.7s ease, transform 0.7s ease, filter 0.7s ease;
+	}
+
+	#intro-emoji:empty {
+		display: none;
+	}
+
+	#intro-emoji.visible {
+		opacity: 1;
+		transform: translateY(0);
+		filter: blur(0);
+	}
+
 	#intro-text {
-		max-width: 40rem;
+		max-width: 66rem;
 		font-family: var(--font-display);
 		font-weight: 800;
 		font-size: 3rem;
+		line-height: 1;
 		color: var(--ink);
 		text-shadow: 4px 4px 0 var(--yellow);
 		margin: 0;
 	}
 
-	#intro-text span {
+	/* :global() because these spans are created client-side (see the script
+	   below) — Astro only stamps its scoping attribute on server-rendered
+	   markup, so a scoped selector here would silently never match them. */
+	#intro-text :global(span) {
 		display: inline-block;
 		opacity: 0;
 		transform: translateY(0.4em);
@@ -39,26 +65,36 @@
 		transition: opacity 0.7s ease, transform 0.7s ease, filter 0.7s ease;
 	}
 
-	#intro-text span.visible {
+	#intro-text :global(span.visible) {
 		opacity: 1;
 		transform: translateY(0);
 		filter: blur(0);
 	}
 
-	#intro-text span.author {
-		font-size: 1.5rem;
+	#intro-text :global(span.subline) {
+		font-family: var(--font-body);
+		font-weight: 700;
+		font-size: 1.25rem;
+		color: #555;
+		text-shadow: none;
 	}
 </style>
 
 <script>
 	const overlay = document.getElementById("intro-overlay");
 	const pageContent = document.getElementById("page-content");
+	const introEmoji = document.getElementById("intro-emoji");
 	const introText = document.getElementById("intro-text");
 	const prefersReducedMotion = window.matchMedia(
 		"(prefers-reduced-motion: reduce)",
 	).matches;
 
-	const FALLBACK_LINE = "Good day for looking at portfolios.";
+	const FALLBACK: { text: string; emoji: string } = {
+		text: "Good day for looking at portfolios.",
+		emoji: "",
+	};
+
+	const SKIP_KEY = "skipIntro";
 
 	const WEATHER_ADJECTIVES: Record<number, string> = {
 		0: "clear",
@@ -91,6 +127,37 @@
 		99: "stormy",
 	};
 
+	const WEATHER_EMOJIS: Record<number, string> = {
+		0: "☀️",
+		1: "🌤️",
+		2: "⛅",
+		3: "☁️",
+		45: "🌫️",
+		48: "🌫️",
+		51: "🌦️",
+		53: "🌦️",
+		55: "🌦️",
+		56: "🌨️",
+		57: "🌨️",
+		61: "🌧️",
+		63: "🌧️",
+		65: "🌧️",
+		66: "🌨️",
+		67: "🌨️",
+		71: "❄️",
+		73: "❄️",
+		75: "❄️",
+		77: "❄️",
+		80: "🌦️",
+		81: "🌧️",
+		82: "⛈️",
+		85: "🌨️",
+		86: "🌨️",
+		95: "⛈️",
+		96: "⛈️",
+		99: "⛈️",
+	};
+
 	function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
 		return new Promise((resolve, reject) => {
 			const timer = setTimeout(() => reject(new Error("timeout")), ms);
@@ -107,7 +174,7 @@
 		});
 	}
 
-	async function buildGreeting(): Promise<string> {
+	async function buildGreeting(): Promise<{ text: string; emoji: string }> {
 		const geoRes = await fetch("https://ipwho.is/");
 		const geo = await geoRes.json();
 		if (!geo.success) throw new Error("geolocation failed");
@@ -120,12 +187,16 @@
 		const weather = await weatherRes.json();
 		const code = weather.current?.weather_code;
 		const adjective = WEATHER_ADJECTIVES[code] ?? "Unpredictable";
+		const emoji = WEATHER_EMOJIS[code] ?? "🌈";
 		const capitalized = adjective.charAt(0).toUpperCase() + adjective.slice(1);
 
 		if (!city) throw new Error("missing city");
 
-		return `${capitalized} day in ${city}?
-Perfect weather for looking at portfolios.`;
+		return {
+			text: `${capitalized} day in ${city}?
+Perfect weather to look at my portfolio`,
+			emoji,
+		};
 	}
 
 	function renderWords(line: string) {
@@ -134,10 +205,11 @@ Perfect weather for looking at portfolios.`;
 		const rows = line.split("\n");
 		const spans: HTMLElement[] = [];
 		rows.forEach((row, i) => {
-			row.split(" ").forEach((word) => {
+			row.split(" ").forEach((word, j) => {
+				if (j > 0) introText.appendChild(document.createTextNode(" "));
 				const span = document.createElement("span");
 				span.textContent = word;
-				span.append(document.createTextNode(" "));
+				if (i > 0) span.classList.add("subline");
 				introText.appendChild(span);
 				spans.push(span);
 			});
@@ -152,7 +224,10 @@ Perfect weather for looking at portfolios.`;
 			return;
 		}
 
-		if (prefersReducedMotion) {
+		const cameFromShowcase = sessionStorage.getItem(SKIP_KEY);
+		if (cameFromShowcase) sessionStorage.removeItem(SKIP_KEY);
+
+		if (prefersReducedMotion || cameFromShowcase) {
 			overlay.classList.add("hidden");
 			pageContent?.classList.add("revealed");
 			return;
@@ -160,14 +235,16 @@ Perfect weather for looking at portfolios.`;
 
 		document.body.style.overflow = "hidden";
 
-		let line = FALLBACK_LINE;
+		let greeting = FALLBACK;
 		try {
-			line = await withTimeout(buildGreeting(), 2500);
+			greeting = await withTimeout(buildGreeting(), 2500);
 		} catch {
-			line = FALLBACK_LINE;
+			greeting = FALLBACK;
 		}
 
-		const words = renderWords(line);
+		if (introEmoji) introEmoji.textContent = greeting.emoji;
+
+		const words = renderWords(greeting.text);
 		if (words.length === 0) {
 			overlay.classList.add("hidden");
 			pageContent?.classList.add("revealed");
@@ -190,6 +267,9 @@ Perfect weather for looking at portfolios.`;
 		const lines = [...lineMap.values()];
 
 		const stepMs = 500;
+		if (introEmoji && greeting.emoji) {
+			setTimeout(() => introEmoji.classList.add("visible"), 0);
+		}
 		lines.forEach((lineWords, i) => {
 			setTimeout(() => {
 				lineWords.forEach((word) => word.classList.add("visible"));

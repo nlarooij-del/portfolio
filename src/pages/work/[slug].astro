@@ -155,6 +155,12 @@ const cs = item.caseStudy;
 	)}
 </Layout>
 
+<script>
+	// Flags the homepage's intro overlay to skip itself when the user lands
+	// back there from a showcase — see the SKIP_KEY check in Intro.astro.
+	sessionStorage.setItem("skipIntro", "1");
+</script>
+
 <style>
 	.header {
 		padding-bottom: 0;

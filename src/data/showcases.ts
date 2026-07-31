@@ -261,8 +261,98 @@ export const showcases: Showcase[] = [
 	},
 	{
 		slug: "project-three",
-		category: "[Showcase 3: project type]",
-		title: "[Project Three: outcome-focused title]",
-		tags: ["[TAG]", "[TAG]", "[TAG]"],
+		category: "UX Design · Mortgages",
+		title: "Designing a monthly mortgage costs calculator used on an external platform",
+		tags: ["UX Design", "Fintech", "Conversion"],
+		cardImage: "/images/work/project-three/hero.png",
+		caseStudy: {
+			when: "2021–2022",
+			role: "Senior UX Designer",
+			tools: "Sketch, InVision",
+			heroImage: "/images/work/project-three/hero.png",
+			problem:
+				"ING wanted to reach customers outside its own platforms. One of its biggest investments was taking over the 'monthly cost calculator' from competitor De Hypotheker on Funda — the Netherlands' biggest real-estate platform, drawing about 175,000 views a month on that page alone. I was asked to design the new calculator to drive more customers into ING's mortgage funnel, and was part of the core team setting requirements while working toward a fixed release date. I stepped into the project from the very start, about a year into working in the mortgages domain at ING after a year at Rabobank.",
+			businessChallenge:
+				"Replace a competitor's calculator embedded on the Netherlands' largest real-estate platform with a redesigned, ING-branded version — on a platform ING didn't control, inside an iframe, on a fixed release date — without losing the traffic already flowing through it.",
+			howMightWe:
+				"How might we redesign the monthly-cost calculator to feel native to ING while working within an iframe's constraints, and turn its ~175,000 monthly views into qualified leads for ING's mortgage funnel?",
+			impact: [
+				"Replaced a competitor's calculator embedded on the Netherlands' largest real-estate platform with a redesigned, ING-branded version, working around hard iframe constraints such as no dialogs and fixed CTA placement.",
+				"Ran a two-day-iterate, two-day-test usability research cadence with an external agency to validate changes quickly before finalizing for development.",
+				"The live product scored an average report grade of 7.7, measured by an external agency (N=400).",
+			],
+			process: [
+				{
+					name: "0-measurement current product",
+					description:
+						"Researched user reactions to the current monthly-cost calculator from competitor De Hypotheker — the results directly shaped the changes covered in the end product below.",
+				},
+				{
+					name: "Clarify customer journey",
+					description:
+						"Planned a 'Scope Canvas' workshop with the core team to define the product's parameters and get everyone aligned on the same page.",
+				},
+				{
+					name: "Brainstorm & iterate",
+					description:
+						"User requirements were clear from the 0-measurement, but business and feasibility requirements were still fuzzy. Started by putting as many ideas as possible on paper to let the real requirements surface and build enthusiasm.",
+				},
+				{
+					name: "Usability testing",
+					description:
+						"Tested the agreed-upon product through an InVision prototype I built and set up the research for, with an external agency running the sessions on a two-day-iterate, two-day-test cadence — fast enough to validate changes as we went.",
+				},
+				{
+					name: "Finalize",
+					description:
+						"Based on the research findings, finalized all interactions, product visuals, and pixel specifications ready for development.",
+					images: ["/images/work/project-three/end-product-overview.png"],
+				},
+			],
+			keyLearnings: [
+				"Business worried simplifying the contact form's logic would flood the call queue — the resolved compromise routed existing ING customers to self-service booking and used an urgency question to triage everyone else, keeping business confidence without piling on unnecessary logic.",
+				"An embedded iframe ruled out dialogs entirely; solving that by swapping the card's content inline, with its own back navigation, kept the flow feeling like a side-step rather than a dead end.",
+				"Most visitors weren't ready to book an appointment yet, still in the orientation phase — which is why 'down the rabbit hole' sends them onward to a full ING-controlled calculator instead of forcing a conversion moment too early.",
+				"Shipped scope didn't fully match the original design: the contact form went out simpler than planned, and the 'down the rabbit hole' calculator hand-off isn't live yet, with users still routed to the max-mortgage calculator in the meantime.",
+			],
+			coreExplained: [
+				{
+					title: "Every input field earns its place",
+					description:
+						"Stripped out De Hypotheker's fields that weren't needed for the calculation, then split the single 'wanted mortgage' field into two — fictive bid and own money — so users could finally account for savings or surplus house value.",
+					image: "/images/work/project-three/core-a-inputs.png",
+				},
+				{
+					title: "Branding without breaking mobile",
+					description:
+						"Space was tight on mobile, framed in beneath Funda's large header, so the logo moved inside the result section to keep the primary CTA on-screen even on older devices — with a brand photo alongside the result on larger screens, angled to lead the eye back to the follow-up actions.",
+					image: "/images/work/project-three/core-b-branding.png",
+				},
+				{
+					title: "Surfacing 'kosten koper'",
+					description:
+						"Users wanted to know their 'kosten koper' — the extra costs of buying a house, like notary fees — so they could tell whether their savings covered it or how much was left over. Added it directly to the result.",
+					image: "/images/work/project-three/core-c-kosten-koper.png",
+				},
+				{
+					title: "Working around the iframe",
+					description:
+						"The calculator was framed into the Funda page, which ruled out dialogs entirely. Worked around it by swapping the card's content inline with its own back navigation — enough to feel like a side-step, not a dead end.",
+					image: "/images/work/project-three/core-d-iframe.png",
+				},
+				{
+					title: "A contact form business could live with",
+					description:
+						"Business worried simplifying the form would flood the call queue. Landed on routing existing ING customers to self-service booking, and letting everyone else submit a form triaged by an urgency question — before Funda later shipped an even simpler version without me.",
+					image: "/images/work/project-three/core-e-contact.png",
+				},
+				{
+					title: "Down the rabbit hole, deliberately",
+					description:
+						"Most visitors were still in the orientation phase, not ready to book. Instead of forcing a conversion, the plan sends them to a full ING-controlled calculator that reuses their Funda input — though this hand-off isn't live yet.",
+					image: "/images/work/project-three/core-f-rabbit-hole.png",
+				},
+			],
+		},
 	},
 ];

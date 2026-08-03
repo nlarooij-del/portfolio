@@ -12,6 +12,18 @@ export interface NowPlaying {
 	url: string;
 }
 
+// Shown whenever live Spotify data can't be fetched (missing/expired
+// credentials, API error, or nothing played recently) — a real pick
+// instead of a generic "[Song title]" placeholder.
+const FALLBACK_TRACK: NowPlaying = {
+	id: "4WNaefp3sGsnTBzHEQb97g",
+	title: "Hello Heaven, Hello",
+	artist: "YUNGBLUD",
+	isPlaying: false,
+	albumArt: "https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e027808f0d7992027b6b10254dd",
+	url: "https://open.spotify.com/track/4WNaefp3sGsnTBzHEQb97g",
+};
+
 interface SpotifyTrack {
 	id: string;
 	name: string;
@@ -82,16 +94,17 @@ async function getRecentlyPlayed(accessToken: string): Promise<NowPlaying | null
 	return toNowPlaying(track, false);
 }
 
-export async function getLastPlayed(): Promise<NowPlaying | null> {
+export async function getLastPlayed(): Promise<NowPlaying> {
 	try {
 		const accessToken = await getAccessToken();
-		if (!accessToken) return null;
+		if (!accessToken) return FALLBACK_TRACK;
 
 		const current = await getCurrentlyPlaying(accessToken);
 		if (current?.isPlaying) return current;
 
-		return await getRecentlyPlayed(accessToken);
+		const recent = await getRecentlyPlayed(accessToken);
+		return recent ?? FALLBACK_TRACK;
 	} catch {
-		return null;
+		return FALLBACK_TRACK;
 	}
 }

@@ -6,40 +6,26 @@ import { getLastPlayed } from "../lib/spotify";
 const nowPlaying = await getLastPlayed();
 ---
 
-{nowPlaying ? (
-	<a
-		class="now-playing"
-		href={nowPlaying.url}
-		target="_blank"
-		rel="noopener noreferrer"
-		aria-label={`Play “${nowPlaying.title}” by ${nowPlaying.artist} on Spotify`}
-	>
-		<div class="now-playing-art-wrap">
-			{nowPlaying.albumArt && (
-				<img class="now-playing-art" src={nowPlaying.albumArt} alt="" />
-			)}
-			<span class="now-playing-play" aria-hidden="true">▶</span>
-		</div>
-		<span class="now-playing-info">
-			<span class="now-playing-title">{nowPlaying.title}</span>
-			<span class="now-playing-artist">{nowPlaying.artist}</span>
-		</span>
-	</a>
-) : (
-	<>
-		<p class="widget-body">[Song title]</p>
-		<p class="widget-meta">[Artist]</p>
-	</>
-)}
+<a
+	class="now-playing"
+	href={nowPlaying.url}
+	target="_blank"
+	rel="noopener noreferrer"
+	aria-label={`Play “${nowPlaying.title}” by ${nowPlaying.artist} on Spotify`}
+>
+	<div class="now-playing-art-wrap">
+		{nowPlaying.albumArt && (
+			<img class="now-playing-art" src={nowPlaying.albumArt} alt="" />
+		)}
+		<span class="now-playing-play" aria-hidden="true">▶</span>
+	</div>
+	<span class="now-playing-info">
+		<span class="now-playing-title">{nowPlaying.title}</span>
+		<span class="now-playing-artist">{nowPlaying.artist}</span>
+	</span>
+</a>
 
 <style>
-	/* Duplicated from Hero.astro's shared widget styles — Astro's scoped CSS
-	   doesn't cross into a child component's server-island-rendered markup. */
-	.widget-body,
-	.widget-meta {
-		margin: 0;
-	}
-
 	.now-playing {
 		display: flex;
 		align-items: center;

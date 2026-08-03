@@ -56,12 +56,12 @@ const nowPlaying = await getLastPlayed();
 			<aside class="widget" id="fun-fact">
 				<p class="widget-label">Where I'm at with AI</p>
 				<p>
-					I've created this whole portfolio through Terminal and Claude Code
-					after finishing the <a
+					I built this portfolio using Claude Code, entirely from the
+					Terminal, after completing <a
 						href="https://aidesignlab.gumroad.com/l/claude-code-for-designers"
 						target="_blank"
 						rel="noopener noreferrer">Claude Code for Designers</a
-					> course from Gumroad.
+					> on Gumroad.
 				</p>
 			</aside>
 
@@ -192,6 +192,10 @@ const nowPlaying = await getLastPlayed();
 	@media (max-width: 640px) {
 		.hero-text-row {
 			flex-direction: column-reverse;
+		}
+
+		.illustration-placeholder {
+			display: none;
 		}
 	}
 
@@ -401,35 +405,14 @@ const nowPlaying = await getLastPlayed();
 		background: #ffccbc;
 	}
 
+	/* Below the desktop fan-out width, widgets stay absolutely positioned
+	   (so dragging keeps working) but are stacked vertically instead of
+	   fanned out — see layoutWidgetsForViewport() in the script below,
+	   which computes each card's stacked top from its actual rendered
+	   height so cards of any content length never overlap. */
 	@media (max-width: 900px) {
-		.widgets {
-			position: static;
-			height: auto;
-			display: flex;
-			flex-wrap: wrap;
-			gap: 1.5rem;
-		}
-
-		.widget,
-		#now-listening,
-		#fun-fact,
-		#location,
-		#quote {
-			position: static;
-			top: auto;
-			left: auto;
-			width: 100%;
-			max-width: 320px;
-			transform: none;
-		}
-
-		.widget:hover:not(.dragging) {
-			transform: translateY(-4px);
-		}
-
 		.widget {
-			cursor: default;
-			touch-action: auto;
+			width: min(100%, 260px);
 		}
 	}
 </style>
@@ -438,6 +421,77 @@ const nowPlaying = await getLastPlayed();
 	const illustration = document.querySelector<HTMLElement>(
 		".illustration-placeholder",
 	);
+
+	const WIDGETS_STACK_BREAKPOINT = 900;
+	const widgetsContainer = document.querySelector<HTMLElement>(".widgets");
+	// Flow order matches the desktop fan-out's left-to-right visual order
+	// (#quote is leftmost, #now-listening rightmost) rather than raw DOM
+	// order, so wrapping on narrow screens follows the same left-to-right
+	// reading order the desktop layout already implies.
+	const WIDGET_FLOW_ORDER = ["quote", "location", "fun-fact", "now-listening"];
+	const widgetEls = WIDGET_FLOW_ORDER
+		.map((id) => document.getElementById(id))
+		.filter((el): el is HTMLElement => el !== null);
+
+	const NATURAL_WIDGET_WIDTH = 260;
+
+	// Below the desktop fan-out width, widgets flow left-to-right — as many
+	// per row as fit — and only wrap to the next row once a card would
+	// overflow the container, instead of fanning out at fixed pixel
+	// coordinates. They stay position: absolute (not static) throughout so
+	// the pointer-drag logic below keeps working at every viewport size.
+	function layoutWidgetsForViewport() {
+		if (!widgetsContainer) return;
+
+		if (window.innerWidth < WIDGETS_STACK_BREAKPOINT) {
+			const gap = 24;
+			const containerWidth = widgetsContainer.clientWidth;
+
+			// If even two natural-width cards can't fit side by side, we're
+			// in single-column mode — let cards fill the full width instead
+			// of sitting at a fixed 260px with empty space beside them.
+			const singleColumn = containerWidth < NATURAL_WIDGET_WIDTH * 2 + gap;
+			for (const el of widgetEls) {
+				el.style.width = singleColumn ? "100%" : "";
+			}
+
+			let x = 0;
+			let y = 0;
+			let rowHeight = 0;
+			for (const el of widgetEls) {
+				const w = el.offsetWidth;
+				const h = el.offsetHeight;
+				if (x > 0 && x + w > containerWidth) {
+					x = 0;
+					y += rowHeight + gap;
+					rowHeight = 0;
+				}
+				el.style.left = `${x}px`;
+				el.style.top = `${y}px`;
+				x += w + gap;
+				rowHeight = Math.max(rowHeight, h);
+			}
+			widgetsContainer.style.height = `${y + rowHeight}px`;
+		} else {
+			// Restore desktop layout: clear inline overrides so the per-ID
+			// fixed coordinates in the stylesheet take over again.
+			for (const el of widgetEls) {
+				el.style.left = "";
+				el.style.top = "";
+				el.style.width = "";
+			}
+			widgetsContainer.style.height = "";
+		}
+	}
+
+	layoutWidgetsForViewport();
+	window.addEventListener("load", layoutWidgetsForViewport);
+
+	let resizeTimer: ReturnType<typeof setTimeout>;
+	window.addEventListener("resize", () => {
+		clearTimeout(resizeTimer);
+		resizeTimer = setTimeout(layoutWidgetsForViewport, 100);
+	});
 
 	function spawnEasterEgg(onGone?: () => void) {
 		const egg = document.createElement("div");

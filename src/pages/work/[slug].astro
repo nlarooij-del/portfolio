@@ -87,7 +87,7 @@ const cs = item.caseStudy;
 								{step.images && (
 									<div class="step-images">
 										{step.images.map((src) => (
-											<img class="framed-image" src={src} alt={`${step.name} artifact`} />
+											<img class="framed-image" src={src} alt={`${step.name} artifact`} loading="lazy" />
 										))}
 									</div>
 								)}
@@ -105,7 +105,7 @@ const cs = item.caseStudy;
 							<h3>{highlight.title}</h3>
 							<p>{highlight.description}</p>
 							{highlight.image && (
-								<img class="framed-image core-card-image" src={highlight.image} alt={highlight.title} />
+								<img class="framed-image core-card-image" src={highlight.image} alt={highlight.title} loading="lazy" />
 							)}
 						</div>
 					))}
@@ -133,7 +133,7 @@ const cs = item.caseStudy;
 									{step.images && (
 										<div class="step-images">
 											{step.images.map((src) => (
-												<img class="framed-image" src={src} alt={`${step.name} artifact`} />
+												<img class="framed-image" src={src} alt={`${step.name} artifact`} loading="lazy" />
 											))}
 										</div>
 									)}

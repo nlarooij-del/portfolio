@@ -10,14 +10,18 @@
 	--font-display: "Baloo 2", system-ui, sans-serif;
 	--font-body: "Nunito", system-ui, sans-serif;
 
-	/* Type scale: overline < caption < body < subheading < heading < display < display-lg */
+	/* Type scale: overline < caption < body < subheading < heading < display < display-lg.
+	   The four largest tiers use clamp() so headings scale down on narrow
+	   viewports instead of dominating the screen; the max (third) value in
+	   each clamp is unchanged from the old static rem value, so desktop
+	   rendering is identical to before. */
 	--font-size-overline: 0.75rem;
 	--font-size-caption: 0.875rem;
 	--font-size-body: 1rem;
-	--font-size-subheading: 1.25rem;
-	--font-size-heading: 2rem;
-	--font-size-display: 3rem;
-	--font-size-display-lg: 4rem;
+	--font-size-subheading: clamp(1.1rem, 1.05rem + 0.3vw, 1.25rem);
+	--font-size-heading: clamp(1.5rem, 1.35rem + 0.8vw, 2rem);
+	--font-size-display: clamp(2rem, 1.7rem + 1.5vw, 3rem);
+	--font-size-display-lg: clamp(2.25rem, 1.7rem + 2.75vw, 4rem);
 }
 
 * {
@@ -136,6 +140,14 @@ blockquote {
 .button--paper {
 	background: #fff;
 	color: var(--ink);
+}
+
+/* Touch-target minimum (~44px tall) on small screens — desktop padding
+   is left as-is since the mouse-driven layout was already fine. */
+@media (max-width: 640px) {
+	.button {
+		padding: 0.75rem 1.5rem;
+	}
 }
 
 #page-content > * {

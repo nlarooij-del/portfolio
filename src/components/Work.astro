@@ -22,7 +22,7 @@ import { showcases } from "../data/showcases";
 					</div>
 					<div class="showcase-illustration">
 						{item.cardImage ? (
-							<img src={item.cardImage} alt={item.title} />
+							<img src={item.cardImage} alt={item.title} loading="lazy" />
 						) : (
 							<div class="placeholder">
 								<span class="placeholder-emoji" aria-hidden="true">🖼️</span>
@@ -139,11 +139,16 @@ import { showcases } from "../data/showcases";
 			flex: none;
 			align-self: stretch;
 			width: 100%;
+			/* The copy panel below already has its own 2rem top padding —
+			   dropping this one keeps the visual-to-title gap equal to that
+			   single 2rem instead of stacking both panels' padding. */
+			padding-bottom: 0;
 		}
 	}
 
 	.tags {
 		display: flex;
+		flex-wrap: wrap;
 		gap: 0.5rem;
 		list-style: none;
 		padding: 0;
@@ -151,6 +156,8 @@ import { showcases } from "../data/showcases";
 	}
 
 	.tags li {
+		flex-shrink: 0;
+		white-space: nowrap;
 		border: 2px solid var(--ink);
 		border-radius: 999px;
 		padding: 0.25rem 0.75rem;

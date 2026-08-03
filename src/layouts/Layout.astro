@@ -24,6 +24,25 @@ const { title = "Niels Larooij" } = Astro.props;
 		/>
 	</head>
 	<body>
+		<div
+			id="debug-overlay"
+			style="position:fixed;top:0;left:0;right:0;z-index:99999;background:#000;color:#0f0;font:11px monospace;padding:6px;white-space:pre-wrap;word-break:break-all;max-height:40vh;overflow:auto;"
+		></div>
+		<script is:inline>
+			(function () {
+				var box = document.getElementById("debug-overlay");
+				function log(msg) {
+					box.textContent += msg + "\n";
+				}
+				log("innerWidth=" + window.innerWidth + " UA=" + navigator.userAgent);
+				window.addEventListener("error", function (e) {
+					log("ERROR: " + e.message + " @ " + e.filename + ":" + e.lineno);
+				});
+				window.addEventListener("unhandledrejection", function (e) {
+					log("REJECTION: " + e.reason);
+				});
+			})();
+		</script>
 		<slot />
 	</body>
 </html>

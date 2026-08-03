@@ -42,24 +42,35 @@ const { title = "Niels Larooij" } = Astro.props;
 					log("REJECTION: " + e.reason);
 				});
 
+				function dump(label) {
+					var container = document.querySelector(".widgets");
+					log(
+						label +
+							" innerWidth=" + window.innerWidth +
+							" container found=" + !!container +
+							" clientWidth=" + (container && container.clientWidth),
+					);
+					["quote", "location", "fun-fact", "now-listening"].forEach(function (id) {
+						var el = document.getElementById(id);
+						if (!el) {
+							log(id + ": NOT FOUND");
+							return;
+						}
+						var cs = getComputedStyle(el);
+						log(
+							id +
+								": inline(left=" + el.style.left + " top=" + el.style.top + " width=" + el.style.width + ")" +
+								" computed(left=" + cs.left + " top=" + cs.top + " width=" + cs.width + ")" +
+								" rect=" + JSON.stringify(el.getBoundingClientRect()),
+						);
+					});
+				}
+
+				dump("T0");
 				window.addEventListener("load", function () {
+					dump("onload");
 					setTimeout(function () {
-						var container = document.querySelector(".widgets");
-						log("container found=" + !!container + " clientWidth=" + (container && container.clientWidth));
-						["quote", "location", "fun-fact", "now-listening"].forEach(function (id) {
-							var el = document.getElementById(id);
-							if (!el) {
-								log(id + ": NOT FOUND");
-								return;
-							}
-							log(
-								id +
-									": left=" + el.style.left +
-									" top=" + el.style.top +
-									" width=" + el.style.width +
-									" offsetWidth=" + el.offsetWidth,
-							);
-						});
+						dump("T+1500");
 					}, 1500);
 				});
 			})();

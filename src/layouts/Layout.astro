@@ -41,6 +41,27 @@ const { title = "Niels Larooij" } = Astro.props;
 				window.addEventListener("unhandledrejection", function (e) {
 					log("REJECTION: " + e.reason);
 				});
+
+				window.addEventListener("load", function () {
+					setTimeout(function () {
+						var container = document.querySelector(".widgets");
+						log("container found=" + !!container + " clientWidth=" + (container && container.clientWidth));
+						["quote", "location", "fun-fact", "now-listening"].forEach(function (id) {
+							var el = document.getElementById(id);
+							if (!el) {
+								log(id + ": NOT FOUND");
+								return;
+							}
+							log(
+								id +
+									": left=" + el.style.left +
+									" top=" + el.style.top +
+									" width=" + el.style.width +
+									" offsetWidth=" + el.offsetWidth,
+							);
+						});
+					}, 1500);
+				});
 			})();
 		</script>
 		<slot />

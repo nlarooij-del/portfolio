@@ -288,34 +288,57 @@ import NowPlayingContent from "./NowPlayingContent.astro";
 	}
 
 	#now-listening {
-		top: 0;
-		left: 630px;
 		--z: 4;
 		--rot: -3deg;
 	}
 
 	#fun-fact {
-		top: 0;
-		left: 420px;
 		--z: 3;
 		--rot: 4deg;
 		background: #c5e1a5;
 	}
 
 	#location {
-		top: 0;
-		left: 210px;
 		--z: 2;
 		--rot: -1.5deg;
 		background: #b3e5fc;
 	}
 
 	#quote {
-		top: 0;
-		left: 0px;
 		--z: 1;
 		--rot: 2deg;
 		background: #ffccbc;
+	}
+
+	/* Fan-out coordinates only apply at desktop widths. Below this, JS
+	   (layoutWidgetsForViewport()) sets left/top/width inline once it
+	   runs — but without this gate, the fanned left:630px etc. would
+	   apply from the very first paint (before any script executes),
+	   overflowing narrow viewports. Some mobile browsers react to that
+	   momentary overflow by widening their own layout viewport past the
+	   900px breakpoint, so by the time the script runs it thinks it's on
+	   desktop and never fixes anything. Keeping the desktop coordinates
+	   CSS-gated means there's no overflow to react to in the first place. */
+	@media (min-width: 901px) {
+		#now-listening {
+			top: 0;
+			left: 630px;
+		}
+
+		#fun-fact {
+			top: 0;
+			left: 420px;
+		}
+
+		#location {
+			top: 0;
+			left: 210px;
+		}
+
+		#quote {
+			top: 0;
+			left: 0px;
+		}
 	}
 
 	/* Below the desktop fan-out width, widgets stay absolutely positioned

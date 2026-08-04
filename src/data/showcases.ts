@@ -33,6 +33,7 @@ export interface Showcase {
 	cardImage?: string;
 	pdfUrl: string;
 	caseStudy?: CaseStudy;
+	variant?: "slim";
 }
 
 export const showcases: Showcase[] = [
@@ -358,5 +359,13 @@ export const showcases: Showcase[] = [
 				},
 			],
 		},
+	},
+	{
+		slug: "mortgage-impressions",
+		category: "Quick Impressions · Mortgages",
+		title: "Quick impressions other Mortgage projects",
+		tags: [],
+		pdfUrl: "/case-studies/mortgage-impressions.pdf",
+		variant: "slim",
 	},
 ];

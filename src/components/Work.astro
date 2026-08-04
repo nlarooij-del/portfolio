@@ -7,29 +7,36 @@ import { showcases } from "../data/showcases";
 	<div class="showcases">
 		{showcases.map((item) => (
 			<article class="showcase">
-				<p class="category">{item.category}</p>
-				<a href={item.pdfUrl} target="_blank" rel="noopener noreferrer" class="showcase-card">
-					<div class="showcase-copy">
-						<div>
-							<h3>{item.title}</h3>
-							<ul class="tags">
-								{item.tags.map((tag) => (
-									<li>{tag}</li>
-								))}
-							</ul>
-						</div>
-						<span class="button">View case study <span aria-hidden="true">↗</span></span>
-					</div>
-					<div class="showcase-illustration">
-						{item.cardImage ? (
-							<img src={item.cardImage} alt={item.title} loading="lazy" />
-						) : (
-							<div class="placeholder">
-								<span class="placeholder-emoji" aria-hidden="true">🖼️</span>
+				{item.variant !== "slim" && <p class="category">{item.category}</p>}
+				{item.variant === "slim" ? (
+					<a href={item.pdfUrl} target="_blank" rel="noopener noreferrer" class="showcase-card showcase-card--slim">
+						<h3>{item.title}</h3>
+						<span class="slim-icon" aria-hidden="true">↗</span>
+					</a>
+				) : (
+					<a href={item.pdfUrl} target="_blank" rel="noopener noreferrer" class="showcase-card">
+						<div class="showcase-copy">
+							<div>
+								<h3>{item.title}</h3>
+								<ul class="tags">
+									{item.tags.map((tag) => (
+										<li>{tag}</li>
+									))}
+								</ul>
 							</div>
-						)}
-					</div>
-				</a>
+							<span class="button">View case study <span aria-hidden="true">↗</span></span>
+						</div>
+						<div class="showcase-illustration">
+							{item.cardImage ? (
+								<img src={item.cardImage} alt={item.title} loading="lazy" />
+							) : (
+								<div class="placeholder">
+									<span class="placeholder-emoji" aria-hidden="true">🖼️</span>
+								</div>
+							)}
+						</div>
+					</a>
+				)}
 			</article>
 		))}
 	</div>
@@ -171,5 +178,32 @@ import { showcases } from "../data/showcases";
 		display: inline-block;
 		align-self: flex-start;
 		margin-top: 1.5rem;
+	}
+
+	.showcase-card--slim {
+		align-items: center;
+		justify-content: space-between;
+		padding: 1.5rem 2rem;
+		gap: 1.5rem;
+	}
+
+	.showcase-card--slim h3 {
+		margin: 0;
+	}
+
+	.slim-icon {
+		flex-shrink: 0;
+		font-size: var(--font-size-heading);
+		transition: transform 0.15s ease;
+	}
+
+	.showcase-card--slim:hover .slim-icon {
+		transform: translate(3px, -3px);
+	}
+
+	@media (max-width: 768px) {
+		.showcase-card--slim {
+			flex-direction: row;
+		}
 	}
 </style>

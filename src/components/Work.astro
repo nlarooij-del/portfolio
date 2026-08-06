@@ -7,7 +7,22 @@ import { showcases } from "../data/showcases";
 	<div class="showcases">
 		{showcases.map((item) => (
 			<article class="showcase">
-				{item.variant !== "slim" && <p class="category">{item.category}</p>}
+				{!item.hideCategory && (
+					<p class="category">
+						{item.companyName && item.companyUrl && (
+							<>
+								<a href={item.companyUrl} target="_blank" rel="noopener noreferrer" class="category-company">{item.companyName}</a>
+								<span class="category-dot">·</span>
+							</>
+						)}
+						{item.category.split(" · ").map((part, i, parts) => (
+							<>
+								{part}
+								{i < parts.length - 1 && <span class="category-dot">·</span>}
+							</>
+						))}
+					</p>
+				)}
 				{item.variant === "slim" ? (
 					<a href={item.pdfUrl} target="_blank" rel="noopener noreferrer" class="showcase-card showcase-card--slim">
 						<h3>{item.title}</h3>
@@ -71,6 +86,7 @@ import { showcases } from "../data/showcases";
 	}
 
 	.showcase-illustration {
+		position: relative;
 		flex: 1 1 58%;
 		align-self: center;
 		padding: 2rem;
@@ -78,6 +94,27 @@ import { showcases } from "../data/showcases";
 		align-items: center;
 		justify-content: center;
 		text-align: center;
+	}
+
+	.showcase-logo {
+		position: absolute;
+		top: 2rem;
+		left: 1rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: #fff;
+		border: 3px solid var(--ink);
+		box-shadow: 4px 4px 0 var(--ink);
+		padding: 0.5rem 0.75rem;
+		transform: rotate(-3deg);
+	}
+
+	.showcase-illustration .showcase-logo img,
+	.showcase-logo--inline img {
+		display: block;
+		width: auto;
+		height: 1.5rem;
 	}
 
 	.showcase-illustration:has(.placeholder) {
@@ -115,6 +152,10 @@ import { showcases } from "../data/showcases";
 		transform: rotate(-2deg);
 	}
 
+	.showcase:nth-of-type(2) .showcase-logo {
+		transform: rotate(3deg);
+	}
+
 	.showcase-copy {
 		flex: 1 1 42%;
 		display: flex;
@@ -130,10 +171,24 @@ import { showcases } from "../data/showcases";
 	.category {
 		font-family: var(--font-display);
 		font-weight: 700;
-		font-size: var(--font-size-overline);
+		font-size: var(--font-size-caption);
 		text-transform: uppercase;
 		letter-spacing: 0.04em;
 		color: var(--coral);
+	}
+
+	.category-dot {
+		margin: 0 0.4em;
+	}
+
+	.category-company {
+		color: inherit;
+		text-decoration: underline;
+		text-underline-offset: 2px;
+	}
+
+	.category-company:hover {
+		text-decoration-thickness: 2px;
 	}
 
 	@media (max-width: 768px) {
@@ -189,6 +244,19 @@ import { showcases } from "../data/showcases";
 
 	.showcase-card--slim h3 {
 		margin: 0;
+	}
+
+	.showcase-slim-content {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		min-width: 0;
+	}
+
+	.showcase-logo--inline {
+		position: static;
+		flex-shrink: 0;
+		transform: rotate(-1.5deg);
 	}
 
 	.slim-icon {

@@ -31,9 +31,13 @@ export interface Showcase {
 	title: string;
 	tags: string[];
 	cardImage?: string;
+	logo?: string;
 	pdfUrl: string;
 	caseStudy?: CaseStudy;
 	variant?: "slim";
+	hideCategory?: boolean;
+	companyName?: string;
+	companyUrl?: string;
 }
 
 export const showcases: Showcase[] = [
@@ -43,6 +47,9 @@ export const showcases: Showcase[] = [
 		title: "Simplify payment fraud management, when introducing an AI-powered core",
 		tags: ["AI/UX", "Fintech", "Enterprise SaaS"],
 		cardImage: "/images/work/project-one/card.png",
+		logo: "/images/work/project-one/adyen-logo.svg",
+		companyName: "Adyen",
+		companyUrl: "https://www.adyen.com",
 		pdfUrl: "/case-studies/project-one.pdf",
 		caseStudy: {
 			when: "2023–2024",
@@ -141,6 +148,9 @@ export const showcases: Showcase[] = [
 		title: "Scaling a marketplace for entrepreneurs that compares third-party products",
 		tags: ["UX Research", "Design Systems", "Fintech"],
 		cardImage: "/images/work/project-two/card.jpg",
+		logo: "/images/work/project-two/ing-logo.png",
+		companyName: "ING",
+		companyUrl: "https://www.ing.com",
 		pdfUrl: "/case-studies/project-two.pdf",
 		caseStudy: {
 			when: "2019",
@@ -269,6 +279,8 @@ export const showcases: Showcase[] = [
 		title: "Designing a monthly mortgage costs calculator used on an external platform",
 		tags: ["UX Design", "Fintech", "Conversion"],
 		cardImage: "/images/work/project-three/card.png",
+		companyName: "ING",
+		companyUrl: "https://www.ing.com",
 		pdfUrl: "/case-studies/project-three.pdf",
 		caseStudy: {
 			when: "2021–2022",
@@ -363,9 +375,21 @@ export const showcases: Showcase[] = [
 	{
 		slug: "mortgage-impressions",
 		category: "Quick Impressions · Mortgages",
-		title: "Quick impressions other Mortgage projects",
+		title: "Other mortgage projects snapshots",
 		tags: [],
 		pdfUrl: "/case-studies/mortgage-impressions.pdf",
+		variant: "slim",
+		hideCategory: true,
+	},
+	{
+		slug: "photo-product-impressions",
+		category: "UX Research & Design · Personalized Photo Products",
+		title: "Photo product creation snapshots",
+		tags: [],
+		logo: "/images/work/photo-product-impressions/albelli-logo.svg",
+		companyName: "Albelli",
+		companyUrl: "https://www.albelli.nl",
+		pdfUrl: "/case-studies/photo-product-impressions.pdf",
 		variant: "slim",
 	},
 ];

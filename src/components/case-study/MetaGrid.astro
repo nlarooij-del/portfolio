@@ -1,0 +1,43 @@
+---
+interface Props {
+	meta: { label: string; value: string }[];
+}
+const { meta } = Astro.props;
+---
+
+<div class="meta-grid">
+	{
+		meta.map((item) => (
+			<div class="item">
+				<span class="label">{item.label}</span>
+				<span class="value">{item.value}</span>
+			</div>
+		))
+	}
+</div>
+
+<style>
+	.meta-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr));
+		gap: clamp(20px, 3vw, 28px);
+		margin: clamp(36px, 5vw, 56px) 0 0;
+		padding-top: 28px;
+		border-top: 1px solid rgba(17, 17, 17, 0.18);
+	}
+	.item {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+	}
+	.label {
+		font-family: var(--font-mono);
+		font-size: 11px;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: var(--color-muted-alt);
+	}
+	.value {
+		font-size: 17px;
+	}
+</style>

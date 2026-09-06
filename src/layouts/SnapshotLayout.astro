@@ -1,0 +1,19 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+	entry: CollectionEntry<'snapshots'>;
+}
+const { entry } = Astro.props;
+const data = entry.data;
+---
+
+<BaseLayout
+	title={`${data.title} — Niels Larooij`}
+	description={data.seoDescription ?? data.intro}
+	mode="snapshot"
+	tags={data.tags}
+>
+	<slot />
+</BaseLayout>

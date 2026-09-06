@@ -1,0 +1,121 @@
+---
+import { Image } from 'astro:assets';
+import illustration from '../../assets/landing/design-philosophy.png';
+
+const principles = [
+	{
+		id: 'principle-1',
+		title: 'Fix the system',
+		body: "I want to solve the real problem, not the pretty one, whether that means rethinking the underlying process or redesigning the flow, screen, or interaction that surfaces it.",
+	},
+	{
+		id: 'principle-2',
+		title: 'Make the abstract tangible',
+		body: 'Most products and services are messy under the surface. I untangle that mess into something clear enough for people to act on.',
+	},
+	{
+		id: 'principle-3',
+		title: "Fast when it's cheap to be wrong",
+		body: "I move fast when the cost of a mistake is low, and slow down when it isn't. Process is a tool for managing risk, not a ritual to follow.",
+	},
+	{
+		id: 'principle-4',
+		title: "I'll loop anybody in",
+		body: "From engineers and researchers to PMs and VPs, whoever's remotely connected or interested in the project, if it gets us to a better result faster. I don't wait for the correct moment to bring them in.",
+	},
+];
+---
+
+<section id="philosophy" data-screen-label="Philosophy" class="philosophy">
+	<div class="inner">
+		<div class="side">
+			<h2>Design philosophy</h2>
+			<Image src={illustration} alt="Halftone illustration of Rodin's Thinker seated on a toilet" />
+		</div>
+		<div class="list">
+			{
+				principles.map((p, i) => (
+					<div id={p.id} class="principle" class:list={{ first: i === 0 }}>
+						<span class="index">{String(i + 1).padStart(3, '0')}</span>
+						<div>
+							<h3>{p.title}</h3>
+							<p>{p.body}</p>
+						</div>
+					</div>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<style>
+	.philosophy {
+		background: var(--color-surface);
+		padding: var(--space-section-block) var(--space-section-inline);
+	}
+	.inner {
+		max-width: var(--content-max-width);
+		margin: 0 auto;
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--gap-prose-lg);
+	}
+	.side {
+		flex: 1 1 300px;
+		max-width: 100%;
+		display: flex;
+		flex-direction: column;
+		gap: 28px;
+	}
+	.side :global(img) {
+		width: 100%;
+		max-width: 340px;
+		height: auto;
+		display: block;
+		align-self: flex-start;
+	}
+	h2 {
+		margin: 0;
+		font-size: var(--text-h2);
+		line-height: 1.06;
+		font-weight: 600;
+		letter-spacing: -0.03em;
+	}
+	.list {
+		flex: 3 1 420px;
+		display: flex;
+		flex-direction: column;
+	}
+	.principle {
+		display: grid;
+		grid-template-columns: 48px minmax(0, 1fr);
+		gap: clamp(14px, 2vw, 24px);
+		padding: 28px 0;
+		border-top: 1px solid var(--color-border);
+		scroll-margin-top: var(--scroll-margin-landing);
+	}
+	.principle.first {
+		padding-top: 0;
+		border-top: none;
+	}
+	.index {
+		font-family: var(--font-mono);
+		font-size: 12px;
+		color: var(--color-accent-blue);
+		padding-top: 6px;
+	}
+	h3 {
+		margin: 0 0 10px;
+		font-size: 22px;
+		font-weight: 600;
+		letter-spacing: -0.02em;
+	}
+	.principle p {
+		font-family: var(--font-serif);
+		font-size: 18px;
+		line-height: 1.55;
+		color: var(--color-body);
+		margin: 0;
+		max-width: 62ch;
+	}
+</style>

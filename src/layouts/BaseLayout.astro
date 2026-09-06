@@ -1,0 +1,46 @@
+---
+import Header from '../components/site/Header.astro';
+import Footer from '../components/site/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+	title: string;
+	description: string;
+	mode: 'landing' | 'case' | 'snapshot';
+	tags: string[];
+	menuItems?: { label: string; href: string }[];
+	stepsTotal?: number;
+	decisionsTotal?: number;
+}
+const { title, description, mode, tags, menuItems, stepsTotal, decisionsTotal } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+	</head>
+	<body>
+		<div class="page">
+			<Header
+				mode={mode}
+				tags={tags}
+				menuItems={menuItems}
+				stepsTotal={stepsTotal}
+				decisionsTotal={decisionsTotal}
+			/>
+			<slot />
+			<Footer linkHome={mode !== 'landing'} />
+		</div>
+	</body>
+</html>
+
+<style is:global>
+	.page {
+		overflow-x: clip;
+	}
+</style>

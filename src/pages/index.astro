@@ -1,20 +1,97 @@
 ---
-export const prerender = true;
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/landing/Hero.astro';
+import WorkRow from '../components/landing/WorkRow.astro';
+import MoreWork from '../components/landing/MoreWork.astro';
+import Philosophy from '../components/landing/Philosophy.astro';
+import AboutTabs from '../components/landing/AboutTabs.astro';
+import heroUplift from '../assets/landing/hero-uplift.png';
 
-import Layout from "../layouts/Layout.astro";
-import Intro from "../components/Intro.astro";
-import Hero from "../components/Hero.astro";
-import Work from "../components/Work.astro";
-import About from "../components/About.astro";
-import Footer from "../components/Footer.astro";
+const caseStudies = (await getCollection('caseStudies')).sort((a, b) =>
+	a.data.number.localeCompare(b.data.number),
+);
 ---
 
-<Layout>
-	<Intro />
-	<div id="page-content">
-		<Hero />
-		<Work />
-		<About />
-		<Footer />
-	</div>
-</Layout>
+<BaseLayout
+	title="Niels Larooij — Senior Product Designer"
+	description="Personal portfolio of Niels Larooij, a senior product designer who has spent 10+ years turning fintech complexity into simple design at Adyen, ING, and Rabobank."
+	mode="landing"
+	tags={['Payments', 'Mortgages', 'Daily banking', 'Personalised photo products']}
+>
+	<Hero />
+
+	<section id="work" data-screen-label="Selected work" class="work">
+		<div class="inner">
+			<div class="head">
+				<h2>Selected work</h2>
+				<span class="count">Case studies — 004</span>
+			</div>
+
+			<WorkRow
+				number="001"
+				client="Adyen"
+				title="Simplifying complexity across 5 products into one connected journey (Uplift)"
+				summary="Connecting 5 products into one journey, then convincing leadership to fix the navigation that couldn't support it."
+				disciplines={['Product strategy', 'Cross-functional leadership', 'Enterprise UX']}
+				thumbnail={heroUplift}
+				thumbnailAlt="Uplift overview dashboard"
+				comingSoon
+				hideVisualOnMobile
+				first
+				compact
+			/>
+
+			{
+				caseStudies.map((entry) => (
+					<WorkRow
+						id={`case-${entry.data.number}`}
+						number={entry.data.number}
+						client={entry.data.client}
+						title={entry.data.title}
+						summary={entry.data.summary}
+						disciplines={entry.data.disciplines}
+						thumbnail={entry.data.thumbnail}
+						thumbnailAlt={entry.data.thumbnailAlt}
+						href={`/work/${entry.id}`}
+					/>
+				))
+			}
+		</div>
+	</section>
+
+	<MoreWork />
+
+	<Philosophy />
+
+	<AboutTabs />
+</BaseLayout>
+
+<style>
+	.work {
+		padding: var(--space-section-block) var(--space-section-inline) 0;
+	}
+	.inner {
+		max-width: var(--content-max-width);
+		margin: 0 auto;
+	}
+	.head {
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+		flex-wrap: wrap;
+		gap: 8px 20px;
+		margin-bottom: clamp(36px, 5vw, 64px);
+	}
+	h2 {
+		margin: 0;
+		font-size: var(--text-h2);
+		font-weight: 600;
+		letter-spacing: -0.03em;
+	}
+	.count {
+		font-family: var(--font-mono);
+		font-size: 12px;
+		color: var(--color-muted);
+	}
+</style>

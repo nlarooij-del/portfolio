@@ -1,0 +1,97 @@
+:root {
+	/* ---- color ---- */
+	--color-ink: #111111;
+	--color-body: #2c3340;
+	--color-muted: #6c6c6c;
+	--color-muted-alt: #4a5568;
+	--color-accent-blue: #1f5cf5;
+	--color-blue-tint: #cddffc;
+	--color-yellow: #f4ef4f;
+	--color-yellow-ink: #56541a;
+	--color-cream: #f0e8d7;
+	--color-surface: #f5f6fa;
+	--color-border: #dbe0ec;
+	--color-border-subtle: #e6e9f0;
+	--color-dot: #b9c0cf;
+	--color-white: #ffffff;
+
+	--gradient-hero: linear-gradient(
+		180deg,
+		#a8d1f7 0%,
+		#c3dcf7 34%,
+		#dce7ee 62%,
+		#efe9d8 88%,
+		#f6f1e3 100%
+	);
+	--pattern-hatch: repeating-linear-gradient(135deg, #1f5cf5 0 2px, #cddffc 2px 6px);
+	--header-glass-bg: rgba(255, 255, 255, 0.82);
+	--header-glass-blur: blur(10px);
+
+	/* ---- type families ---- */
+	--font-sans: 'Onest', system-ui, sans-serif;
+	--font-serif: 'Spectral', serif;
+	--font-mono: 'IBM Plex Mono', monospace;
+
+	/* ---- type scale (clamp() carried through as-is — deliberate fluid scale) ---- */
+	--text-landing-h1: clamp(38px, 8.6vw, 92px);
+	--text-case-h1: clamp(32px, 6.4vw, 72px);
+	--text-h2: clamp(28px, 4.6vw, 40px);
+	--text-h3-decision: clamp(23px, 3.2vw, 34px);
+	--text-h3-step: clamp(22px, 2.8vw, 28px);
+	--text-h4: clamp(18px, 2.2vw, 20px);
+	--text-card-title: 22px;
+	--text-lede: clamp(17px, 2.2vw, 21px);
+	--text-outcome-summary: clamp(18px, 2.3vw, 22px);
+	--text-body: clamp(16px, 2vw, 18px);
+	--text-small-body: 16px;
+	--text-stat-figure: clamp(30px, 4vw, 44px);
+	--text-mono-label: 12px;
+	--text-mono-label-sm: 11px;
+
+	/* ---- measure limits ---- */
+	--measure-outcome: 54ch;
+	--measure-hero-lede: 58ch;
+	--measure-process: 66ch;
+	--measure-intro: 72ch;
+	--measure-decision: 78ch;
+
+	/* ---- spacing ---- */
+	--space-section-block: clamp(48px, 7vw, 76px);
+	--space-section-inline: clamp(20px, 4vw, 48px);
+	--content-max-width: 1200px;
+	--gap-image-pair: 20px;
+	--gap-card: 24px;
+	--gap-prose-sm: clamp(24px, 3.4vw, 40px);
+	--gap-prose-lg: clamp(24px, 4vw, 72px);
+	--pad-quote-card: 26px;
+	--pad-challenge-card: 32px;
+
+	/* ---- radius ---- */
+	--radius-card: 6px;
+	--radius-pill: 999px;
+	--radius-browser-mock: 5px 5px 0 0;
+
+	/* ---- shadow ---- */
+	--shadow-browser-mock: 0 -6px 26px rgba(17, 17, 17, 0.16);
+	--shadow-menu: 0 14px 34px rgba(17, 17, 17, 0.14);
+
+	/* ---- scroll anchoring ---- */
+	--scroll-margin-landing: 96px;
+	--scroll-margin-case: 130px;
+
+	/* ---- z-index ---- */
+	--z-header: 50;
+	--z-menu: 60;
+}
+
+/*
+ * Breakpoint — the single width-gated behavior in the design (760px, matching
+ * the source's own `window.innerWidth < 760` stacked check). CSS custom
+ * properties can't be read inside @media conditions, so this is documented
+ * here and hardcoded at each usage site:
+ *   Header.astro (CompactNav) — inline nav links -> hamburger
+ *   ProcessNav.astro — sticky sidebar -> static stacked
+ *   TagStrip.astro — step-progress dots only shown once stacked
+ *     (decision-progress dots have no sidebar competing for space, so they
+ *     show at any width once the End Product section is in view)
+ */

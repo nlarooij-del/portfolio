@@ -1,0 +1,107 @@
+---
+import MetaGrid from './MetaGrid.astro';
+
+interface Props {
+	title: string;
+	backHref: string;
+	meta: { label: string; value: string }[];
+	inShort: { lead: string; boldClaim: string };
+	jumpLinks: { label: string; href: string }[];
+}
+const { title, backHref, meta, inShort, jumpLinks } = Astro.props;
+---
+
+<section id="top" data-screen-label={title} class="case-intro">
+	<div class="inner">
+		<a href={backHref} class="back"><span>←</span>Back</a>
+		<h1>{title}</h1>
+
+		<MetaGrid meta={meta} />
+
+		<p class="in-short">
+			<strong>In short:</strong>
+			{inShort.lead}
+			<strong>{inShort.boldClaim}</strong>
+		</p>
+
+		<div class="jump-links h-scroll">
+			{
+				jumpLinks.map((link) => (
+					<a href={link.href}>
+						<span class="arrow">↓</span>
+						{link.label}
+					</a>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<style>
+	.case-intro {
+		background: var(--gradient-hero);
+		padding: clamp(32px, 5vw, 56px) var(--space-section-inline) 28px;
+	}
+	.inner {
+		max-width: var(--content-max-width);
+		margin: 0 auto;
+	}
+	.back {
+		display: inline-flex;
+		align-items: baseline;
+		gap: 8px;
+		margin: 0 0 28px;
+		font-family: var(--font-mono);
+		font-size: var(--text-mono-label);
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		color: var(--color-body);
+	}
+	.back:hover {
+		color: var(--color-ink);
+	}
+	h1 {
+		margin: 0;
+		font-size: var(--text-case-h1);
+		line-height: 1;
+		letter-spacing: -0.035em;
+		font-weight: 600;
+		text-wrap: pretty;
+	}
+	.in-short {
+		font-family: var(--font-serif);
+		font-size: var(--text-lede);
+		line-height: 1.55;
+		color: var(--color-body);
+		max-width: var(--measure-intro);
+		margin: clamp(28px, 4vw, 44px) 0 0;
+	}
+	.in-short strong {
+		font-family: var(--font-sans);
+		font-weight: 600;
+		color: var(--color-ink);
+	}
+	.jump-links {
+		gap: clamp(20px, 3.4vw, 44px);
+		margin: clamp(28px, 4vw, 44px) 0 0;
+		padding-top: 28px;
+		border-top: 1px solid rgba(17, 17, 17, 0.18);
+		font-family: var(--font-mono);
+		font-size: var(--text-mono-label);
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+	}
+	.jump-links a {
+		flex: 0 0 auto;
+		display: inline-flex;
+		align-items: baseline;
+		gap: 7px;
+		color: var(--color-body);
+	}
+	.jump-links a:hover {
+		color: var(--color-ink);
+	}
+	.jump-links .arrow {
+		opacity: 0.45;
+	}
+</style>

@@ -1,0 +1,405 @@
+---
+import { Image } from 'astro:assets';
+import editorImg from '../../assets/landing/editor-outside-fintech.png';
+import workshopImg from '../../assets/landing/workshopping.avif';
+import rightNowImg from '../../assets/landing/right-now.png';
+import boulderingImg from '../../assets/landing/bouldering.jpeg';
+import pokerImg from '../../assets/landing/poker-emoji.jpg';
+import boardGamingImg from '../../assets/landing/board-gaming.jpeg';
+import festivalImg from '../../assets/landing/festival.jpeg';
+import foodImg from '../../assets/landing/food.jpeg';
+
+const tabs = [
+	{ label: 'Experience outside of fintech' },
+	{ label: 'Growing others' },
+	{ label: 'Right now' },
+	{ label: 'Outside work' },
+];
+
+const photos = [
+	{ src: boulderingImg, alt: 'Bouldering in a colourful gym', label: 'Bouldering' },
+	{ src: pokerImg, alt: 'Poker night around the table', label: 'Poker night' },
+	{ src: boardGamingImg, alt: 'Board game night in progress', label: 'Board games' },
+	{ src: festivalImg, alt: 'At a festival on a sunny day', label: 'Festivals' },
+	{ src: foodImg, alt: 'Eating out at a street-food spot', label: 'Good food' },
+];
+---
+
+<section id="about" data-screen-label="About details" class="about">
+	<div class="inner">
+		<h2>About me</h2>
+
+		<div class="tab-row h-scroll" data-about-tabs>
+			{
+				tabs.map((tab, i) => (
+					<button type="button" data-tab={i} class:list={{ active: i === 0 }}>
+						{tab.label}
+					</button>
+				))
+			}
+			<span class="bar" data-about-bar />
+		</div>
+
+		<div class="panel" data-panel="0">
+			<div class="text">
+				<h3>Experience outside of fintech</h3>
+				<p>
+					Next to fintech, I spent a couple of years designing consumer products and supporting
+					sales teams. <br /><br />
+					<b>At Albelli</b>, I worked on photo product editors, including adding AI-assisted features
+					and improving usability for a large base of expert users, before founding and leading their
+					first UX Chapter. <br /><br />
+					<b>At Sogeti</b>, I supported sales teams with rapid prototyping and concept work, including
+					designing app concepts for a new Philips Hue smart lighting product.
+				</p>
+			</div>
+			<div class="editor-frame">
+				<div class="editor-toolbar">
+					<span></span><span></span><span></span>
+					<span class="bar-fill"></span>
+				</div>
+				<Image src={editorImg} alt="Albelli card editor with photo placement, adjustment tools and side selection" />
+			</div>
+		</div>
+
+		<div class="panel" data-panel="1" hidden>
+			<div class="text">
+				<h3>Growing others</h3>
+				<p>
+					I love growing other designers. I've hired, coached, and managed people throughout my
+					career: leading Albelli's first UX Chapter, mentoring designers at ING, coaching students
+					at the Amsterdam University of Applied Sciences, and organizing Amsterdam's UX Monthly
+					meetup for over a year.
+				</p>
+			</div>
+			<div class="plain-image">
+				<Image src={workshopImg} alt="Workshop session: participants gathered around a wall of sticky notes" />
+			</div>
+		</div>
+
+		<div class="panel" data-panel="2" hidden>
+			<div class="text">
+				<h3>Right now</h3>
+				<p>
+					I'm based in Valencia, Spain, trying it out, while staying closely tied to Amsterdam,
+					where most of my network and experience is rooted. I'm also getting fluent in
+					AI-augmented design workflows, including using tools like Claude Code to build functional
+					prototypes rather than just static screens.
+				</p>
+			</div>
+			<div class="flag-collage">
+				<Image src={rightNowImg} alt="Pixel-art Spanish flag" class="f1" />
+				<Image src={rightNowImg} alt="Pixel-art Spanish flag" class="f2" />
+				<Image src={rightNowImg} alt="Pixel-art Spanish flag" class="f3" />
+				<Image src={rightNowImg} alt="Pixel-art Spanish flag" class="f4" />
+			</div>
+		</div>
+
+		<div class="panel" data-panel="3" hidden>
+			<div class="text">
+				<h3>Outside work</h3>
+				<p>You'll usually find me bouldering, at a poker table or board game night, out at a festival, or just enjoying good food.</p>
+			</div>
+			<div class="carousel-col">
+				<div class="carousel" data-carousel>
+					{
+						photos.map((photo, i) => (
+							<div class="slide" data-slide={i}>
+								<Image src={photo.src} alt={photo.alt} />
+								<span class="label">{photo.label}</span>
+							</div>
+						))
+					}
+				</div>
+				<div class="carousel-controls">
+					<span class="dots" data-carousel-dots>
+						{photos.map((_, i) => <span data-dot={i} />)}
+					</span>
+					<span class="hint">Tap to browse</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	.about {
+		padding: var(--space-section-block) var(--space-section-inline) clamp(56px, 8vw, 96px);
+	}
+	.inner {
+		max-width: var(--content-max-width);
+		margin: 0 auto;
+	}
+	h2 {
+		margin: 0 0 var(--space-section-block);
+		font-size: var(--text-h2);
+		font-weight: 600;
+		letter-spacing: -0.03em;
+	}
+	.tab-row {
+		gap: clamp(20px, 3vw, 40px);
+		position: relative;
+		align-items: flex-end;
+		margin-bottom: 36px;
+		border-bottom: 1px solid var(--color-border);
+	}
+	.tab-row button {
+		position: relative;
+		flex: 0 0 auto;
+		background: none;
+		border: none;
+		padding: 0 0 14px;
+		cursor: pointer;
+		font-family: var(--font-mono);
+		font-size: 12px;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		color: var(--color-muted);
+		text-align: left;
+	}
+	.tab-row button.active {
+		color: var(--color-ink);
+	}
+	.bar {
+		position: absolute;
+		bottom: 0;
+		height: 2px;
+		background: var(--color-ink);
+		left: 0;
+		width: 0;
+		transition:
+			left 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+			width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.panel {
+		display: flex;
+		flex-wrap: wrap;
+		gap: clamp(28px, 4vw, 56px);
+		align-items: flex-start;
+	}
+	.panel[hidden] {
+		display: none;
+	}
+	.text {
+		flex: 1.2 1 340px;
+	}
+	.text h3 {
+		margin: 0 0 16px;
+		font-size: clamp(21px, 2.6vw, 24px);
+		font-weight: 600;
+		letter-spacing: -0.02em;
+	}
+	.text p {
+		font-family: var(--font-serif);
+		font-size: clamp(16px, 2vw, 18px);
+		line-height: 1.6;
+		color: var(--color-body);
+		margin: 0;
+	}
+
+	.editor-frame {
+		flex: 1 1 280px;
+		align-self: flex-start;
+		background: var(--pattern-hatch);
+		box-sizing: border-box;
+		padding: clamp(14px, 2.4vw, 28px) clamp(14px, 2.4vw, 28px) 0;
+	}
+	.editor-frame :global(img) {
+		width: 100%;
+		height: auto;
+		display: block;
+	}
+	.editor-toolbar {
+		display: flex;
+		align-items: center;
+		gap: 9px;
+		padding: 6px 10px;
+		background: #f1f2f4;
+		border-radius: 8px 8px 0 0;
+	}
+	.editor-toolbar span {
+		width: 6px;
+		height: 6px;
+		border-radius: 50%;
+		background: #cfd3da;
+	}
+	.editor-toolbar .bar-fill {
+		flex: 1 1 auto;
+		height: 9px;
+		border-radius: 5px;
+		background: #e4e6ea;
+		width: auto;
+	}
+
+	.plain-image {
+		flex: 1 1 280px;
+		align-self: flex-start;
+	}
+	.plain-image :global(img) {
+		width: 100%;
+		height: auto;
+		display: block;
+	}
+
+	.flag-collage {
+		flex: 1 1 280px;
+		align-self: flex-start;
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: clamp(8px, 2vw, 18px);
+	}
+	.flag-collage :global(img) {
+		aspect-ratio: 16 / 9;
+		object-fit: cover;
+		height: auto;
+		display: block;
+	}
+	.flag-collage :global(.f1) {
+		width: 44%;
+		transform: rotate(-4deg);
+	}
+	.flag-collage :global(.f2) {
+		width: 30%;
+		transform: rotate(7deg);
+	}
+	.flag-collage :global(.f3) {
+		width: 24%;
+		transform: rotate(-11deg);
+	}
+	.flag-collage :global(.f4) {
+		width: 37%;
+		transform: rotate(3deg);
+	}
+
+	.carousel-col {
+		flex: 1 1 280px;
+		align-self: flex-start;
+		display: flex;
+		flex-direction: column;
+		gap: 14px;
+	}
+	.carousel {
+		position: relative;
+		width: 100%;
+		aspect-ratio: 4 / 3;
+		cursor: pointer;
+	}
+	.slide {
+		position: absolute;
+		inset: 0;
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-card);
+		overflow: hidden;
+		display: flex;
+		align-items: flex-end;
+		padding: 14px;
+		transition:
+			transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+			opacity 0.4s ease;
+	}
+	.slide :global(img) {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+	}
+	.slide .label {
+		position: relative;
+		font-family: var(--font-mono);
+		font-size: 11px;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		background: var(--color-white);
+		color: var(--color-ink);
+		padding: 5px 9px;
+	}
+	.carousel-controls {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+	}
+	.dots {
+		display: flex;
+		gap: 8px;
+	}
+	.dots span {
+		width: 16px;
+		height: 3px;
+		display: block;
+		background: var(--color-dot);
+		transition: background 0.25s ease;
+	}
+	.dots span[data-active] {
+		background: var(--color-ink);
+	}
+	.hint {
+		margin-left: auto;
+		font-family: var(--font-mono);
+		font-size: 11px;
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+		color: var(--color-muted);
+	}
+</style>
+
+<script>
+	function setupAboutTabs(root: HTMLElement) {
+		const buttons = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-tab]'));
+		const panels = Array.from(root.parentElement!.querySelectorAll<HTMLElement>('[data-panel]'));
+		const bar = root.querySelector<HTMLElement>('[data-about-bar]');
+		if (!bar) return;
+
+		const measure = () => {
+			const active = buttons.find((b) => b.classList.contains('active'));
+			if (!active) return;
+			bar.style.left = active.offsetLeft + 'px';
+			bar.style.width = active.offsetWidth + 'px';
+		};
+
+		buttons.forEach((btn) => {
+			btn.addEventListener('click', () => {
+				const index = btn.dataset.tab;
+				buttons.forEach((b) => b.classList.toggle('active', b === btn));
+				panels.forEach((p) => (p.hidden = p.dataset.panel !== index));
+				measure();
+			});
+		});
+
+		measure();
+		window.addEventListener('resize', measure);
+		if (document.fonts?.ready) document.fonts.ready.then(measure);
+	}
+
+	function setupCarousel(carousel: HTMLElement) {
+		const slides = Array.from(carousel.querySelectorAll<HTMLElement>('[data-slide]'));
+		const dots = Array.from(
+			carousel.parentElement!.querySelectorAll<HTMLElement>('[data-dot]'),
+		);
+		const tilts = [-3, 4, -6, 2, 5];
+		let active = 0;
+
+		const render = () => {
+			slides.forEach((slide, i) => {
+				const off = (i - active + slides.length) % slides.length;
+				slide.style.zIndex = String(slides.length - off);
+				slide.style.opacity = off > 3 ? '0' : String(1 - off * 0.14);
+				slide.style.transform = `translate(${off * 9}px, ${off * -9}px) scale(${1 - off * 0.045}) rotate(${off === 0 ? 0 : tilts[i]}deg)`;
+			});
+			dots.forEach((dot, i) => dot.toggleAttribute('data-active', i === active));
+		};
+
+		carousel.addEventListener('click', () => {
+			active = (active + 1) % slides.length;
+			render();
+		});
+
+		render();
+	}
+
+	document.querySelectorAll<HTMLElement>('[data-about-tabs]').forEach(setupAboutTabs);
+	document.querySelectorAll<HTMLElement>('[data-carousel]').forEach(setupCarousel);
+</script>

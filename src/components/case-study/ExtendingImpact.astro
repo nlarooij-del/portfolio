@@ -1,0 +1,40 @@
+---
+import Eyebrow from './Eyebrow.astro';
+
+interface Props {
+	eyebrow: string;
+	title: string;
+}
+const { eyebrow, title } = Astro.props;
+---
+
+<div id="extending" class="extending">
+	<Eyebrow>{eyebrow}</Eyebrow>
+	<h3>{title}</h3>
+	<div class="items">
+		<slot />
+	</div>
+</div>
+
+<style>
+	.extending {
+		margin-top: 20px;
+		padding-top: 56px;
+		border-top: 1px solid var(--color-border);
+		scroll-margin-top: var(--scroll-margin-case);
+	}
+	.extending :global(.eyebrow) {
+		margin-bottom: 10px;
+	}
+	h3 {
+		margin: 0 0 44px;
+		font-size: var(--text-h3-decision);
+		line-height: 1.15;
+		font-weight: 600;
+		letter-spacing: -0.025em;
+	}
+	.items {
+		display: flex;
+		flex-direction: column;
+	}
+</style>

@@ -1,0 +1,59 @@
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	margin: 0;
+	background: var(--color-white);
+	color: var(--color-ink);
+	font-family: var(--font-sans);
+	-webkit-font-smoothing: antialiased;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+a {
+	color: var(--color-accent-blue);
+	text-decoration: none;
+}
+a:hover {
+	color: var(--color-ink);
+}
+
+::selection {
+	background: var(--color-yellow);
+	color: var(--color-ink);
+}
+
+/* Landing sections anchor-scroll under the sticky header */
+section[id] {
+	scroll-margin-top: var(--scroll-margin-landing);
+}
+
+/* Horizontal scrollers (tag strip, philosophy chips, jump-link rows) */
+.h-scroll {
+	display: flex;
+	overflow-x: auto;
+	overscroll-behavior-x: contain;
+	-webkit-overflow-scrolling: touch;
+	scrollbar-width: none;
+	white-space: nowrap;
+}
+.h-scroll::-webkit-scrollbar {
+	display: none;
+}
+
+@keyframes strip-swap {
+	0% {
+		opacity: 0;
+		transform: translateY(7px);
+		filter: blur(4px);
+	}
+	100% {
+		opacity: 1;
+		transform: none;
+		filter: blur(0);
+	}
+}

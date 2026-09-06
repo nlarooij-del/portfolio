@@ -1,0 +1,125 @@
+---
+---
+
+<section data-screen-label="More work" class="more-work">
+	<div class="inner">
+		<div class="head">
+			<h2>More work</h2>
+			<span class="count">Snapshots — 003</span>
+		</div>
+		<div class="grid">
+			<div class="card">
+				<div class="tag-row">
+					<span>Adyen</span>
+					<span class="badge">Coming soon</span>
+				</div>
+				<h3>Compliance as a Service (KYC) snapshot</h3>
+				<p>
+					Replacing error-prone, manually maintained Excel sheets with a web application that
+					handled complex risk-level and role-based variations, cutting errors and dramatically
+					shortening decision time.
+				</p>
+			</div>
+			<a id="snapshot-2" href="/snapshots/other-mortgage-projects" class="card linkable">
+				<span class="tag-row"><span>ING</span></span>
+				<h3>Other mortgage project snapshots</h3>
+				<p>
+					Additional mortgage work: orientation hub concepts, the raise-to-renovate flow, and the
+					customer journey prototype presented to upper management.
+				</p>
+				<span class="view">View snapshot →</span>
+			</a>
+			<a id="snapshot-3" href="/snapshots/photo-product-creation" class="card linkable">
+				<span class="tag-row"><span>Albelli</span></span>
+				<h3>Photo product creation snapshots</h3>
+				<p>Consumer product design work on Albelli's photo editors, including an AI-assisted feature launch.</p>
+				<span class="view">View snapshot →</span>
+			</a>
+		</div>
+	</div>
+</section>
+
+<style>
+	.more-work {
+		padding: 0 var(--space-section-inline) clamp(56px, 8vw, 96px);
+	}
+	.inner {
+		max-width: var(--content-max-width);
+		margin: 0 auto;
+		padding-top: 44px;
+		border-top: 1px solid var(--color-border);
+	}
+	.head {
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+		flex-wrap: wrap;
+		gap: 8px 20px;
+		margin-bottom: 40px;
+	}
+	h2 {
+		margin: 0;
+		font-size: clamp(24px, 3.6vw, 32px);
+		font-weight: 600;
+		letter-spacing: -0.025em;
+	}
+	.count {
+		font-family: var(--font-mono);
+		font-size: 12px;
+		color: var(--color-muted);
+	}
+	.grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+		gap: 20px;
+	}
+	.card {
+		display: flex;
+		flex-direction: column;
+		background: var(--color-cream);
+		padding: 28px;
+		border-radius: var(--radius-card);
+		color: var(--color-ink);
+		min-height: 260px;
+	}
+	a.card.linkable:hover {
+		background: #e9dfc8;
+	}
+	.tag-row {
+		display: flex;
+		align-items: baseline;
+		gap: 12px;
+		font-family: var(--font-mono);
+		font-size: 11.5px;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: var(--color-muted);
+	}
+	.badge {
+		font-size: 11px;
+		padding: 4px 9px;
+		background: var(--color-yellow);
+		color: var(--color-yellow-ink);
+	}
+	h3 {
+		margin: 14px 0 12px;
+		font-size: 21px;
+		line-height: 1.2;
+		font-weight: 600;
+		letter-spacing: -0.015em;
+	}
+	p {
+		font-family: var(--font-serif);
+		font-size: 16px;
+		line-height: 1.55;
+		color: var(--color-body);
+		margin: 0;
+	}
+	.view {
+		margin-top: auto;
+		padding-top: 24px;
+		font-family: var(--font-mono);
+		font-size: 12px;
+		color: var(--color-accent-blue);
+	}
+</style>

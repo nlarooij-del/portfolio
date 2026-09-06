@@ -1,0 +1,21 @@
+---
+interface Props {
+	min?: string;
+	gap?: string;
+	align?: 'start' | 'center' | 'end' | 'stretch';
+}
+const { min = '260px', gap = '20px', align = 'stretch' } = Astro.props;
+---
+
+<div class="columns" style={`--min:${min}; --gap:${gap}; --align:${align};`}>
+	<slot />
+</div>
+
+<style>
+	.columns {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--min)), 1fr));
+		gap: var(--gap);
+		align-items: var(--align);
+	}
+</style>

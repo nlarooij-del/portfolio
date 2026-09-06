@@ -1,0 +1,48 @@
+---
+interface Props {
+	stats: { figure: string; caption: string }[];
+	maxWidth?: string;
+}
+const { stats, maxWidth } = Astro.props;
+---
+
+<div class="grid" style={maxWidth ? `max-width:${maxWidth}` : undefined}>
+	{
+		stats.map((stat) => (
+			<div class="card">
+				<span class="figure">{stat.figure}</span>
+				<p>{stat.caption}</p>
+			</div>
+		))
+	}
+</div>
+
+<style>
+	.grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
+		gap: 24px;
+	}
+	.card {
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+		padding-top: 18px;
+		border-top: 2px solid var(--color-accent-blue);
+	}
+	.figure {
+		font-family: var(--font-sans);
+		font-size: var(--text-stat-figure);
+		font-weight: 600;
+		letter-spacing: -0.035em;
+		line-height: 1;
+		color: var(--color-accent-blue);
+	}
+	p {
+		font-family: var(--font-serif);
+		font-size: 16px;
+		line-height: 1.5;
+		color: var(--color-body);
+		margin: 0;
+	}
+</style>

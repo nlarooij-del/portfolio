@@ -1,0 +1,41 @@
+---
+// A decorative "breakout" image that widens to bleed across both grid
+// tracks of its parent row on wider screens, reverting to normal width
+// once the layout stacks to one column. The source computed this via a
+// JS-measured `oneCol` breakpoint at 620px — reimplemented here as a
+// plain media query.
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+	src: ImageMetadata;
+	alt: string;
+}
+const { src, alt } = Astro.props;
+---
+
+<div class="bleed">
+	<Image src={src} alt={alt} />
+</div>
+
+<style>
+	.bleed {
+		background: var(--pattern-hatch);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-card);
+		overflow: hidden;
+		box-sizing: border-box;
+		padding: clamp(14px, 2.4vw, 28px);
+	}
+	.bleed :global(img) {
+		width: 100%;
+		height: auto;
+		display: block;
+	}
+	@media (min-width: 620px) {
+		.bleed {
+			margin-left: calc(-100% - var(--gap-prose-lg));
+			width: calc(200% + var(--gap-prose-lg));
+		}
+	}
+</style>

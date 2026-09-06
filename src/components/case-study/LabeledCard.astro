@@ -1,0 +1,27 @@
+---
+import Eyebrow from './Eyebrow.astro';
+
+interface Props {
+	label?: string;
+}
+const { label } = Astro.props;
+---
+
+<div class="labeled-card">
+	{label && <Eyebrow>{label}</Eyebrow>}
+	<div class="body">
+		<slot />
+	</div>
+</div>
+
+<style>
+	.labeled-card {
+		display: flex;
+		flex-direction: column;
+		gap: 14px;
+		background: var(--color-white);
+		border: 1px solid var(--color-border);
+		padding: 26px;
+		border-radius: var(--radius-card);
+	}
+</style>

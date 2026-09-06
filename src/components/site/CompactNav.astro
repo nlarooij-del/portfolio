@@ -1,0 +1,195 @@
+---
+interface Props {
+	items: { label: string; href: string }[];
+	resumeHref?: string;
+	/** When true, the trigger is only shown below the nav breakpoint (landing header). */
+	responsive?: boolean;
+}
+const { items, resumeHref, responsive = false } = Astro.props;
+---
+
+<div class="compact-nav" class:list={{ responsive }} data-compact-nav>
+	<button
+		type="button"
+		class="trigger"
+		aria-label="Menu"
+		aria-expanded="false"
+		data-menu-trigger
+	>
+		<svg width="11" height="8" viewBox="0 0 11 8" fill="none" aria-hidden="true">
+			<path d="M0 0.5H11" stroke="#111111"></path>
+			<path d="M0 4H11" stroke="#111111"></path>
+			<path d="M0 7.5H11" stroke="#111111"></path>
+		</svg>
+		Menu
+	</button>
+	<nav class="panel" data-menu-panel hidden aria-label="Site">
+		{
+			items.map((item, i) => (
+				<a href={item.href} data-menu-link class:list={{ divider: i > 0 }}>
+					{item.label}
+				</a>
+			))
+		}
+		{
+			resumeHref && (
+				<a
+					href={resumeHref}
+					target="_blank"
+					rel="noopener"
+					data-menu-link
+					class="divider resume-link"
+				>
+					<svg width="12" height="12" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+						<path d="M7 0.5V9" stroke="#111111" />
+						<path d="M3.5 5.75L7 9.25L10.5 5.75" stroke="#111111" />
+						<path d="M1 13.5H13" stroke="#111111" />
+					</svg>
+					Download resume
+				</a>
+			)
+		}
+	</nav>
+</div>
+
+<style>
+	.compact-nav {
+		position: relative;
+		flex: 0 0 auto;
+	}
+	.compact-nav.responsive {
+		display: none;
+	}
+	@media (max-width: 760px) {
+		.compact-nav.responsive {
+			display: block;
+		}
+	}
+
+	.trigger {
+		display: flex;
+		align-items: center;
+		gap: 7px;
+		line-height: 1;
+		font-family: var(--font-mono);
+		font-size: 11px;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		color: var(--color-ink);
+		background: none;
+		border: 1px solid rgba(17, 17, 17, 0.3);
+		border-radius: 3px;
+		padding: 4px 9px;
+		cursor: pointer;
+	}
+	.trigger:hover {
+		border-color: var(--color-ink);
+	}
+
+	.panel {
+		position: absolute;
+		top: calc(100% + 12px);
+		right: 0;
+		z-index: var(--z-menu);
+		display: flex;
+		flex-direction: column;
+		min-width: 210px;
+		background: var(--color-white);
+		border: 1px solid var(--color-border);
+		border-radius: 5px;
+		box-shadow: var(--shadow-menu);
+		overflow: hidden;
+		font-family: var(--font-mono);
+		font-size: 12px;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+	}
+	.panel[hidden] {
+		display: none;
+	}
+
+	.panel a {
+		display: flex;
+		align-items: center;
+		gap: 9px;
+		color: var(--color-ink);
+		padding: 14px 16px;
+	}
+	.panel a.divider {
+		border-top: 1px solid var(--color-border-subtle);
+	}
+	.panel a:hover {
+		background: var(--color-surface);
+	}
+</style>
+
+<script>
+	// Improvement over the source: keyboard dismissal (Escape) + a focus trap.
+	// The source only wired aria-expanded.
+	function setupCompactNav(root: HTMLElement) {
+		const trigger = root.querySelector<HTMLButtonElement>('[data-menu-trigger]');
+		const panel = root.querySelector<HTMLElement>('[data-menu-panel]');
+		if (!trigger || !panel) return;
+
+		let lastFocused: HTMLElement | null = null;
+
+		const focusable = () =>
+			Array.from(panel.querySelectorAll<HTMLElement>('a[href], button:not([disabled])'));
+
+		const open = () => {
+			panel.hidden = false;
+			trigger.setAttribute('aria-expanded', 'true');
+			lastFocused = document.activeElement as HTMLElement | null;
+			document.addEventListener('keydown', onKeydown, true);
+			document.addEventListener('click', onOutsideClick, true);
+			const first = focusable()[0];
+			first?.focus();
+		};
+
+		const close = ({ restoreFocus = true } = {}) => {
+			if (panel.hidden) return;
+			panel.hidden = true;
+			trigger.setAttribute('aria-expanded', 'false');
+			document.removeEventListener('keydown', onKeydown, true);
+			document.removeEventListener('click', onOutsideClick, true);
+			if (restoreFocus) (lastFocused ?? trigger).focus();
+		};
+
+		const onKeydown = (e: KeyboardEvent) => {
+			if (e.key === 'Escape') {
+				e.preventDefault();
+				close();
+				return;
+			}
+			if (e.key !== 'Tab') return;
+			// Focus trap: keep Tab/Shift+Tab cycling within the panel.
+			const items = focusable();
+			if (items.length === 0) return;
+			const firstEl = items[0];
+			const lastEl = items[items.length - 1];
+			const activeEl = document.activeElement;
+			if (e.shiftKey && activeEl === firstEl) {
+				e.preventDefault();
+				lastEl.focus();
+			} else if (!e.shiftKey && activeEl === lastEl) {
+				e.preventDefault();
+				firstEl.focus();
+			}
+		};
+
+		const onOutsideClick = (e: MouseEvent) => {
+			if (!root.contains(e.target as Node)) close({ restoreFocus: false });
+		};
+
+		trigger.addEventListener('click', () => {
+			if (panel.hidden) open();
+			else close();
+		});
+
+		panel.querySelectorAll('[data-menu-link]').forEach((link) => {
+			link.addEventListener('click', () => close({ restoreFocus: false }));
+		});
+	}
+
+	document.querySelectorAll<HTMLElement>('[data-compact-nav]').forEach(setupCompactNav);
+</script>

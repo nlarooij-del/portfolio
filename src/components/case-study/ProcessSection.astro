@@ -1,0 +1,44 @@
+---
+interface Props {
+	heading: string;
+}
+const { heading } = Astro.props;
+---
+
+<section id="process" data-screen-label={heading} class="section">
+	<div class="inner">
+		<h2>{heading}</h2>
+		<div class="row">
+			<slot />
+		</div>
+	</div>
+</section>
+
+<style>
+	.section {
+		background: var(--color-surface);
+		padding: var(--space-section-block) var(--space-section-inline);
+		margin-top: var(--space-section-block);
+	}
+	.inner {
+		max-width: var(--content-max-width);
+		margin: 0 auto;
+	}
+	h2 {
+		margin: 0 0 48px;
+		font-size: var(--text-h2);
+		line-height: 1.06;
+		font-weight: 600;
+		letter-spacing: -0.03em;
+	}
+	.row {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--gap-prose-lg);
+		align-items: flex-start;
+	}
+	.row :global(> .steps) {
+		flex: 3 1 420px;
+		min-width: 0;
+	}
+</style>

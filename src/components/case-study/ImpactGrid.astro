@@ -1,0 +1,45 @@
+---
+interface Props {
+	items: { number: string; text: string }[];
+}
+const { items } = Astro.props;
+---
+
+<div class="grid">
+	{
+		items.map((item) => (
+			<div class="card">
+				<span class="number">{item.number}</span>
+				<p>{item.text}</p>
+			</div>
+		))
+	}
+</div>
+
+<style>
+	.grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
+		gap: var(--gap-card);
+	}
+	.card {
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+		padding-top: 18px;
+		border-top: 2px solid var(--color-accent-blue);
+	}
+	.number {
+		font-family: var(--font-mono);
+		font-size: 12px;
+		letter-spacing: 0.05em;
+		color: var(--color-accent-blue);
+	}
+	p {
+		font-family: var(--font-serif);
+		font-size: 17px;
+		line-height: 1.55;
+		color: var(--color-body);
+		margin: 0;
+	}
+</style>

@@ -1,0 +1,117 @@
+---
+import CompactNav from './CompactNav.astro';
+import TagStrip from './TagStrip.astro';
+
+interface Props {
+	mode: 'landing' | 'case' | 'snapshot';
+	tags: string[];
+	/** Case-study pages: jump links + trailing "All work" link. */
+	menuItems?: { label: string; href: string }[];
+	stepsTotal?: number;
+	decisionsTotal?: number;
+}
+const { mode, tags, menuItems = [], stepsTotal, decisionsTotal } = Astro.props;
+
+const landingLinks = [
+	{ label: 'Selected work', href: '/#work' },
+	{ label: 'Design philosophy', href: '/#philosophy' },
+	{ label: 'About me', href: '/#about' },
+];
+---
+
+<header class="site-header">
+	<div class="bar">
+		<a href="/" class="wordmark">
+			<span class="name">Niels Larooij</span>
+			<span class="role">Senior Product Designer</span>
+		</a>
+
+		{
+			mode === 'landing' && (
+				<>
+					<nav class="inline-nav" aria-label="Site">
+						{landingLinks.map((l) => (
+							<a href={l.href}>{l.label}</a>
+						))}
+						<a href="/resume.pdf" target="_blank" rel="noopener">
+							Resume
+						</a>
+					</nav>
+					<CompactNav
+						items={landingLinks}
+						resumeHref="/resume.pdf"
+						responsive
+					/>
+				</>
+			)
+		}
+
+		{mode === 'case' && <CompactNav items={menuItems} />}
+	</div>
+
+	<TagStrip tags={tags} stepsTotal={stepsTotal} decisionsTotal={decisionsTotal} />
+</header>
+
+<style>
+	.site-header {
+		position: sticky;
+		top: 0;
+		z-index: var(--z-header);
+		background: var(--header-glass-bg);
+		backdrop-filter: var(--header-glass-blur);
+		-webkit-backdrop-filter: var(--header-glass-blur);
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	.bar {
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 16px var(--space-section-inline);
+		gap: 16px;
+	}
+
+	.wordmark {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: baseline;
+		gap: 2px 8px;
+		text-decoration: none;
+		color: var(--color-ink);
+		min-width: 0;
+	}
+	.name {
+		font-size: clamp(15px, 2vw, 16px);
+		font-weight: 600;
+		letter-spacing: -0.01em;
+	}
+	.role {
+		font-size: clamp(15px, 2vw, 16px);
+		font-weight: 300;
+		letter-spacing: -0.01em;
+		color: var(--color-muted-alt);
+	}
+
+	.inline-nav {
+		display: flex;
+		flex-wrap: nowrap;
+		white-space: nowrap;
+		gap: 20px;
+		font-family: var(--font-mono);
+		font-size: var(--text-mono-label);
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+	}
+	.inline-nav a {
+		color: var(--color-muted);
+	}
+	.inline-nav a:hover {
+		color: var(--color-ink);
+	}
+	@media (max-width: 760px) {
+		.inline-nav {
+			display: none;
+		}
+	}
+</style>

@@ -1,0 +1,105 @@
+---
+interface Props {
+	items: { number: string; title: string; href: string }[];
+}
+const { items } = Astro.props;
+---
+
+<div class="toc">
+	{
+		items.map((item) => (
+			<a href={item.href}>
+				<span class="title">
+					<span class="number">{item.number}</span>
+					{item.title}
+				</span>
+				<span class="arrow">↓</span>
+			</a>
+		))
+	}
+</div>
+
+<script>
+	// Decisions have no sticky sidebar to own this, so a small standalone
+	// tracker computes decision progress via IntersectionObserver and feeds
+	// the tag-strip's mobile progress readout.
+	function setupDecisionProgress() {
+		const decisions = Array.from(document.querySelectorAll<HTMLElement>('.decision'));
+		if (!decisions.length) return;
+
+		const THRESHOLD = 260;
+
+		const recompute = () => {
+			let index = 0;
+			decisions.forEach((d, i) => {
+				if (d.getBoundingClientRect().top <= THRESHOLD) index = i + 1;
+			});
+			if (index > 0) {
+				window.dispatchEvent(
+					new CustomEvent('case:decision', { detail: { index, total: decisions.length } }),
+				);
+			}
+		};
+
+		let observer: IntersectionObserver;
+		const setupObserver = () => {
+			if (observer) observer.disconnect();
+			const margin = Math.max(0, window.innerHeight - THRESHOLD - 1);
+			observer = new IntersectionObserver(recompute, {
+				rootMargin: `-${THRESHOLD}px 0px -${margin}px 0px`,
+				threshold: 0,
+			});
+			decisions.forEach((d) => observer.observe(d));
+		};
+
+		setupObserver();
+		recompute();
+
+		let resizeTimer: ReturnType<typeof setTimeout>;
+		window.addEventListener('resize', () => {
+			clearTimeout(resizeTimer);
+			resizeTimer = setTimeout(() => {
+				setupObserver();
+				recompute();
+			}, 150);
+		});
+	}
+
+	setupDecisionProgress();
+</script>
+
+<style>
+	.toc {
+		display: flex;
+		flex-direction: column;
+		margin: 0 0 56px;
+		max-width: var(--measure-decision);
+	}
+	.toc a {
+		display: grid;
+		grid-template-columns: 1fr auto;
+		gap: 20px;
+		align-items: baseline;
+		padding: 14px 0;
+		border-top: 1px solid var(--color-border);
+		color: var(--color-ink);
+	}
+	.toc a:hover {
+		color: var(--color-accent-blue);
+	}
+	.title {
+		font-size: clamp(17px, 2.1vw, 19px);
+		letter-spacing: -0.01em;
+	}
+	.number {
+		font-family: var(--font-mono);
+		font-size: 12px;
+		color: var(--color-accent-blue);
+		margin-right: 12px;
+	}
+	.arrow {
+		font-family: var(--font-mono);
+		font-size: 12px;
+		opacity: 0.45;
+	}
+</style>

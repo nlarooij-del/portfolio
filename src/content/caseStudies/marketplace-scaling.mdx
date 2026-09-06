@@ -1,0 +1,270 @@
+---
+title: "Scaling a marketplace for entrepreneurs that compares third-party products"
+client: ING
+number: "003"
+disciplines: ["Ecommerce", "Usability research", "B2B"]
+summary: "Growing a marketplace that helps entrepreneurs compare third-party products the bank doesn't sell itself, validated through real usability testing (SUS 75)."
+thumbnail: ../../assets/case-003/cat-example.png
+thumbnailAlt: "ING+Partners category page"
+
+projectHeading: "The Project"
+projectSectionId: project
+meta:
+  - label: Company
+    value: ING
+  - label: When
+    value: "2018 – 2019"
+  - label: Role
+    value: "Senior UX Designer, Usability Researcher"
+  - label: Tools
+    value: "Sketch, Invision"
+inShort:
+  lead: "I stepped in when the first category was live and scaling was planned to at least 10 categories within a year to build network effect — but the existing design had usability and scalability issues that would have multiplied with every new category launched, threatening the growth plan itself. I advised a redesign."
+  boldClaim: "Scaled from 1 to 12 categories in a year and five months, cutting design-to-launch time per category from a full quarter to a two-week sprint — nine of the twelve shipped in the six months after the component system landed."
+
+heroImage: ../../assets/case-003/hero-ING-partners.png
+heroAlt: "Redesigned category and detail pages across bookkeeping, car lease and payment terminals"
+
+impact:
+  - number: "001"
+    text: "Caught and fixed usability and scalability issues before ING scaled the marketplace from 1 to 12 product categories, avoiding a costly rebuild mid-rollout."
+  - number: "002"
+    text: "Corrected a structural IA mistake (partner-first navigation) the squad had already shipped, realigning the product with how users actually expect to shop."
+  - number: "003"
+    text: "Designed a fully configurable, scalable component system that cut design-to-launch time for a new category from a full quarter to a single two-week sprint."
+  - number: "004"
+    text: "Validated the redesign with real merchants on the most complex category (payment solutions): SUS of 75, vs. an industry average of 68."
+
+processHeading: "The Process"
+stepsTotal: 7
+hasKeyFindings: false
+
+endProductHeading: "The End Product"
+decisionsTotal: 0
+
+outcomeHeading: "The Outcome"
+stats:
+  - figure: "1 → 12"
+    caption: "Categories live, from the September 2018 launch to February 2020. Nine of them shipped between June and November 2019."
+  - figure: "2 weeks"
+    caption: "Design-to-launch time per category once the component system shipped, down from a full quarter. The remaining work was adapting category-specific (meta)data."
+  - figure: "212 / 40"
+    caption: "Products from partners listed on the marketplace at its widest, across the twelve categories."
+  - figure: "200k+"
+    caption: "Visitors between September 2018 and May 2020, running at 17,863 a month once all twelve categories were live."
+  - figure: "10.8%"
+    caption: "Average click-through to partner websites, measured January 2019 to May 2020. Deals reached 20.1%, Car Lease 5.9%."
+  - figure: "3,762"
+    caption: "Products sold through the marketplace between September 2019 and March 2020, led by bookkeeping and payment terminals."
+  - figure: "SUS 75"
+    caption: "System Usability Score on the most complex category, payment solutions, against an industry average of 68."
+rolloutLabel: Rollout
+
+seoDescription: "Growing ING's third-party marketplace from 1 to 12 categories in under two years — a scalable component system cut design-to-launch time from a quarter to two weeks, validated with a SUS of 75."
+---
+
+import { getJumpLinks } from '../../lib/caseStudyNav';
+import CaseIntro from '../../components/case-study/CaseIntro.astro';
+import Eyebrow from '../../components/case-study/Eyebrow.astro';
+import HeroVisualSection from '../../components/case-study/HeroVisualSection.astro';
+import ImageBlock from '../../components/case-study/ImageBlock.astro';
+import ProjectSection from '../../components/case-study/ProjectSection.astro';
+import Columns from '../../components/case-study/Columns.astro';
+import ChallengeCards from '../../components/case-study/ChallengeCards.astro';
+import ImpactSection from '../../components/case-study/ImpactSection.astro';
+import ImpactGrid from '../../components/case-study/ImpactGrid.astro';
+import ProcessSection from '../../components/case-study/ProcessSection.astro';
+import ProcessNav from '../../components/case-study/ProcessNav.astro';
+import ProcessStep from '../../components/case-study/ProcessStep.astro';
+import EndProductSection from '../../components/case-study/EndProductSection.astro';
+import Decision from '../../components/case-study/Decision.astro';
+import SubFeatureGrid from '../../components/case-study/SubFeatureGrid.astro';
+import BeforeAfter from '../../components/case-study/BeforeAfter.astro';
+import ExtendingImpact from '../../components/case-study/ExtendingImpact.astro';
+import ExtendingItem from '../../components/case-study/ExtendingItem.astro';
+import BleedImage from '../../components/case-study/BleedImage.astro';
+import OutcomeSection from '../../components/case-study/OutcomeSection.astro';
+import Rollout from '../../components/case-study/Rollout.astro';
+
+import oldCategoryPage from '../../assets/case-003/old-category-page.png';
+import oldDetailPage from '../../assets/case-003/old-detail-page.png';
+import severityImpactList from '../../assets/case-003/severity-impact-list.png';
+import personas from '../../assets/case-003/personas-ING-partners.png';
+import newCategoryPage from '../../assets/case-003/new-category-page.png';
+import beforeAfterDetailPage from '../../assets/case-003/before-after-detail-page.png';
+import genericCardComponent from '../../assets/case-003/generic-card-component.png';
+import compareSelect from '../../assets/case-003/compare-select-composition.png';
+import visionPrototype from '../../assets/case-003/vision-prototype.png';
+import timeline from '../../assets/case-003/timeline-ING-partners.png';
+import adoption from '../../assets/case-003/adoption-ING-partners.png';
+import heroImg from '../../assets/case-003/hero-ING-partners.png';
+
+export const jumpLinks = getJumpLinks(frontmatter);
+
+<CaseIntro
+	title={frontmatter.title}
+	backHref="/#case-003"
+	meta={frontmatter.meta}
+	inShort={frontmatter.inShort}
+	jumpLinks={jumpLinks}
+/>
+
+<HeroVisualSection>
+	<ImageBlock src={heroImg} alt={frontmatter.heroAlt} variant="hatch-bleed" />
+</HeroVisualSection>
+
+<ProjectSection
+	id="project"
+	heading="The Project"
+	lede="ING Business Banking aimed to become the default relationship for entrepreneurs, by enabling a full suite of business administration functionality on a bank-agnostic platform."
+>
+	<Columns min="280px" gap="clamp(24px, 3.4vw, 40px)">
+		<p>This platform should host bank and non-banking services of ING and 3rd parties, to become future-proof against new competitors.</p>
+		<p>One of the main initiatives is a marketplace called ING + Partners. The purpose is to guide users in finding, comparing, and buying the right 3rd party solutions for their business needs in an objective manner. The business model is fee-based, the partners are responsible for their own content, and the first product range is based on rapid growth to create a network effect.</p>
+	</Columns>
+	<ChallengeCards
+		challenge="Scale the marketplace to 10+ categories in a year without usability debt compounding with every launch."
+		hmw="Redesign the category and product pages into a scalable system that works for any current or future product category, while fixing the usability issues blocking growth now."
+	/>
+	<Columns min="260px">
+		<div>
+			<Eyebrow color="blue">Old category page</Eyebrow>
+			<ImageBlock src={oldCategoryPage} alt="Old alphabetical, single-select category page" />
+		</div>
+		<div>
+			<Eyebrow color="blue">Old detail page</Eyebrow>
+			<ImageBlock src={oldDetailPage} alt="Old partner-branded detail page with pricing buried mid-page" />
+		</div>
+	</Columns>
+</ProjectSection>
+
+<ImpactSection heading="My Impact">
+	<ImpactGrid items={frontmatter.impact} />
+</ImpactSection>
+
+<ProcessSection heading="The Process">
+	<ProcessNav steps={[
+		{ id: 'desk-research', label: 'Desk research' },
+		{ id: 'expert-review', label: 'Expert review' },
+		{ id: 'benchmark', label: 'Benchmark' },
+		{ id: 'prioritize', label: 'Prioritize by impact' },
+		{ id: 'first-designs', label: 'First designs' },
+		{ id: 'persona-walkthroughs', label: 'Persona walkthroughs' },
+		{ id: 'full-design', label: 'Full design & components' },
+	]} />
+	<div class="steps">
+
+<ProcessStep id="desk-research" title="Desk research" first>
+	<p>Grounded the redesign in proven ecommerce and UX patterns for category and product pages, rather than guessing at conventions for a marketplace format that was new to ING.</p>
+</ProcessStep>
+
+<ProcessStep id="expert-review" title="Expert review">
+	<p>Ran a quick pass to locate the highest-pain areas first, so limited time went to the issues most likely to block scaling — not a full page-by-page audit.</p>
+</ProcessStep>
+
+<ProcessStep id="benchmark" title="Benchmark">
+	<p>Chose 10 competitors/ecommerce parties together with the Squad, so findings were rooted in patterns users would already recognize, not personal design preference.</p>
+</ProcessStep>
+
+<ProcessStep id="prioritize" title="Prioritize by impact, not by category">
+	<p>Findings from the previous three steps were rated on severity/impact and grouped into slices, so the Product Owner could greenlight scope by user value instead of page-by-page guesswork.</p>
+	<ImageBlock src={severityImpactList} alt="Usability findings rated on severity, impact and priority with proposed solutions" variant="hatch" />
+</ProcessStep>
+
+<ProcessStep id="first-designs" title="First designs">
+	<p>Slices with big to medium impact were approved by the Product Owner. I designed the bookkeeping category first, deliberately choosing the most-used category so the new scalable pattern would be proven under the heaviest real-world load before being rolled out anywhere else.</p>
+</ProcessStep>
+
+<ProcessStep id="persona-walkthroughs" title="Persona walkthroughs & squad review">
+	<p>Walked through the designs as each persona to surface gaps before a single line of code was written, then presented the design back to the squad as a story from each persona's perspective, so the reasoning landed, not just the screens.</p>
+	<p>The assumption personas were shaped using patterns from the actual design, to make them easy to follow and check when going through the designs. The pill elements were actual filters the user could set, and the important decision criteria were used to fill and evaluate the product cards.</p>
+	<ImageBlock src={personas} alt="Three assumption personas: starter, ZZP and MKB, with decision criteria" />
+</ProcessStep>
+
+<ProcessStep id="full-design" title="Full design & scalable components" last>
+	<p>After processing feedback from users and the squad, I finalized the design for all screen sizes and built every component to be reusable across all current and upcoming categories, instead of designing each category from scratch.</p>
+</ProcessStep>
+
+	</div>
+</ProcessSection>
+
+<EndProductSection
+	heading="The End Product"
+	intro="Two pages carry the marketplace: the category page for comparing, the product detail page for deciding. Both were rebuilt as configurable components so any future category could reuse them."
+>
+	<Decision id="product-1" badge="01" eyebrow="Compare before diving in" title="Category Page" first>
+		<p>Page that shows all products from a certain product category, with the purpose of easy comparison before diving into the details on the product detail page.</p>
+		<SubFeatureGrid>
+			<div>
+				<h4>Filters</h4>
+				<p>A smarter filter area with the possibility to choose multiple filters, see the ones selected, and remove them easily. It's also more scalable, because the pattern can be repeated endlessly — just add another (single- or multi-select) dropdown.</p>
+			</div>
+			<div>
+				<h4>Sorting</h4>
+				<p>Optimized the space by placing the label next to it and de-emphasizing it by losing the underline, because the focus should be on the products. Also changed the sorting from alphabetical to price — users came to this platform with no idea of the providers or their product names.</p>
+			</div>
+			<div>
+				<h4>Product cards</h4>
+				<p>Cleaned up the product card and created two sections for easier scanning: the header and the product details. Removed the USPs, because they weren't comparable to each other, and replaced them with three overlapping main attributes (category-dependent). Created designs for a fully configurable component.</p>
+			</div>
+		</SubFeatureGrid>
+		<BeforeAfter
+			before={{ src: oldCategoryPage, alt: 'Old category page with alphabetical, single-select filters' }}
+			after={{ src: newCategoryPage, alt: 'New category page with removable multi-select filter chips, sorted by price low to high' }}
+		/>
+	</Decision>
+
+	<Decision id="product-2" badge="02" eyebrow="Inform before deciding" title="Product Detail Page">
+		<p>Page that shows all details of a certain product, with the purpose of informing the user so they can make an informed decision before continuing to the partner website to buy the product or service.</p>
+		<SubFeatureGrid>
+			<div>
+				<h4>From partners to configurable products</h4>
+				<p>The squad had taken the wrong path. The name chosen for the project, ING + Partners, had its information architecture based on partners. This meant clicking a product and then seeing a partner page with a subset of products. By changing this into one product per detail page, the page became consistent with user expectations again.</p>
+			</div>
+			<div>
+				<h4>Focusing on the fold</h4>
+				<p>I wanted the user to have a quick overview of the product and the available information first, before diving into more in-depth information. I reached that by advocating focus on primary, summarizing content and quick navigation above the fold.</p>
+			</div>
+			<div>
+				<h4>Sticky product summary card</h4>
+				<p>Whenever users were convinced by the extra information on the detail page, they shouldn't need to start looking for the primary CTA. Next to this, the area for the detail page content was too wide for easy reading. By introducing a product summary card that always stays (sticks) in the upper right corner, both were addressed.</p>
+			</div>
+		</SubFeatureGrid>
+		<BeforeAfter
+			src={beforeAfterDetailPage}
+			alt="Detail page before and after: partner-branded page with buried pricing next to single-product page with summary card upper right"
+			labels={['Before', 'After']}
+		/>
+		<ImageBlock src={genericCardComponent} alt="Generic product card spec with extremes and rendered examples" />
+	</Decision>
+
+	<ExtendingImpact eyebrow="Beyond the two pages" title="Extending the Impact">
+		<ExtendingItem title="User testing" first>
+			<p>Set up and conducted user tests with the most complex product category: payment solutions. Received an Average System Usability Score of 75 (68 is above average), with clear insights on what could be improved.</p>
+		</ExtendingItem>
+		<ExtendingItem title="Designing compare & select">
+			<p>Let users select a sub-set of products within a category and view them side-by-side in a comparison table, instead of comparing full product pages across separate tabs. Users were already asking for it, and competitor analysis showed mature ecommerce platforms offered the same pattern for products in the consideration stage of the funnel. Desk research also showed a <strong>5% to 15%</strong> lift in conversion rates for moderate-consideration goods, which made the business case straightforward.</p>
+			<ImageBlock src={compareSelect} alt="Compare and select flow: card checkboxes, compare page and parameter table" />
+		</ExtendingItem>
+		<ExtendingItem title="Long term vision prototype">
+			<p>Advised the Product Owner on next features and bigger framework optimizations. After that, visualized it for demo purposes to stakeholders, and used it to guide the project later on.</p>
+			<BleedImage src={visionPrototype} alt="Screens from the long term vision prototype: home, topics, jobs and a topic page" />
+		</ExtendingItem>
+	</ExtendingImpact>
+</EndProductSection>
+
+<OutcomeSection
+	heading="The Outcome"
+	intro="The marketplace went from 1 to 12 categories between September 2018 and February 2020, carrying 212 products from 40 partners and drawing over 200,000 visitors in total, running at around 17,900 a month once all twelve categories were live. The first category, built before I joined, took a full quarter on its own."
+	stats={frontmatter.stats}
+>
+	<Rollout
+		label={frontmatter.rolloutLabel}
+		narrative="ING + Partners had its technical release in July 2018 and launched commercially with Bookkeeping in September 2018. I joined in November 2018, with that first category already live. Q1 2019 went to one additional category (Pin Packages), the new navigation and home page, and the scalable component system. From then on a category took a single sprint to design and launch. The pace between launches was set by partner onboarding and business decisions, not by design."
+	>
+		<Columns min="100%" gap="20px">
+			<ImageBlock src={timeline} alt="Categories, partners and products launched over time" />
+			<ImageBlock src={adoption} alt="Cumulative visitors from September 2018 to May 2020, stacked by category, passing 200,000" />
+		</Columns>
+	</Rollout>
+</OutcomeSection>

@@ -1,0 +1,43 @@
+---
+interface Props {
+	title: string;
+	body: string;
+}
+const { title, body } = Astro.props;
+---
+
+<div class="item">
+	<h3>{title}</h3>
+	<p>{body}</p>
+	<div class="images">
+		<slot />
+	</div>
+</div>
+
+<style>
+	.item {
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+		padding-top: 18px;
+		border-top: 1px solid var(--color-border);
+	}
+	h3 {
+		margin: 0;
+		font-size: clamp(18px, 2.3vw, 22px);
+		font-weight: 600;
+		letter-spacing: -0.02em;
+	}
+	p {
+		font-family: var(--font-serif);
+		font-size: 17px;
+		line-height: 1.55;
+		color: var(--color-body);
+		margin: 0;
+	}
+	.images {
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+	}
+</style>

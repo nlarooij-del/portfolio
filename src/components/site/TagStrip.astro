@@ -1,0 +1,202 @@
+---
+interface Props {
+	tags: string[];
+	/** Total process steps — enables the step-progress readout (case-study pages only). */
+	stepsTotal?: number;
+	/** Total end-product decisions — enables the decision-progress readout (case-study pages only). */
+	decisionsTotal?: number;
+}
+const { tags, stepsTotal, decisionsTotal } = Astro.props;
+---
+
+<div class="tag-strip h-scroll" data-tag-strip>
+	<span class="tags" data-tag-strip-top>
+		{tags.map((tag) => <span>{tag}</span>)}
+	</span>
+	<span class="label" data-tag-strip-label hidden></span>
+	{
+		Boolean(stepsTotal) && (
+			<span class="progress" data-tag-strip-steps hidden>
+				<span class="dots">
+					{Array.from({ length: stepsTotal ?? 0 }).map((_, i) => (
+						<span data-pstep={i + 1} />
+					))}
+				</span>
+				<span data-pstep-label />
+			</span>
+		)
+	}
+	{
+		Boolean(decisionsTotal) && (
+			<span class="progress" data-tag-strip-decisions hidden>
+				<span class="dots">
+					{Array.from({ length: decisionsTotal ?? 0 }).map((_, i) => (
+						<span data-ddot={i + 1} />
+					))}
+				</span>
+				<span data-ddot-label />
+			</span>
+		)
+	}
+</div>
+
+<style>
+	.tag-strip {
+		align-items: baseline;
+		gap: 26px;
+		padding: 10px var(--space-section-inline);
+		background: var(--color-yellow);
+		font-family: var(--font-mono);
+		font-size: var(--text-mono-label-sm);
+		font-weight: 500;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: var(--color-yellow-ink);
+	}
+
+	.tags {
+		display: flex;
+		gap: 26px;
+		flex: 0 0 auto;
+	}
+
+	.label[data-visible],
+	.progress[data-visible] {
+		animation: strip-swap 0.45s ease both;
+	}
+	.label,
+	.progress {
+		display: none;
+	}
+	.label[data-visible] {
+		display: inline;
+	}
+	.progress[data-visible] {
+		display: flex;
+	}
+
+	.progress {
+		align-items: center;
+		gap: 12px;
+		margin-left: auto;
+		flex: 0 0 auto;
+	}
+	.dots {
+		display: flex;
+		gap: 4px;
+	}
+	.dots span {
+		width: 16px;
+		height: 3px;
+		background: rgba(86, 84, 26, 0.25);
+	}
+	.dots span[data-active] {
+		background: var(--color-yellow-ink);
+	}
+
+	/* Step-progress dots duplicate the sticky ProcessNav sidebar on wide
+	   screens, so they only appear once the layout has stacked. Decision
+	   dots have no sidebar competing for space, so no width gate. */
+	[data-tag-strip-steps] {
+		display: none !important;
+	}
+	@media (max-width: 759px) {
+		[data-tag-strip-steps][data-visible] {
+			display: flex !important;
+		}
+	}
+</style>
+
+<script>
+	function setupTagStrip(strip: HTMLElement) {
+		const topEl = strip.querySelector<HTMLElement>('[data-tag-strip-top]');
+		const labelEl = strip.querySelector<HTMLElement>('[data-tag-strip-label]');
+		const stepsEl = strip.querySelector<HTMLElement>('[data-tag-strip-steps]');
+		const decisionsEl = strip.querySelector<HTMLElement>('[data-tag-strip-decisions]');
+		if (!topEl || !labelEl) return;
+
+		let scrolled = false;
+		let currentLabel = '';
+
+		const applyTopVsLabel = () => {
+			topEl.hidden = scrolled;
+			labelEl.hidden = !scrolled;
+			if (scrolled) {
+				labelEl.textContent = currentLabel;
+				labelEl.setAttribute('data-visible', '');
+			} else {
+				labelEl.removeAttribute('data-visible');
+			}
+		};
+
+		let ticking = false;
+		const onScroll = () => {
+			if (ticking) return;
+			ticking = true;
+			requestAnimationFrame(() => {
+				ticking = false;
+				const y = window.scrollY || document.documentElement.scrollTop || 0;
+				const nextScrolled = y > 140;
+
+				let label = '';
+				let sectionId = '';
+				document.querySelectorAll<HTMLElement>('[data-screen-label]').forEach((s) => {
+					const r = s.getBoundingClientRect();
+					if (r.top <= 160 && r.bottom > 160) {
+						label = s.dataset.screenLabel ?? '';
+						sectionId = s.id;
+					}
+				});
+
+				if (nextScrolled !== scrolled || label !== currentLabel) {
+					scrolled = nextScrolled;
+					currentLabel = label;
+					applyTopVsLabel();
+				}
+
+				// "process" and "core" (end-product) section ids are stable
+				// across every case study, even though their display labels vary.
+				if (stepsEl) {
+					const show = scrolled && sectionId === 'process';
+					stepsEl.hidden = !show;
+					if (show) stepsEl.setAttribute('data-visible', '');
+					else stepsEl.removeAttribute('data-visible');
+				}
+				if (decisionsEl) {
+					const show = scrolled && sectionId === 'core';
+					decisionsEl.hidden = !show;
+					if (show) decisionsEl.setAttribute('data-visible', '');
+					else decisionsEl.removeAttribute('data-visible');
+				}
+			});
+		};
+
+		window.addEventListener('scroll', onScroll, { passive: true });
+		onScroll();
+
+		// Step/decision index comes from IntersectionObserver-driven trackers
+		// elsewhere on the page (ProcessNav.astro, the decision tracker in
+		// CaseStudyLayout.astro) via custom events — the tag strip only owns
+		// visibility + the dot/label rendering.
+		window.addEventListener('case:step', (e) => {
+			const { index, total } = (e as CustomEvent).detail;
+			if (!stepsEl) return;
+			stepsEl.querySelectorAll('[data-pstep]').forEach((dot) => {
+				dot.toggleAttribute('data-active', Number(dot.getAttribute('data-pstep')) <= index);
+			});
+			const label = stepsEl.querySelector('[data-pstep-label]');
+			if (label) label.textContent = String(index).padStart(2, '0') + ' / ' + String(total).padStart(2, '0');
+		});
+		window.addEventListener('case:decision', (e) => {
+			const { index, total } = (e as CustomEvent).detail;
+			if (!decisionsEl) return;
+			decisionsEl.querySelectorAll('[data-ddot]').forEach((dot) => {
+				dot.toggleAttribute('data-active', Number(dot.getAttribute('data-ddot')) <= index);
+			});
+			const label = decisionsEl.querySelector('[data-ddot-label]');
+			if (label) label.textContent = String(index).padStart(2, '0') + ' / ' + String(total).padStart(2, '0');
+		});
+	}
+
+	document.querySelectorAll<HTMLElement>('[data-tag-strip]').forEach(setupTagStrip);
+</script>

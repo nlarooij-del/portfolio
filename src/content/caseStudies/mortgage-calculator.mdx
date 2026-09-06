@@ -1,0 +1,238 @@
+---
+title: "Designing a monthly mortgage costs calculator used on an external platform"
+client: ING
+number: "004"
+disciplines: ["Fintech calculators", "External platform integration", "Consumer-facing"]
+summary: "Designing a mortgage calculator embedded on one of the Netherlands' largest real estate platforms, turning complex costs into one clear number."
+thumbnail: ../../assets/case-004/funda-hero.png
+thumbnailAlt: "Monthly mortgage costs calculator on Funda"
+
+projectHeading: "The Project"
+projectSectionId: project
+meta:
+  - label: Company
+    value: ING
+  - label: When
+    value: "2021–2022"
+  - label: Role
+    value: "Senior UX Designer"
+  - label: Tools
+    value: "Sketch, Invision"
+inShort:
+  lead: "ING took over the monthly cost calculator from competitor De Hypotheker on the Funda platform, which has an average of 175,000 views per month. I designed the new calculator that should drive more customers into the ING mortgages funnel, working inside someone else's page and a fixed release date."
+  boldClaim: "After launch, an external agency graded the live product 7.7 on average (N=400)."
+
+impact:
+  - number: "001"
+    text: "Took over and redesigned the monthly-cost calculator embedded on Funda (175,000 views/month), ING's highest-traffic external acquisition surface for mortgages."
+  - number: "002"
+    text: "Ran a 0-measurement against the incumbent (De Hypotheker) to ground every design decision in a measurable baseline, not opinion."
+  - number: "003"
+    text: "Redesigned the input model, contact flow, and iframe navigation pattern to fit hard business and technical constraints (call-volume limits, no native dialogs) without compromising usability."
+  - number: "004"
+    text: "Negotiated contact-form logic directly with the business, cutting a request for heavy qualification logic down to a single urgency question — balancing lead quality against user friction."
+  - number: "005"
+    text: "Validated the design before build through an agency-run usability study with 8 participants, fixing what didn't work before a line of code was written."
+
+processHeading: "The Process"
+stepsTotal: 5
+hasKeyFindings: true
+
+endProductHeading: "The End Product"
+decisionsTotal: 0
+
+outcomeHeading: "The Outcome"
+stats:
+  - figure: "7.7 / 10"
+    caption: "Average report grade of the live product, measured after launch by an external agency (N=400)."
+  - figure: "175k"
+    caption: "Average monthly views on the calculator surface taken over from De Hypotheker."
+rolloutLabel: "On the numbers"
+
+seoDescription: "Designing ING's monthly mortgage-cost calculator embedded on Funda (175,000 views/month) — validated pre-launch with 8-participant usability testing and graded 7.7/10 by an external agency post-launch."
+---
+
+import { getJumpLinks } from '../../lib/caseStudyNav';
+import CaseIntro from '../../components/case-study/CaseIntro.astro';
+import Eyebrow from '../../components/case-study/Eyebrow.astro';
+import LiveUrl from '../../components/case-study/LiveUrl.astro';
+import Note from '../../components/case-study/Note.astro';
+import HeroVisualSection from '../../components/case-study/HeroVisualSection.astro';
+import ImageBlock from '../../components/case-study/ImageBlock.astro';
+import ProjectSection from '../../components/case-study/ProjectSection.astro';
+import ChallengeCards from '../../components/case-study/ChallengeCards.astro';
+import ImpactSection from '../../components/case-study/ImpactSection.astro';
+import ImpactGrid from '../../components/case-study/ImpactGrid.astro';
+import ProcessSection from '../../components/case-study/ProcessSection.astro';
+import ProcessNav from '../../components/case-study/ProcessNav.astro';
+import ProcessStep from '../../components/case-study/ProcessStep.astro';
+import Callout from '../../components/case-study/Callout.astro';
+import KeyFindings from '../../components/case-study/KeyFindings.astro';
+import EndProductSection from '../../components/case-study/EndProductSection.astro';
+import Decision from '../../components/case-study/Decision.astro';
+import BeforeAfter from '../../components/case-study/BeforeAfter.astro';
+import OutcomeSection from '../../components/case-study/OutcomeSection.astro';
+import Rollout from '../../components/case-study/Rollout.astro';
+
+import hypotherBefore from '../../assets/case-004/hypother-before.png';
+import ingAfter from '../../assets/case-004/ing-after.png';
+import evalOld from '../../assets/case-004/eval-old.png';
+import firstSketches from '../../assets/case-004/first-sketches.png';
+import usabilityTest from '../../assets/case-004/usability-test.png';
+import usabilityReport from '../../assets/case-004/usability-report-partial.png';
+import oldVsNew from '../../assets/case-004/old-vs-new.png';
+import brandingInCalc from '../../assets/case-004/branding-in-calc.png';
+import kostenKoper from '../../assets/case-004/kosten-koper-zoom.png';
+import iframeNav from '../../assets/case-004/iframe-navigation.png';
+import interviewForm from '../../assets/case-004/first-interview-form.png';
+import handoffVisual from '../../assets/case-004/handoff-visual.png';
+import agencyReport from '../../assets/case-004/partial-report-external-agency.png';
+
+export const jumpLinks = getJumpLinks(frontmatter);
+
+<CaseIntro
+	title={frontmatter.title}
+	backHref="/#case-004"
+	meta={frontmatter.meta}
+	inShort={frontmatter.inShort}
+	jumpLinks={jumpLinks}
+/>
+
+<HeroVisualSection>
+	<BeforeAfter
+		before={{ src: hypotherBefore, alt: 'The De Hypotheker monthly costs calculator on Funda', caption: 'De Hypotheker' }}
+		after={{ src: ingAfter, alt: 'The redesigned ING monthly costs calculator on Funda', caption: 'ING' }}
+	/>
+</HeroVisualSection>
+
+<ProjectSection
+	id="project"
+	heading="The Project"
+	lede='ING decided to invest in reaching customers outside of their own platforms. One of the major investments was taking over the "monthly cost calculator" from De Hypotheker on the Funda platform, which has an average of 175,000 views per month.'
+>
+	<p>I was asked to design the new monthly costs calculator that should drive more customers into the ING mortgages funnel. Next to that, I was part of the core team responsible for setting requirements while reaching the predefined release date.</p>
+	<p>I stepped into this project right from the start, with about one year of experience in the mortgages domain at ING and one year at Rabobank.</p>
+	<ChallengeCards
+		challenge="Win back the acquisition surface De Hypotheker had been running on Funda's 175,000-monthly-view calculator, and turn it into a stronger funnel into ING's own mortgage journey — without the freedom of a standalone product, since the tool would live inside someone else's page."
+		hmw="Redesign the monthly-cost calculator to convert more visitors into the ING mortgage funnel, while working within Funda's iframe constraints and the business's appetite for lead volume."
+	/>
+	<LiveUrl href="https://www.funda.nl/hypotheek/maandlasten/ing/" label="funda.nl/hypotheek/maandlasten/ing" />
+</ProjectSection>
+
+<ImpactSection heading="My Impact">
+	<ImpactGrid items={frontmatter.impact} />
+</ImpactSection>
+
+<ProcessSection heading="The Process">
+	<ProcessNav steps={[
+		{ id: 'zero-measurement', label: '0-measurement' },
+		{ id: 'journey', label: 'Clarify customer journey' },
+		{ id: 'brainstorm', label: 'Brainstorm & iterate' },
+		{ id: 'usability-testing', label: 'Usability testing' },
+		{ id: 'finalize', label: 'Finalize' },
+	]} />
+	<div class="steps">
+
+<ProcessStep id="zero-measurement" title="0-measurement current product" first>
+	<p>We did research on the reactions to the current monthly costs calculator from our competitor De Hypotheker. The end product section shows the changes made.</p>
+	<ImageBlock src={evalOld} alt="Annotated critique of the old De Hypotheker calculator on Funda" />
+</ProcessStep>
+
+<ProcessStep id="journey" title="Clarify customer journey">
+	<p>To clarify the customer journey, I planned a "Scope Canvas" workshop with the core team. The goal of the workshop is to define the parameters of a product and get everybody on the same page.</p>
+</ProcessStep>
+
+<ProcessStep id="brainstorm" title="Brainstorm & iterate">
+	<p>From the 0-measurement, the user requirements became clear, but the business and feasibility requirements were still fuzzy. To solve this, I started off with putting as many ideas as possible on paper, to make it easier to let the requirements surface and enthusiasm rise.</p>
+	<ImageBlock src={firstSketches} alt="Design iteration sequence from first ideas to the tested concept" variant="hatch" />
+</ProcessStep>
+
+<ProcessStep id="usability-testing" title="Usability testing">
+	<p>Tested the concept with 8 participants through an Invision prototype, before we started building. The prototype and research setup were done by me, but the research itself was run by an external agency: the stakes were high, so we wanted a neutral evaluation. The 7.7/10 grade came later, from a separate agency study after launch.</p>
+	<Callout tone="yellow" eyebrow="Proud moment">I decided on a research schedule of two days with two days in between, to quickly iterate and test. We got to validate our changes!</Callout>
+	<ImageBlock src={usabilityTest} alt="Prototype screen flow used in the usability tests, with the tested start screen detailed" variant="hatch" />
+</ProcessStep>
+
+<ProcessStep id="finalize" title="Finalize" last>
+	<p>Based on the research findings, I could finalize all interactions, product visuals, and pixel specifications to get it ready for development.</p>
+	<div>
+		<Eyebrow>Screenshot research report (N=8, pre-build)</Eyebrow>
+		<ImageBlock src={usabilityReport} alt="Pages from the agency usability report with participant reactions per UI element" />
+	</div>
+</ProcessStep>
+
+	</div>
+</ProcessSection>
+
+<KeyFindings heading="Key findings from the 0-measurement" intro="Five findings set the brief for the redesign — three from users, two from the business and the platform we were framed into.">
+	<div>
+		<h4>From users</h4>
+		<ul>
+			<li>Users struggled with De Hypotheker's input set — several fields weren't needed for the calculation, while a field to enter their own money or surplus house value was missing entirely.</li>
+			<li>Users wanted to see "kosten koper" (additional buyer's costs like notary fees) to judge whether their savings would actually cover the purchase.</li>
+			<li>Mobile users on Funda arrived after a large page header, leaving little room before the primary CTA — on older devices it risked falling out of view entirely.</li>
+		</ul>
+	</div>
+	<div>
+		<h4>From business / platform</h4>
+		<ul>
+			<li>The business was wary of the new form generating more calls than the team could handle, without any way to prioritize which leads to call first.</li>
+			<li>Most Funda visitors were still in their orientation phase, not ready to make an appointment on the spot.</li>
+		</ul>
+	</div>
+</KeyFindings>
+
+<EndProductSection
+	heading="The End Product"
+	intro="Six decisions carry the calculator: what users type in, what they get back, and how they move on with ING from inside someone else's page."
+>
+	<Decision id="decision-a" badge="A" eyebrow="Ask only what the calculation needs" title="Changed all input fields" first>
+		<p>Users struggled with De Hypotheker's input set: several fields weren't needed for the calculation, while a field to enter own money or surplus house value was missing entirely. To fix this, we took out the unneeded fields and split the wanted mortgage input ("gewenste hypotheekbedrag") into two: fictive bid and own money.</p>
+		<ImageBlock src={oldVsNew} alt="Old single mortgage-amount field next to the new split fictief bod and eigen inleg fields" />
+	</Decision>
+
+	<Decision id="decision-b" badge="B" eyebrow="Keep the CTA in view" title="Branding in calculator">
+		<p><strong>Technical constraint:</strong> mobile users arrived after a large page header, leaving little room before the primary CTA — on older devices it risked falling out of view entirely. I designed the logo into the result section to keep the CTA visible without adding height. On bigger devices, where space wasn't as tight, I added the option to show a brand image next to the result — I suggested a photo that looks back toward the result, to circle eye movement back to the follow-up actions.</p>
+		<BeforeAfter
+			src={brandingInCalc}
+			alt="Logo tucked into the result card on mobile, brand photo beside the result on desktop"
+			labels={['Mobile', 'Desktop']}
+		/>
+	</Decision>
+
+	<Decision id="decision-c" badge="C" eyebrow="Answer the question behind the question" title="Add missing information">
+		<p>Users wanted to know "kosten koper" — the additional costs that come with buying a house (notary costs, for example) — to judge whether their savings would cover the purchase. Adding this let users see if they had enough savings, or how much was left to put into the house.</p>
+		<ImageBlock src={kostenKoper} alt="Close-up of kosten koper in the result card" variant="hatch" />
+	</Decision>
+
+	<Decision id="decision-d" badge="D" eyebrow="No dialogs allowed" title="Solving iframe restrictions">
+		<p><strong>Technical constraint:</strong> because the calculator was framed into the Funda page, it wasn't possible to make use of dialogs. To work around that, I solved it inline by replacing the content of the card and adding back navigation — making it feel like a side-step navigation, so users don't lose direction.</p>
+		<ImageBlock src={iframeNav} alt="Disclaimer and contact form states replacing the base card, each with back navigation" />
+	</Decision>
+
+	<Decision id="decision-e" badge="E" eyebrow="Lead quality vs. user friction" title="Contact form">
+		<p><strong>Business constraint:</strong> the business was wary of the new form generating more calls than the team could handle, so (too) much qualification logic was requested. Together with the core team, I kept the logic to a minimum, and we agreed on: sending ING customers to the logged-in environment, where they could plan it in themselves, and letting non-ING customers fill in a form and be called back at a moment an ING employee had time, with a single urgency question to sort incoming requests.</p>
+		<ImageBlock src={interviewForm} alt="ING-customer self-plan path next to the non-ING callback form with its urgency question" variant="hatch" maxWidth="536px" />
+		<Note>Update: On Funda you will now find an even more simplified contact form. I wasn't involved in that part.</Note>
+	</Decision>
+
+	<Decision id="decision-f" badge="F" eyebrow="Orientation, not conversion" title="Down the rabbit hole">
+		<p>The 0-measurement showed most Funda visitors were still in their orientation phase, not ready to make an appointment on the spot. Rather than pushing for immediate conversion, we kept them moving down the funnel with ING: giving them the option to calculate if they could actually afford the house they spotted and did a monthly cost calculation for.</p>
+		<p>For this, we decided to send them to the ING website. This has benefits for usability and business purposes, because we have full control (instead of being framed into a website). On that website, they'd see a new calculator that reuses the input they already filled in on Funda, and they'd only need to answer their income(s). After that, we tried to let them continue with other mortgage orientation tools or making an appointment.</p>
+		<ImageBlock src={handoffVisual} alt="The handoff: Funda calculator to prefilled ING calculator, income only, then the outcome" variant="hatch" />
+	</Decision>
+</EndProductSection>
+
+<OutcomeSection
+	heading="The Outcome"
+	intro="After launch, an external agency measured the live product with 400 respondents: an average report grade of 7.7."
+	stats={frontmatter.stats}
+	statsMaxWidth="800px"
+>
+	<Rollout
+		label={frontmatter.rolloutLabel}
+		narrative="Exact funnel numbers weren't tracked at the time. The 7.7 rating comes from the agency's post-launch study of the live product, separate from the 8-participant usability test that preceded the build."
+	>
+		<ImageBlock src={agencyReport} alt="Agency key slide showing the calculator scored 7.3 by Funda visitors and 7.8 by users" />
+	</Rollout>
+</OutcomeSection>

@@ -1,0 +1,65 @@
+---
+// Case 004 only: a dedicated findings section between Process and End Product.
+interface Props {
+	heading: string;
+	intro: string;
+}
+const { heading, intro } = Astro.props;
+---
+
+<section id="findings" data-screen-label={heading} class="section">
+	<div class="inner">
+		<h2>{heading}</h2>
+		<p class="intro">{intro}</p>
+		<div class="groups">
+			<slot />
+		</div>
+	</div>
+</section>
+
+<style>
+	.section {
+		padding: var(--space-section-block) var(--space-section-inline) 0;
+	}
+	.inner {
+		max-width: var(--content-max-width);
+		margin: 0 auto;
+	}
+	h2 {
+		margin: 0 0 24px;
+		font-size: var(--text-h2);
+		line-height: 1.06;
+		font-weight: 600;
+		letter-spacing: -0.03em;
+	}
+	.intro {
+		font-family: var(--font-serif);
+		font-size: var(--text-lede);
+		line-height: 1.55;
+		color: var(--color-body);
+		max-width: var(--measure-intro);
+		margin: 0 0 32px;
+	}
+	.groups {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+		gap: var(--gap-prose-lg);
+	}
+	.groups :global(h4) {
+		margin: 0 0 14px;
+		font-size: var(--text-h4);
+		font-weight: 600;
+		letter-spacing: -0.015em;
+	}
+	.groups :global(ul) {
+		margin: 0;
+		padding-left: 20px;
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+		font-family: var(--font-serif);
+		font-size: 17px;
+		line-height: 1.55;
+		color: var(--color-body);
+	}
+</style>

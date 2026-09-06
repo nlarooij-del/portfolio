@@ -1,0 +1,45 @@
+---
+import Eyebrow from './Eyebrow.astro';
+
+interface Props {
+	challenge: string;
+	hmw: string;
+}
+const { challenge, hmw } = Astro.props;
+---
+
+<div class="pair">
+	<div class="card challenge">
+		<Eyebrow>Business challenge</Eyebrow>
+		<p>{challenge}</p>
+	</div>
+	<div class="card hmw">
+		<Eyebrow color="yellow-ink">How Might We</Eyebrow>
+		<p>{hmw}</p>
+	</div>
+</div>
+
+<style>
+	.pair {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+		gap: 20px;
+	}
+	.card {
+		padding: var(--pad-challenge-card);
+		border-radius: var(--radius-card);
+	}
+	.challenge {
+		background: var(--color-cream);
+	}
+	.hmw {
+		background: var(--color-yellow);
+	}
+	p {
+		font-family: var(--font-serif);
+		font-size: clamp(18px, 2.2vw, 21px);
+		line-height: 1.45;
+		color: var(--color-ink);
+		margin: 14px 0 0;
+	}
+</style>

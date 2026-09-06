@@ -1,0 +1,58 @@
+---
+import Eyebrow from './Eyebrow.astro';
+
+interface Props {
+	eyebrow?: string;
+	/** "yellow" = proud-moment / highlight box. "surface" = the light-grey "why it shipped" box. */
+	tone?: 'yellow' | 'surface';
+	heading?: string;
+}
+const { eyebrow, tone = 'yellow', heading } = Astro.props;
+---
+
+<div class="callout" class:list={[tone]}>
+	{eyebrow && <Eyebrow color={tone === 'yellow' ? 'yellow-ink' : 'muted'}>{eyebrow}</Eyebrow>}
+	{heading && <h4>{heading}</h4>}
+	<div class="body">
+		<slot />
+	</div>
+</div>
+
+<style>
+	.callout {
+		padding: 32px;
+		border-radius: var(--radius-card);
+	}
+	.callout.yellow {
+		background: var(--color-yellow);
+	}
+	.callout.surface {
+		background: var(--color-surface);
+	}
+	h4 {
+		margin: 0 0 14px;
+		font-size: var(--text-h4);
+		font-weight: 600;
+		letter-spacing: -0.015em;
+	}
+	.body {
+		font-family: var(--font-serif);
+		font-size: var(--text-body);
+		line-height: 1.6;
+		color: var(--color-body);
+	}
+	.callout.yellow .body {
+		font-size: clamp(18px, 2.2vw, 21px);
+		line-height: 1.45;
+		color: var(--color-ink);
+	}
+	.callout :global(.eyebrow) {
+		margin-bottom: 14px;
+	}
+	.body :global(p) {
+		margin: 0;
+	}
+	.body :global(> * + *) {
+		margin-top: 1em;
+	}
+</style>

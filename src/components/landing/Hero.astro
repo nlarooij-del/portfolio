@@ -1,0 +1,139 @@
+---
+const chips = [
+	{ href: '#principle-1', label: 'Fix the system' },
+	{ href: '#principle-2', label: 'Make the abstract tangible' },
+	{ href: '#principle-3', label: "Fast when it's cheap to be wrong" },
+	{ href: '#principle-4', label: "I'll loop anybody in" },
+];
+---
+
+<section id="top" data-screen-label="Hero" class="hero">
+	<div class="inner">
+		<h1>
+			<span class="serif">Complexity, untangled.</span>
+			<span class="bold">Clarity, delivered.</span>
+		</h1>
+		<p class="lede">
+			<span class="highlight">10+ years of turning fintech</span> complexity into simple design at
+			Adyen, ING, and Rabobank. I ship, I coach, and I partner tightly with PMs.
+		</p>
+
+		<div class="chips h-scroll">
+			{
+				chips.map((chip) => (
+					<a href={chip.href}>{chip.label}</a>
+				))
+			}
+		</div>
+
+		<div class="ctas">
+			<a href="#work" class="cta-primary">
+				<svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+					<rect x="0.5" y="0.5" width="5" height="5" stroke="#f4ef4f"></rect>
+					<rect x="8.5" y="0.5" width="5" height="5" stroke="#f4ef4f"></rect>
+					<rect x="0.5" y="8.5" width="5" height="5" stroke="#f4ef4f"></rect>
+					<rect x="8.5" y="8.5" width="5" height="5" fill="#f4ef4f"></rect>
+				</svg>
+				View my work
+			</a>
+			<a href="/resume.pdf" target="_blank" rel="noopener" class="cta-secondary">
+				<svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+					<path d="M7 0.5V9" stroke="#111111"></path>
+					<path d="M3.5 5.75L7 9.25L10.5 5.75" stroke="#111111"></path>
+					<path d="M1 13.5H13" stroke="#111111"></path>
+				</svg>
+				Download resume
+			</a>
+		</div>
+	</div>
+</section>
+
+<style>
+	.hero {
+		position: relative;
+		overflow: hidden;
+		background: var(--gradient-hero);
+		padding: clamp(56px, 9vw, 112px) var(--space-section-inline) clamp(56px, 8vw, 96px);
+	}
+	.inner {
+		max-width: var(--content-max-width);
+		margin: 0 auto;
+	}
+	h1 {
+		margin: 0;
+		max-width: 15ch;
+		font-size: var(--text-landing-h1);
+		line-height: 0.99;
+		letter-spacing: -0.035em;
+		font-weight: 400;
+		text-wrap: pretty;
+	}
+	.serif {
+		font-family: var(--font-serif);
+		font-weight: 300;
+	}
+	.bold {
+		display: block;
+		font-weight: 600;
+	}
+	.lede {
+		font-family: var(--font-serif);
+		font-size: var(--text-lede);
+		line-height: 1.5;
+		color: var(--color-body);
+		max-width: var(--measure-hero-lede);
+		margin: clamp(24px, 3vw, 36px) 0 0;
+	}
+	.highlight {
+		background: var(--color-yellow);
+	}
+	.chips {
+		gap: 8px;
+		margin: 40px 0 0;
+	}
+	.chips a {
+		font-family: var(--font-mono);
+		font-size: 11.5px;
+		letter-spacing: 0.03em;
+		flex: 0 0 auto;
+		padding: 7px 13px;
+		border: 1px solid rgba(17, 17, 17, 0.22);
+		border-radius: var(--radius-pill);
+		color: var(--color-ink);
+	}
+	.chips a:hover {
+		background: rgba(255, 255, 255, 0.6);
+		border-color: var(--color-ink);
+	}
+	.ctas {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 14px;
+		margin: 56px 0 0;
+	}
+	.ctas a {
+		display: inline-flex;
+		align-items: center;
+		gap: 9px;
+		font-family: var(--font-mono);
+		font-size: clamp(12px, 2.4vw, 13px);
+		padding: clamp(10px, 2.2vw, 14px) clamp(14px, 3.4vw, 22px);
+		border-radius: 4px;
+	}
+	.cta-primary {
+		background: var(--color-ink);
+		color: var(--color-white);
+	}
+	.cta-primary:hover {
+		background: var(--color-accent-blue);
+		color: var(--color-white);
+	}
+	.cta-secondary {
+		color: var(--color-ink);
+		border: 1px solid rgba(17, 17, 17, 0.3);
+	}
+	.cta-secondary:hover {
+		border-color: var(--color-ink);
+		background: rgba(255, 255, 255, 0.6);
+	}
+</style>

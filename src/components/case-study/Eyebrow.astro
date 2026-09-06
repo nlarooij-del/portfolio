@@ -1,0 +1,30 @@
+---
+interface Props {
+	color?: 'muted' | 'blue' | 'yellow-ink';
+	as?: 'span' | 'div';
+}
+const { color = 'muted', as: Tag = 'span' } = Astro.props;
+---
+
+<Tag class:list={['eyebrow', color]}>
+	<slot />
+</Tag>
+
+<style>
+	.eyebrow {
+		display: block;
+		font-family: var(--font-mono);
+		font-size: var(--text-mono-label-sm);
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+	}
+	.muted {
+		color: var(--color-muted);
+	}
+	.blue {
+		color: var(--color-accent-blue);
+	}
+	.yellow-ink {
+		color: var(--color-yellow-ink);
+	}
+</style>

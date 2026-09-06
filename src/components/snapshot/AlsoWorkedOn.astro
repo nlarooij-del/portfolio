@@ -1,0 +1,57 @@
+---
+interface Props {
+	intro: string;
+}
+const { intro } = Astro.props;
+---
+
+<section id="also" data-screen-label="Also worked on" class="also">
+	<div class="inner">
+		<div class="head">
+			<h2>Also worked on</h2>
+			<p>{intro}</p>
+		</div>
+		<div class="items">
+			<slot />
+		</div>
+	</div>
+</section>
+
+<style>
+	.also {
+		background: var(--color-surface);
+		padding: var(--space-section-block) var(--space-section-inline) clamp(56px, 8vw, 96px);
+		margin-top: var(--space-section-block);
+	}
+	.inner {
+		max-width: var(--content-max-width);
+		margin: 0 auto;
+	}
+	.head {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+		gap: var(--gap-prose-lg);
+		align-items: end;
+		padding-bottom: 48px;
+	}
+	h2 {
+		margin: 0;
+		font-size: var(--text-h2);
+		line-height: 1.06;
+		font-weight: 600;
+		letter-spacing: -0.03em;
+	}
+	.head p {
+		font-family: var(--font-serif);
+		font-size: var(--text-lede);
+		line-height: 1.5;
+		color: var(--color-body);
+		margin: 0;
+		max-width: 54ch;
+	}
+	.items {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 32px 40px;
+	}
+</style>

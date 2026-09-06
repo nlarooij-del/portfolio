@@ -1,0 +1,75 @@
+---
+import Eyebrow from './Eyebrow.astro';
+
+interface Props {
+	label: string;
+	narrative: string;
+}
+const { label, narrative } = Astro.props;
+---
+
+<div class="rollout">
+	<div class="narrative">
+		<Eyebrow>{label}</Eyebrow>
+		<p>{narrative}</p>
+	</div>
+	<div class="extra">
+		<slot />
+	</div>
+</div>
+
+<style>
+	.rollout {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+		gap: var(--gap-prose-lg);
+		align-items: start;
+		padding-top: 44px;
+		border-top: 1px solid var(--color-border);
+	}
+	.narrative :global(.eyebrow) {
+		margin-bottom: 12px;
+	}
+	.narrative p {
+		font-family: var(--font-serif);
+		font-size: 17px;
+		line-height: 1.55;
+		color: var(--color-body);
+		margin: 0;
+	}
+	.extra {
+		min-width: 0;
+	}
+	.extra :global(table) {
+		min-width: 520px;
+		width: 100%;
+		border-collapse: collapse;
+		font-family: var(--font-mono);
+		font-size: 13px;
+		color: var(--color-body);
+		background: var(--color-white);
+	}
+	.extra :global(th) {
+		text-align: left;
+		padding: 12px 14px;
+		border-bottom: 1px solid var(--color-dot);
+		font-weight: 500;
+		font-size: 11px;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: var(--color-muted);
+	}
+	.extra :global(td) {
+		padding: 11px 14px;
+		border-bottom: 1px solid var(--color-border);
+	}
+	.extra :global(th:last-child),
+	.extra :global(td:last-child) {
+		text-align: right;
+	}
+	.extra > :global(div) {
+		min-width: 0;
+		overflow-x: auto;
+		-webkit-overflow-scrolling: touch;
+	}
+</style>

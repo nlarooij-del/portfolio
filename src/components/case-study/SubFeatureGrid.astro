@@ -1,0 +1,29 @@
+---
+// A grid of h4/p pairs — used where a decision breaks down into a few
+// named sub-features (e.g. filters / sorting / saved views).
+---
+
+<div class="grid">
+	<slot />
+</div>
+
+<style>
+	.grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
+		gap: var(--gap-card);
+	}
+	.grid :global(h4) {
+		margin: 0 0 8px;
+		font-size: var(--text-h4);
+		font-weight: 600;
+		letter-spacing: -0.015em;
+	}
+	.grid :global(p) {
+		margin: 0;
+		font-family: var(--font-serif);
+		font-size: 16px;
+		line-height: 1.55;
+		color: var(--color-body);
+	}
+</style>

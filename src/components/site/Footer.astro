@@ -1,0 +1,44 @@
+---
+interface Props {
+	/** Landing page shows plain text; case-study/snapshot pages link the name back home. */
+	linkHome?: boolean;
+}
+const { linkHome = false } = Astro.props;
+---
+
+<footer class="site-footer">
+	{linkHome ? <a href="/">Niels Larooij</a> : <span>Niels Larooij</span>}
+	<span>Senior Product Designer</span>
+</footer>
+
+<style>
+	.site-footer {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: 6px 26px;
+		padding: 12px var(--space-section-inline);
+		border-top: 1px solid rgba(17, 17, 17, 0.16);
+		background: linear-gradient(
+			90deg,
+			#a8d1f7 0%,
+			#c3dcf7 34%,
+			#dce7ee 62%,
+			#efe9d8 88%,
+			#f6f1e3 100%
+		);
+		font-family: var(--font-mono);
+		font-size: var(--text-mono-label-sm);
+		font-weight: 500;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: var(--color-body);
+	}
+	.site-footer a {
+		color: var(--color-body);
+	}
+	.site-footer a:hover {
+		color: var(--color-ink);
+	}
+</style>

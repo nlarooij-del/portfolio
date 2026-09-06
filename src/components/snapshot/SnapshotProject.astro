@@ -1,0 +1,130 @@
+---
+interface Props {
+	id: string;
+	number: string;
+	title: string;
+	roleTag: string;
+	problem: string;
+	whatIDid: string;
+	whyItMattered: string;
+	first?: boolean;
+	last?: boolean;
+}
+const { id, number, title, roleTag, problem, whatIDid, whyItMattered, first = false, last = false } =
+	Astro.props;
+---
+
+<section id={id} data-screen-label={title} class="project" class:list={{ first, last }}>
+	<div class="inner">
+		<div class="heading">
+			<span class="badge">{number}</span>
+			<h2>{title}</h2>
+			<span class="role">{roleTag}</span>
+		</div>
+		<div class="triad">
+			<div>
+				<span class="eyebrow">The problem</span>
+				<p>{problem}</p>
+			</div>
+			<div>
+				<span class="eyebrow">What I did</span>
+				<p>{whatIDid}</p>
+			</div>
+			<div>
+				<span class="eyebrow">Why it mattered</span>
+				<p>{whyItMattered}</p>
+			</div>
+		</div>
+		<div class="images">
+			<slot />
+		</div>
+	</div>
+</section>
+
+<style>
+	.project {
+		padding: var(--space-section-block) var(--space-section-inline) 0;
+	}
+	.project:not(.first) .inner {
+		padding-top: 44px;
+		border-top: 1px solid var(--color-border);
+	}
+	.project.last {
+		background: var(--color-surface);
+		margin-top: var(--space-section-block);
+		padding-bottom: clamp(56px, 8vw, 96px);
+	}
+	.inner {
+		max-width: var(--content-max-width);
+		margin: 0 auto;
+	}
+	.heading {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 8px 11px;
+		margin: 0 0 28px;
+	}
+	.badge {
+		flex: 0 0 auto;
+		font-family: var(--font-mono);
+		font-size: 12px;
+		letter-spacing: 0.06em;
+		color: var(--color-accent-blue);
+		border: 1px solid rgba(31, 92, 245, 0.4);
+		border-radius: var(--radius-pill);
+		padding: 5px 11px;
+	}
+	h2 {
+		margin: 0;
+		font-size: clamp(26px, 4.4vw, 40px);
+		line-height: 1.06;
+		font-weight: 600;
+		letter-spacing: -0.03em;
+	}
+	.role {
+		margin-left: auto;
+		font-family: var(--font-mono);
+		font-size: 11.5px;
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+		color: var(--color-muted);
+	}
+	.triad {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
+		gap: clamp(24px, 3vw, 32px);
+		padding-bottom: 40px;
+	}
+	.triad > div {
+		padding-top: 16px;
+		border-top: 2px solid var(--color-accent-blue);
+	}
+	.eyebrow {
+		display: block;
+		font-family: var(--font-mono);
+		font-size: 11px;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: var(--color-muted);
+	}
+	.triad p {
+		font-family: var(--font-serif);
+		font-size: 17px;
+		line-height: 1.55;
+		color: var(--color-body);
+		margin: 12px 0 0;
+	}
+	.images {
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+	}
+	.images :global(p) {
+		font-family: var(--font-serif);
+		font-size: var(--text-body);
+		line-height: 1.6;
+		color: var(--color-body);
+		margin: 0;
+	}
+</style>

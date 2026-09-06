@@ -1,0 +1,40 @@
+---
+interface Props {
+	heading: string;
+	intro: string;
+}
+const { heading, intro } = Astro.props;
+---
+
+<section id="core" data-screen-label={heading} class="section">
+	<div class="inner">
+		<h2>{heading}</h2>
+		<p class="intro">{intro}</p>
+		<slot />
+	</div>
+</section>
+
+<style>
+	.section {
+		padding: var(--space-section-block) var(--space-section-inline) 0;
+	}
+	.inner {
+		max-width: var(--content-max-width);
+		margin: 0 auto;
+	}
+	h2 {
+		margin: 0 0 24px;
+		font-size: var(--text-h2);
+		line-height: 1.06;
+		font-weight: 600;
+		letter-spacing: -0.03em;
+	}
+	.intro {
+		font-family: var(--font-serif);
+		font-size: var(--text-lede);
+		line-height: 1.55;
+		color: var(--color-body);
+		margin: 0 0 32px;
+		max-width: var(--measure-intro);
+	}
+</style>

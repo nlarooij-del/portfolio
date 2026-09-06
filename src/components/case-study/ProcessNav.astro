@@ -1,0 +1,132 @@
+---
+interface Props {
+	steps: { id: string; label: string }[];
+}
+const { steps } = Astro.props;
+---
+
+<nav class="process-nav" aria-label="Process steps" data-process-nav>
+	{
+		steps.map((step, i) => (
+			<a href={`#${step.id}`}>
+				<span class="index">{String(i + 1).padStart(2, '0')}</span>
+				{step.label}
+			</a>
+		))
+	}
+</nav>
+
+<style>
+	.process-nav {
+		flex: 1 1 200px;
+		position: sticky;
+		top: var(--scroll-margin-case);
+		align-self: flex-start;
+		display: flex;
+		flex-direction: column;
+	}
+	@media (max-width: 759px) {
+		.process-nav {
+			position: static;
+		}
+	}
+
+	.process-nav a {
+		position: relative;
+		display: flex;
+		align-items: baseline;
+		gap: 12px;
+		padding: 10px 0;
+		border-top: 1px solid var(--color-border);
+		font-family: var(--font-mono);
+		font-size: 12.5px;
+		letter-spacing: 0.02em;
+		color: var(--color-muted);
+		transition: color 0.2s ease;
+	}
+	.process-nav a:hover {
+		color: var(--color-ink);
+	}
+	.process-nav .index {
+		color: var(--color-accent-blue);
+	}
+	.process-nav a[data-active] {
+		color: var(--color-ink);
+		font-weight: 500;
+	}
+	.process-nav a[data-active]::before {
+		content: '';
+		position: absolute;
+		left: -14px;
+		top: 10px;
+		bottom: 10px;
+		width: 2px;
+		background: var(--color-accent-blue);
+	}
+</style>
+
+<script>
+	// Active step + progress readout, driven by IntersectionObserver instead
+	// of a scroll listener (the source used a `scroll` handler for this).
+	function setupProcessNav(nav: HTMLElement) {
+		const links = Array.from(nav.querySelectorAll<HTMLAnchorElement>('a'));
+		const steps = Array.from(document.querySelectorAll<HTMLElement>('.process-step'));
+		if (!steps.length) return;
+
+		const THRESHOLD = 240;
+
+		const recompute = () => {
+			let activeId = '';
+			for (const step of steps) {
+				const r = step.getBoundingClientRect();
+				if (r.top <= THRESHOLD && r.bottom > THRESHOLD) {
+					activeId = step.id;
+					break;
+				}
+			}
+			if (!activeId) {
+				const first = steps[0].getBoundingClientRect();
+				const last = steps[steps.length - 1].getBoundingClientRect();
+				if (first.top > THRESHOLD && first.top < window.innerHeight) activeId = steps[0].id;
+				else if (last.bottom <= THRESHOLD) activeId = steps[steps.length - 1].id;
+			}
+
+			links.forEach((a) => {
+				const on = a.getAttribute('href') === '#' + activeId;
+				a.toggleAttribute('data-active', on);
+			});
+
+			const index = steps.findIndex((s) => s.id === activeId) + 1;
+			if (index > 0) {
+				window.dispatchEvent(
+					new CustomEvent('case:step', { detail: { index, total: steps.length } }),
+				);
+			}
+		};
+
+		let observer: IntersectionObserver;
+		const setupObserver = () => {
+			if (observer) observer.disconnect();
+			const margin = Math.max(0, window.innerHeight - THRESHOLD - 1);
+			observer = new IntersectionObserver(recompute, {
+				rootMargin: `-${THRESHOLD}px 0px -${margin}px 0px`,
+				threshold: 0,
+			});
+			steps.forEach((s) => observer.observe(s));
+		};
+
+		setupObserver();
+		recompute();
+
+		let resizeTimer: ReturnType<typeof setTimeout>;
+		window.addEventListener('resize', () => {
+			clearTimeout(resizeTimer);
+			resizeTimer = setTimeout(() => {
+				setupObserver();
+				recompute();
+			}, 150);
+		});
+	}
+
+	document.querySelectorAll<HTMLElement>('[data-process-nav]').forEach(setupProcessNav);
+</script>

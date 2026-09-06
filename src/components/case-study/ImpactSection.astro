@@ -1,0 +1,30 @@
+---
+interface Props {
+	heading?: string;
+}
+const { heading = 'My Impact' } = Astro.props;
+---
+
+<section id="impact" data-screen-label={heading} class="section">
+	<div class="inner">
+		<h2>{heading}</h2>
+		<slot />
+	</div>
+</section>
+
+<style>
+	.section {
+		padding: var(--space-section-block) var(--space-section-inline) 0;
+	}
+	.inner {
+		max-width: var(--content-max-width);
+		margin: 0 auto;
+	}
+	h2 {
+		margin: 0 0 44px;
+		font-size: var(--text-h2);
+		line-height: 1.06;
+		font-weight: 600;
+		letter-spacing: -0.03em;
+	}
+</style>

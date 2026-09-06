@@ -1,0 +1,113 @@
+---
+title: "Photo product creation snapshots"
+client: Albelli
+number: "003"
+intro: "Quick impressions of consumer product design work on Albelli's photo editors and adjacent tools, each a small standalone snapshot rather than a full case study."
+tags: ["Personalised photo products", "Editors", "AI hand-off", "Cross-sell"]
+seoDescription: "Consumer product design snapshots from Albelli: a unified online editor, Smart Assistant AI hand-off, a Windows editor redesign, and cross-sell touchpoints for stored photos."
+---
+
+import SnapshotIntro from '../../components/snapshot/SnapshotIntro.astro';
+import SnapshotProject from '../../components/snapshot/SnapshotProject.astro';
+import Eyebrow from '../../components/case-study/Eyebrow.astro';
+import Stack from '../../components/case-study/Stack.astro';
+import Columns from '../../components/case-study/Columns.astro';
+import ImageBlock from '../../components/case-study/ImageBlock.astro';
+
+import onlineEditor1 from '../../assets/snapshot-003/online-editor-1.png';
+import onlineEditor2 from '../../assets/snapshot-003/online-editor-2.png';
+import smartAssistant from '../../assets/snapshot-003/smart-assistant.png';
+import windowsEditor1 from '../../assets/snapshot-003/windows-editor-1.png';
+import windowsEditorBreadth from '../../assets/snapshot-003/windows-editor-breadth.png';
+import photoOrganizer from '../../assets/snapshot-003/photo-organizer.png';
+import photoOrganizer1 from '../../assets/snapshot-003/photo-organizer-1.png';
+import photoOrganizer3 from '../../assets/snapshot-003/photo-organizer-3.png';
+
+<SnapshotIntro
+	title={frontmatter.title}
+	backHref="/#snapshot-3"
+	intro={frontmatter.intro}
+	jumpLinks={[
+		{ label: 'Online Editor', href: '#online-editor' },
+		{ label: 'Smart Assistant', href: '#smart-assistant' },
+		{ label: 'Windows Editor', href: '#windows-editor' },
+		{ label: 'Photo Organizer', href: '#photo-organizer' },
+	]}
+/>
+
+<SnapshotProject
+	id="online-editor"
+	number="01"
+	title="Online Editor Ready for Photobooks"
+	roleTag="Senior UX Designer, UX Researcher"
+	problem="The Online (HTML5) editor was built first for simpler Albelli products (calendars, mugs, etc.), which needed far fewer editing options. That setup didn't scale 1-on-1 to photobooks, which needed much richer editing — so photobook customers were stuck with an editor designed for a simpler job."
+	whatIDid="Redesigned the editor architecture and validated it with customers across all product types, so the same foundation could support both simple products and photobooks' greater complexity without forking the codebase."
+	whyItMattered="Gave Albelli one editor platform instead of divergent ones per product line — photobook customers got the editing depth they needed, while calendar and mug customers kept the simplicity that suited them."
+	first
+>
+	<Stack gap="10px">
+		<Eyebrow>Simple product editor</Eyebrow>
+		<ImageBlock src={onlineEditor1} alt="A greeting card in the same online editor, with fewer options exposed" />
+	</Stack>
+	<ImageBlock src={onlineEditor2} alt="Editor overview with the interaction states of one left-menu tab in detail" />
+</SnapshotProject>
+
+<SnapshotProject
+	id="smart-assistant"
+	number="02"
+	title="Integration of Smart Assistant"
+	roleTag="Senior UX Designer, UX Researcher"
+	problem="Albelli had bought an AI engine (Smart Assistant) that could select the best photos from a big batch and auto-build a photobook — but it needed to slot into two existing, structurally different editors (Windows and Mac) without feeling bolted on."
+	whatIDid="Designed how the AI hand-off worked in both editors, cutting the customer's input down to a small number of meaningful choices (like layout style) rather than exposing the AI's full complexity."
+	whyItMattered="Turned a technically impressive but abstract capability into something a non-technical customer could trust in a few clicks — the layout-choice pattern became the template for how AI decisions got surfaced elsewhere in the editor."
+>
+	<Columns min="280px" gap="clamp(24px, 3.4vw, 40px)" align="start">
+		<p>From the Windows Editor flow — one of the few choices the user needed to make to let the Smart Assistant create a photobook for them: choosing a layout style (Volledige foto's, Paginavullend, or Playful).</p>
+		<ImageBlock src={smartAssistant} alt="The choose-options step of the Smart Assistant with three layout style cards" />
+	</Columns>
+</SnapshotProject>
+
+<SnapshotProject
+	id="windows-editor"
+	number="03"
+	title="Windows Editor Re-design"
+	roleTag="Senior UX Designer, UX Researcher"
+	problem="The Windows editor's UI had aged visibly against newer consumer products, and needed a refresh — but within the constraints of an existing development stack, not a rebuild."
+	whatIDid="Redesigned the editor's visual and interaction language end-to-end (canvas, layout tools, preview, order flow), working within the technical limits of what the current stack could ship."
+	whyItMattered="Modernized the customer-facing product without triggering a costly platform rewrite — proof that a design refresh could hit a real quality bar inside real engineering constraints."
+>
+	<Stack gap="10px">
+		<Eyebrow>Redesigned canvas</Eyebrow>
+		<ImageBlock src={windowsEditor1} alt="The redesigned Windows editor canvas with photo panel, page thumbnails and order bar" />
+	</Stack>
+	<Stack gap="10px">
+		<Eyebrow>Breadth across the redesign</Eyebrow>
+		<ImageBlock src={windowsEditorBreadth} alt="Breadth across the redesign: spread preview, order preparation and the blog surface" variant="hatch" />
+	</Stack>
+</SnapshotProject>
+
+<SnapshotProject
+	id="photo-organizer"
+	number="04"
+	title="Photo Organizer"
+	roleTag="Senior UX Designer"
+	problem="Albelli had acquired Minnebanken (Norway), whose photo-storage service held large volumes of customer photos that mostly just sat there unused — a missed opportunity to turn stored memories into purchases."
+	whatIDid="Designed personalised cross-sell touchpoints (uploads-complete moments, dashboard suggestions, product cards) that surfaced relevant photo products based on what customers had already stored."
+	whyItMattered="Converted a passive storage habit into a purchase trigger, giving Minnebanken customers a low-friction reason to come back and buy — directly extending the acquisition's commercial value."
+	last
+>
+	<Stack gap="10px">
+		<Eyebrow>The trigger moment</Eyebrow>
+		<ImageBlock src={photoOrganizer} alt="The your-uploads-are-complete cross-sell moment" />
+	</Stack>
+	<Columns min="260px">
+		<Stack gap="10px">
+			<Eyebrow>Mobile dashboard</Eyebrow>
+			<ImageBlock src={photoOrganizer1} alt="The mobile photo organizer dashboard with recent uploads and product offers" />
+		</Stack>
+		<Stack gap="10px">
+			<Eyebrow>Photo detail</Eyebrow>
+			<ImageBlock src={photoOrganizer3} alt="A photo detail view with its personalised product offer alongside" />
+		</Stack>
+	</Columns>
+</SnapshotProject>

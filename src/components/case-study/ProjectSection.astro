@@ -1,0 +1,62 @@
+---
+interface Props {
+	id: string;
+	heading: string;
+	lede: string;
+}
+const { id, heading, lede } = Astro.props;
+---
+
+<section id={id} data-screen-label={heading} class="section">
+	<div class="inner">
+		<div class="head">
+			<h2>{heading}</h2>
+			<p class="lede">{lede}</p>
+		</div>
+		<div class="body">
+			<slot />
+		</div>
+	</div>
+</section>
+
+<style>
+	.section {
+		padding: var(--space-section-block) var(--space-section-inline) 0;
+	}
+	.inner {
+		max-width: var(--content-max-width);
+		margin: 0 auto;
+	}
+	.head {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+		gap: var(--gap-prose-lg);
+		align-items: end;
+		padding-bottom: 40px;
+		border-bottom: 1px solid var(--color-border);
+	}
+	h2 {
+		margin: 0;
+		font-size: var(--text-h2);
+		line-height: 1.06;
+		font-weight: 600;
+		letter-spacing: -0.03em;
+	}
+	.lede {
+		font-family: var(--font-serif);
+		font-size: clamp(19px, 2.6vw, 26px);
+		line-height: 1.4;
+		color: var(--color-ink);
+		margin: 0;
+		max-width: 46ch;
+	}
+	.body {
+		display: flex;
+		flex-direction: column;
+		gap: 40px;
+		padding: 40px 0;
+	}
+	.body :global(p) {
+		margin: 0;
+	}
+</style>

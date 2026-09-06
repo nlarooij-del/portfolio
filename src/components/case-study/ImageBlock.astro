@@ -1,0 +1,48 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+	src: ImageMetadata;
+	alt: string;
+	/**
+	 * plain — no frame
+	 * card — white card, border, radius (the usual choice for step/decision screenshots)
+	 * hatch — blue hatch-pattern background, padded on all sides
+	 * hatch-bleed — hatch background, padded sides/top only, image bleeds off the bottom
+	 */
+	variant?: 'plain' | 'card' | 'hatch' | 'hatch-bleed';
+	maxWidth?: string;
+}
+const { src, alt, variant = 'card', maxWidth } = Astro.props;
+---
+
+<div class="frame" class:list={[variant]} style={maxWidth ? `--max-w:${maxWidth}` : undefined}>
+	<Image src={src} alt={alt} />
+</div>
+
+<style>
+	.frame :global(img) {
+		width: 100%;
+		height: auto;
+		display: block;
+		max-width: var(--max-w, none);
+		margin-inline: auto;
+	}
+	.card {
+		background: var(--color-white);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-card);
+		overflow: hidden;
+	}
+	.hatch {
+		background: var(--pattern-hatch);
+		border: 1px solid var(--color-border);
+		border-radius: var(--radius-card);
+		padding: 28px;
+	}
+	.hatch-bleed {
+		background: var(--pattern-hatch);
+		padding: clamp(16px, 3vw, 40px) clamp(16px, 3vw, 40px) 0;
+	}
+</style>

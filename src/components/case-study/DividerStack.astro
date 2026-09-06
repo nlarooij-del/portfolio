@@ -1,0 +1,27 @@
+---
+// A vertical list of items separated by a top border, first item flush.
+// Used for "Experience principles" / "Key learnings" style h4+p groupings.
+---
+
+<div class="divider-stack">
+	<slot />
+</div>
+
+<style>
+	.divider-stack {
+		display: flex;
+		flex-direction: column;
+	}
+	.divider-stack > :global(*) {
+		padding: 20px 0;
+	}
+	.divider-stack > :global(*:first-child) {
+		padding-top: 0;
+	}
+	.divider-stack > :global(*:last-child) {
+		padding-bottom: 0;
+	}
+	.divider-stack > :global(* + *) {
+		border-top: 1px solid var(--color-border);
+	}
+</style>

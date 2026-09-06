@@ -1,13 +1,16 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import vercel from '@astrojs/vercel';
+import mdx from '@astrojs/mdx';
+import remarkGfm from 'remark-gfm';
 
 // https://astro.build/config
 export default defineConfig({
-	// Server output is required for the "Currently listening" server island
-	// (NowPlayingContent.astro) to actually get an on-demand Vercel Function —
-	// every other page opts back into static prerendering individually via
-	// `export const prerender = true`.
-	output: 'server',
+	// Fully static: no server islands, no client-side framework runtime.
+	output: 'static',
 	adapter: vercel(),
+	integrations: [mdx()],
+	markdown: {
+		remarkPlugins: [remarkGfm],
+	},
 });

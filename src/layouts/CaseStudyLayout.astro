@@ -1,0 +1,23 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import { getMenuItems } from '../lib/caseStudyNav';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+	entry: CollectionEntry<'caseStudies'>;
+}
+const { entry } = Astro.props;
+const data = entry.data;
+---
+
+<BaseLayout
+	title={`${data.title} — Niels Larooij`}
+	description={data.seoDescription ?? data.summary}
+	mode="case"
+	tags={data.disciplines}
+	menuItems={getMenuItems(data)}
+	stepsTotal={data.stepsTotal}
+	decisionsTotal={data.decisionsTotal}
+>
+	<slot />
+</BaseLayout>

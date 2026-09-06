@@ -1,0 +1,132 @@
+---
+title: "Other mortgage project snapshots"
+client: ING
+number: "002"
+intro: "Focused snapshots of additional mortgage-domain work — smaller in scope than the full case studies, but each one solving a real problem for ING customers or the business."
+tags: ["Mortgages", "Calculators", "Customer journey", "A/B experiments"]
+seoDescription: "Smaller mortgage-domain projects at ING: a customer-journey demo, reusable calculator result cards, A/B-tested widgets, and the Home Hub framework."
+---
+
+import { Image } from 'astro:assets';
+import SnapshotIntro from '../../components/snapshot/SnapshotIntro.astro';
+import SnapshotProject from '../../components/snapshot/SnapshotProject.astro';
+import Eyebrow from '../../components/case-study/Eyebrow.astro';
+import Stack from '../../components/case-study/Stack.astro';
+import Columns from '../../components/case-study/Columns.astro';
+import ImageBlock from '../../components/case-study/ImageBlock.astro';
+import AlsoWorkedOn from '../../components/snapshot/AlsoWorkedOn.astro';
+import AlsoWorkedOnItem from '../../components/snapshot/AlsoWorkedOnItem.astro';
+
+import journeyInExcel from '../../assets/snapshot-002/journey-in-excel.png';
+import desirePhase from '../../assets/snapshot-002/desire-phase.png';
+import interactiveDeck from '../../assets/snapshot-002/interactive-deck.png';
+import resultCard from '../../assets/snapshot-002/result-card.png';
+import experimentDesktop from '../../assets/snapshot-002/experiment-desktop.png';
+import experimentMobile from '../../assets/snapshot-002/experiment-mobile.png';
+import wantedUxPattern from '../../assets/snapshot-002/wanted-ux-pattern.png';
+import homehub from '../../assets/snapshot-002/homehub.png';
+import boh from '../../assets/snapshot-002/boh.png';
+import affordableHomeNugget from '../../assets/snapshot-002/affordable-home-nugget.png';
+import resultPageBoi from '../../assets/snapshot-002/result-page-boi.png';
+import composer from '../../assets/snapshot-002/composer.png';
+import houseValueTool from '../../assets/snapshot-002/house-value-tool.png';
+import interestTool from '../../assets/snapshot-002/interest-tool.png';
+import raiseToRenovate from '../../assets/snapshot-002/raise-to-renovate.png';
+
+<SnapshotIntro
+	title={frontmatter.title}
+	backHref="/#snapshot-2"
+	intro={frontmatter.intro}
+	jumpLinks={[
+		{ label: 'Journey Demo', href: '#journey-demo' },
+		{ label: 'Calculator Result Cards', href: '#result-cards' },
+		{ label: 'Max Mortgage Widget', href: '#max-widget' },
+		{ label: 'Home Hub', href: '#home-hub' },
+		{ label: 'Also worked on', href: '#also' },
+	]}
+/>
+
+<SnapshotProject
+	id="journey-demo"
+	number="01"
+	title="Journey Demo"
+	roleTag="Senior UX Designer, Presenter"
+	problem="ING's mortgage products existed as separate tools, but customers move through one continuous journey (Scope → Purchase). Upper management had little visibility into how those products connected, or a reason to prioritize joining them up."
+	whatIDid="Built an interactive prototype walking through the full journey (Scope, Awareness, Orientation, Desire, Advice, Purchase), showing concrete sub-flows like a Ghost account (nudging Enzo to validate his calculations with an advisor) and the Bid calculator (turning a walk through his dream neighbourhood into a monthly-cost check that led him to want advisor confirmation)."
+	whyItMattered="Presenting this to upper management made the fragmentation visible and gave them a shared reference for the journey — it became a tool for aligning stakeholders on cross-product strategy, not just a prototype demo."
+	first
+>
+	<ImageBlock src={journeyInExcel} alt="The customer journey map with the desire phase, as management saw it" />
+	<ImageBlock src={desirePhase} alt="The desire phase as a real screen: can I buy the home I dream of?" />
+	<ImageBlock src={interactiveDeck} alt="The interactive deck and its screen flow as presented to upper management" />
+</SnapshotProject>
+
+<SnapshotProject
+	id="result-cards"
+	number="02"
+	title="Calculator Result Cards"
+	roleTag="Senior UX Designer"
+	problem="Each mortgage calculator had its own result card. Once users had run two or three in one session, they'd end up looking at several separate cards and losing track of which numbers still applied."
+	whatIDid="Designed one reusable result card that accumulates results as users complete each calculator — always showing the current combined picture instead of a pile of past ones."
+	whyItMattered="Cut confusion at the exact moment users needed confidence to book an advisor appointment — and the pattern got reused across other mortgage processes, so this one decision paid off multiple times over."
+>
+	<ImageBlock src={resultCard} alt="Several standalone result cards next to the single accumulating card" />
+</SnapshotProject>
+
+<SnapshotProject
+	id="max-widget"
+	number="03"
+	title="Max Mortgage Widget"
+	roleTag="Senior UX Designer"
+	problem={`The "Hypotheek berekenen" widget gave users a quick max-mortgage result, but the appointment CTA wasn't clearly converting as well as it could.`}
+	whatIDid="Designed and prepared A/B experiments to test it: on mobile, a stripped-back variant (removed title inputs, header, and explanation text, with a higher-contrast background) to get the appointment CTA above the fold; on desktop, a parallel test of the same above-the-fold hypothesis. I also proposed a bigger structural change — consistent with how the widget appeared elsewhere in the flow — as the preferred long-term direction, flagging it as harder to align stakeholders on."
+	whyItMattered='Moved the widget from "improve based on opinion" to "improve based on tested hypotheses," while being upfront about which change was quick to ship versus which needed more buy-in.'
+>
+	<Stack gap="10px">
+		<Eyebrow>Desktop variant</Eyebrow>
+		<ImageBlock src={experimentDesktop} alt="Annotated desktop variant of the max mortgage widget experiment" />
+	</Stack>
+	<Stack gap="10px">
+		<Eyebrow>Mobile variant</Eyebrow>
+		<ImageBlock src={experimentMobile} alt="Annotated mobile variant of the max mortgage widget experiment" />
+	</Stack>
+	<Stack gap="10px">
+		<Eyebrow>Wanted pattern</Eyebrow>
+		<ImageBlock src={wantedUxPattern} alt="The wanted UX pattern with the appointment action inline next to the primary CTA" />
+	</Stack>
+</SnapshotProject>
+
+<SnapshotProject
+	id="home-hub"
+	number="04"
+	title="Home Hub"
+	roleTag="Senior UX Designer"
+	problem="Home Hub supported the orientation and advice phases well, but had no equivalent for the purchase phase — the point where customers most needed continuity, not a dead end."
+	whatIDid="Advised on and visualized how to extend the existing Home Hub framework — saved calculator progress, relevant articles and tips, appointment prep — so the same structure could carry a customer through the purchase phase too."
+	whyItMattered="Gave customers one consistent home for their mortgage journey end-to-end, instead of the experience resetting right when they were closest to a decision."
+	last
+>
+	<ImageBlock src={homehub} alt="The Home Hub framework: orientation, appointment and purchase steps" />
+</SnapshotProject>
+
+<AlsoWorkedOn intro="Smaller pieces of the same mortgage domain — solid, functional work, one level down from the four above.">
+	<AlsoWorkedOnItem title="Bid Calculator" body='Reworked the one-off costs step ("Eenmalige kosten") to meet new regulatory requirements while keeping the total legible and trustworthy.'>
+		<ImageBlock src={boh} alt="The Eenmalige kosten breakdown building to one total" />
+		<ImageBlock src={affordableHomeNugget} alt="The affordability nugget: can you afford your new home?" />
+	</AlsoWorkedOnItem>
+	<AlsoWorkedOnItem title="Max Mortgage Calculator" body='Rearranged the results page to add a "save progress" action without overwhelming the primary action or adding clutter.'>
+		<ImageBlock src={resultPageBoi} alt="Mijn maximale hypotheek result page with annotations for the save action" />
+	</AlsoWorkedOnItem>
+	<AlsoWorkedOnItem title="Mortgage Composer Widget" body="Restructured a dense one-page form into a multi-step flow, bringing it in line with ING's newer UX patterns.">
+		<ImageBlock src={composer} alt="The mortgage composer flow: entitlement, hypotheekvorm, aflossingsvorm and overview" />
+	</AlsoWorkedOnItem>
+	<AlsoWorkedOnItem title="House Value Tool" body='Designed "Je woningwaarde weten" as an honest, positive on-ramp into the mortgage funnel.'>
+		<ImageBlock src={houseValueTool} alt="The house value tool with its mobile and desktop compositions annotated" />
+	</AlsoWorkedOnItem>
+	<AlsoWorkedOnItem title="Interest Tool" body='Turned a manual interest-rate matrix ("Je renteoverzicht") into a guided, self-serve overview.'>
+		<ImageBlock src={interestTool} alt="Je renteoverzicht as a guided overview, annotated for desktop and mobile" />
+	</AlsoWorkedOnItem>
+	<AlsoWorkedOnItem title="Raise to Renovate" body="Designed the full flow, from eligibility check to result options, letting customers self-orient on raising their mortgage to fund a renovation.">
+		<ImageBlock src={raiseToRenovate} alt="The raise-to-renovate flow with its four possible result options" />
+	</AlsoWorkedOnItem>
+</AlsoWorkedOn>

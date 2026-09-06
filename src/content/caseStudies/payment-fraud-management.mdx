@@ -1,0 +1,355 @@
+---
+title: "Simplify payment fraud management, when introducing an AI-powered core"
+client: Adyen
+number: "002"
+disciplines: ["Risk & Compliance", "ML/AI", "Enterprise dashboards"]
+summary: "Redesigning how merchants understand and act on machine-learning risk decisions, as fraud detection shifted to an AI-powered core."
+thumbnail: ../../assets/case-002/hero-2-95795668.png
+thumbnailAlt: "Machine learning fraud risk threshold"
+
+projectHeading: "The Problem"
+projectSectionId: problem
+meta:
+  - label: Company
+    value: Adyen
+  - label: When
+    value: "2023–2025"
+  - label: Responsibilities
+    value: "End-to-end design and validation, supported by a UX Writer"
+  - label: Tools
+    value: Figma
+inShort:
+  lead: "Redesigned Adyen's fraud-management product to introduce AI-powered risk profiles, replacing a rigid rule system that was blocking both merchant usability and Adyen's AI roadmap. Validated the new interaction through two rounds of testing before a single line of code shipped, de-risking a company-wide rollout."
+  boldClaim: "99% of merchants and 90% of traffic moved to AI-powered profiles, with false declines down 33% and fraud coverage up 16% — proving the simplification didn't cost accuracy."
+
+heroImage: ../../assets/case-002/protect-hero.png
+heroAlt: "The new rule-management interface with the AI evaluation explanation open"
+
+impact:
+  - number: "001"
+    text: "Designed the three core interactions: action-based rules, AI configuration and AI integration, along with all related features, interactions, and screens needed to make the move of traffic possible."
+  - number: "002"
+    text: "Validated the core concepts of those interactions through qualitative testing before development, preventing the team from investing engineering capacity in the wrong solution."
+  - number: "003"
+    text: "De-risked the transition to the new interaction by building confidence early, enabling a pilot and phased rollout to all merchants."
+  - number: "004"
+    text: "Identified a second, deeper risk surfaced in testing — merchants' trust in the AI's own output, not just its controls — and scoped and led a follow-up initiative to redesign the payment-level AI evaluation explanation."
+
+processHeading: "My Process"
+stepsTotal: 5
+hasKeyFindings: false
+
+endProductHeading: "End product decisions"
+decisionsTotal: 6
+
+outcomeHeading: "The Outcomes"
+stats:
+  - figure: "99%"
+    caption: "of merchants and 90% of traffic moved to AI-powered profiles within 2,5 years — validating the phased-rollout approach de-risked the transition as intended."
+  - figure: "33%"
+    caption: "False declines dropped, addressing the trust-loss problem surfaced in testing."
+  - figure: "+10%"
+    caption: "The AI-evaluation-explanation redesign — the follow-up initiative I scoped and led — shipped end of 2024, unblocking rollout to high-usage companies by avoiding an estimated +10% surge in Protect-related support tickets."
+  - figure: "16%"
+    caption: "Fraud coverage improved, despite the shift away from score-based rules — answering the concern merchants raised in concept testing."
+  - figure: "86%"
+    caption: "Enterprise accounts reduced their manual risk-rule overhead by 86% on average, and over a third of merchants eliminated manual rules entirely, relying fully on Adyen's automated machine-learning layer to manage traffic risk."
+rolloutLabel: Rollout
+
+seoDescription: "Redesigning Adyen's fraud-management product to introduce AI-powered risk profiles, replacing a rigid rule system — 99% of merchants moved to AI-powered profiles with false declines down 33%."
+---
+
+import { getJumpLinks } from '../../lib/caseStudyNav';
+import CaseIntro from '../../components/case-study/CaseIntro.astro';
+import Eyebrow from '../../components/case-study/Eyebrow.astro';
+import HeroVisualSection from '../../components/case-study/HeroVisualSection.astro';
+import ImageBlock from '../../components/case-study/ImageBlock.astro';
+import ProjectSection from '../../components/case-study/ProjectSection.astro';
+import Columns from '../../components/case-study/Columns.astro';
+import Stack from '../../components/case-study/Stack.astro';
+import DividerStack from '../../components/case-study/DividerStack.astro';
+import ChallengeCards from '../../components/case-study/ChallengeCards.astro';
+import ImpactSection from '../../components/case-study/ImpactSection.astro';
+import ImpactGrid from '../../components/case-study/ImpactGrid.astro';
+import ProcessSection from '../../components/case-study/ProcessSection.astro';
+import ProcessNav from '../../components/case-study/ProcessNav.astro';
+import ProcessStep from '../../components/case-study/ProcessStep.astro';
+import LabeledCard from '../../components/case-study/LabeledCard.astro';
+import Callout from '../../components/case-study/Callout.astro';
+import EndProductSection from '../../components/case-study/EndProductSection.astro';
+import DecisionToc from '../../components/case-study/DecisionToc.astro';
+import Decision from '../../components/case-study/Decision.astro';
+import BeforeAfter from '../../components/case-study/BeforeAfter.astro';
+import Quote from '../../components/case-study/Quote.astro';
+import OutcomeSection from '../../components/case-study/OutcomeSection.astro';
+import Rollout from '../../components/case-study/Rollout.astro';
+
+import scopeCanvas from '../../assets/case-002/scope-canvas-partial.png';
+import simplifiedProcessSteps from '../../assets/case-002/simplified-process-steps.png';
+import customerJourney from '../../assets/case-002/customer-journey.png';
+import crazy8 from '../../assets/case-002/crazy-8-examples.png';
+import prototypeFlow from '../../assets/case-002/prototype-flow.jpg';
+import reuseTabsBefore from '../../assets/case-002/reuse-tabs-before.png';
+import reuseTabsAfter from '../../assets/case-002/reuse-tabs-after.jpg';
+import riskResultBefore from '../../assets/case-002/risk-result-before.png';
+import riskResultAfter from '../../assets/case-002/risk-result-after.jpg';
+import sortingByImpact from '../../assets/case-002/sorting-by-impact.png';
+import aiConfiguration from '../../assets/case-002/AI-configuration.png';
+import protectHero from '../../assets/case-002/protect-hero.png';
+import aiEvalBefore from '../../assets/case-002/ai-evaluation-before.png';
+import aiEvalAfter from '../../assets/case-002/ai-evaluation-after.png';
+
+export const jumpLinks = getJumpLinks(frontmatter);
+
+<CaseIntro
+	title={frontmatter.title}
+	backHref="/#case-002"
+	meta={frontmatter.meta}
+	inShort={frontmatter.inShort}
+	jumpLinks={jumpLinks}
+/>
+
+<HeroVisualSection>
+	<ImageBlock src={protectHero} alt={frontmatter.heroAlt} variant="hatch-bleed" />
+</HeroVisualSection>
+
+<ProjectSection
+	id="problem"
+	heading="The Problem"
+	lede="Protect, Adyen's fraud-prevention product, helped merchants prevent payment fraud specific to their business through the manual creation of risk rules."
+>
+	<Columns min="250px" gap="clamp(24px, 3.4vw, 40px)">
+		<p>The product was originally built for internal risk officers, but was later sold directly to merchants. That shift exposed a mismatch: an expert tool now in the hands of non-experts. The experience remained highly manual, overly complex, and offered limited transparency into how or why rules worked.</p>
+		<p>More importantly, one of Protect's core interactions, score-based risk rules, had become a structural blocker. It limited how much AI capability they could build into it, and by extension, into Adyen's entire suite of conversion optimization products.</p>
+		<p>Underneath the interaction redesign sat a second, related risk: even with simplified rules, merchants had to trust the AI's own output — not just operate the new controls.</p>
+	</Columns>
+	<ChallengeCards
+		challenge="We need current merchants to move all their traffic to AI-powered profiles as fast as possible, while the underlying AI capabilities are still maturing."
+		hmw="Simplify the payment fraud management experience when introducing AI-powered profiles and a new core interaction: action-based rules."
+	/>
+</ProjectSection>
+
+<ImpactSection heading="My Impact">
+	<ImpactGrid items={frontmatter.impact} />
+</ImpactSection>
+
+<ProcessSection heading="My Process">
+	<ProcessNav steps={[
+		{ id: 'kick-off', label: 'Kick-off' },
+		{ id: 'gather-inspiration', label: 'Gather inspiration' },
+		{ id: 'synthesize', label: 'Synthesize for action' },
+		{ id: 'generate-ideas', label: 'Generate ideas' },
+		{ id: 'test-to-learn', label: 'Test to learn' },
+	]} />
+	<div class="steps">
+
+<ProcessStep id="kick-off" title="Kick-off" first>
+	<p>Kicked off with a scope-canvas workshop (PMs, Tech Leads) to align on how differently merchants prioritize and manage risk — a divide that shaped every decision downstream.</p>
+	<ImageBlock src={scopeCanvas} alt="Scope canvas from the kick-off workshop" />
+</ProcessStep>
+
+<ProcessStep id="gather-inspiration" title="Gather inspiration">
+	<p>Ran heuristic evaluation, competitor analysis, desk research on UX guidelines for AI interactions, a review of previous internal research and CSAT findings, and exploratory talks with Adyen's risk specialists.</p>
+	<Columns min="260px">
+		<LabeledCard label="Key drivers of dissatisfaction and usability issues">
+			<ul>
+				<li>Payment fraud management isn't a high priority for all companies</li>
+				<li>Weak fraud-detection performance</li>
+				<li>Companies differ significantly in both how much they prioritize risk and how they manage it, regardless of size — the result is a user base with very different needs and expectations</li>
+				<li>Unclear cause-and-effect of score-based rules</li>
+				<li>Limited self-serve analytics</li>
+				<li>Limited, overly expert explanations</li>
+			</ul>
+		</LabeledCard>
+		<Stack gap="20px">
+			<LabeledCard label="Helpful AI experience guidelines">
+				<ul>
+					<li>Favor correction over configuration, but only if the default is good enough</li>
+					<li>Show how corrections affect output</li>
+					<li>Offer lightweight explanations</li>
+					<li>Make limitations visible</li>
+					<li>Build trust incrementally</li>
+				</ul>
+			</LabeledCard>
+			<Callout tone="yellow">Merchants didn't trust AI by default: their workflows rely on understanding why a transaction was blocked, and AI didn't offer that explanation.</Callout>
+		</Stack>
+	</Columns>
+</ProcessStep>
+
+<ProcessStep id="synthesize" title="Synthesize for action">
+	<Stack gap="28px">
+		<div>
+			<Eyebrow>Archetypes</Eyebrow>
+			<p>Payment manager (generalist, team of 1, sets up once &amp; forgets, reactive) · Risk specialist (expert, dedicated risk team, monitoring daily, proactive) · Adyen's risk specialist (internal, great for early setup, coaching, and iteration — but validated later with real merchants)</p>
+		</div>
+		<div>
+			<Eyebrow>Experience principles</Eyebrow>
+			<DividerStack>
+				<div>
+					<h4>Trust through performance and transparency</h4>
+					<p>Merchants don't trust AI by default, especially given the old rules' weak performance and opaque cause-and-effect. So we show how input affects output and make limitations visible, building trust incrementally.</p>
+				</div>
+				<div>
+					<h4>Lightweight setup and maintenance</h4>
+					<p>Built for expert risk officers but sold to a disparate merchant base, the old flow couldn't serve everyone, so we favor correction over configuration, as long as the default is good enough.</p>
+				</div>
+				<div>
+					<h4>Sense of control</h4>
+					<p>Merchants need to explain blocked transactions and act on them, not just observe, so users can correct or adjust without full manual configuration.</p>
+				</div>
+			</DividerStack>
+		</div>
+		<Stack gap="28px">
+			<Stack gap="10px">
+				<Eyebrow>The simplified risk management cycle</Eyebrow>
+				<ImageBlock src={simplifiedProcessSteps} alt="The simplified risk management cycle: detection, investigation, confirmation, refinement and mitigation" variant="hatch" />
+			</Stack>
+			<Stack gap="10px">
+				<Eyebrow>Journey mapping across two merchant segments</Eyebrow>
+				<ImageBlock src={customerJourney} alt="Journey maps for existing support merchants and automated risk merchants" />
+			</Stack>
+		</Stack>
+	</Stack>
+</ProcessStep>
+
+<ProcessStep id="generate-ideas" title="Generate ideas">
+	<p>Ran Crazy-8-style ideation across three key concepts (action-based risk rules, AI positioning, AI configuration), narrowing with two PMs and two Tech Leads down to the strongest 2–4 ideas per concept ahead of testing.</p>
+	<ImageBlock src={crazy8} alt="Crazy 8 sketches: impact, risk strategy, merchant sector" variant="hatch" />
+	<div>
+		<p>Rejected above dynamically adjusted versions, because:</p>
+		<ol>
+			<li>likely too advanced for us to build (fast)</li>
+			<li>Needed a high level of trust from there end (less control)</li>
+		</ol>
+		<p>But great input to discuss with engineering where we it likely needs to be able to scale too.</p>
+	</div>
+</ProcessStep>
+
+<ProcessStep id="test-to-learn" title="Test to learn" last>
+	<div>
+		<Eyebrow>Setup</Eyebrow>
+		<ul>
+			<li>First round: testing with 5 Adyen risk specialists, using static screens</li>
+			<li>Second round: 1-on-1 sessions with 12 merchants, using a concept prototype; participants completed set tasks, followed by an interview</li>
+		</ul>
+	</div>
+	<ImageBlock src={prototypeFlow} alt="Simplified prototype flow" />
+	<div>
+		<Eyebrow>Key learnings</Eyebrow>
+		<DividerStack>
+			<div>
+				<h4><em>Action-based risk rules</em></h4>
+				<p>Participants had no issue with the new interaction, but questioned whether action-based rules could still achieve the same fraud coverage as before, since the simplified approach, while easier to use, is also inherently more limited.</p>
+			</div>
+			<div>
+				<h4><em>AI configuration</em></h4>
+				<p>In the old setup, a payment was blocked when the total of score-based rules triggered exceeded 100. Introducing an AI score between 0 and 100 risked reinforcing the false idea that AI worked like a score-based rule. This was made worse by users simultaneously having to adjust to action-based risk rules.</p>
+			</div>
+			<div>
+				<h4><em>Interaction with and integration of AI</em></h4>
+				<p>Participants didn't notice that AI was saved as a rule after configuration. Once made aware, reactions were varied but mild.</p>
+			</div>
+			<div>
+				<h4><em>AI evaluation</em></h4>
+				<p>Merchants desperately wanted to understand the AI evaluation on a payment level, and lost trust quickly: just a couple of wrongfully blocked transactions without explanation made them want to move traffic away. This became the starting point for a follow-up initiative I scoped and led — see "AI evaluation explanation" below.</p>
+			</div>
+		</DividerStack>
+	</div>
+	<p>Power users were very interested in having AI evaluation available as a logic condition in custom rules, to fill any fraud coverage gaps.</p>
+</ProcessStep>
+
+	</div>
+</ProcessSection>
+
+<EndProductSection
+	heading="End product decisions"
+	intro="The end product is best explained through the six decisions that shaped it. Each one covers what changed, why we chose it, and what the research or testing behind it said. I go through them one by one below."
+>
+	<DecisionToc items={[
+		{ number: '01', title: 'Re-use the tabs to represent the new hierarchy of actions', href: '#decision-1' },
+		{ number: '02', title: 'AI as just another risk rule', href: '#decision-2' },
+		{ number: '03', title: 'Introduce sorting by impact', href: '#decision-3' },
+		{ number: '04', title: 'Introduce four blocking thresholds', href: '#decision-4' },
+		{ number: '05', title: 'Show expected impact', href: '#decision-5' },
+		{ number: '06', title: 'Redesign the payment-level AI evaluation explanation', href: '#decision-6' },
+	]} />
+
+	<Decision id="decision-1" badge="01" eyebrow="Action-based risk rules" title="Re-use the tabs to represent the new hierarchy of actions" first>
+		<p>The risk result is decided by the highest priority rule that triggers — Allow rules have a higher priority than Block, followed by Review, etc. Reusing the existing tab structure let us introduce the new action hierarchy without asking merchants to relearn a new layout, while also minimizing implementation effort for development. Validated usability during concept testing.</p>
+		<BeforeAfter
+			before={{ src: reuseTabsBefore, alt: 'Score-based profile with its long custom rule set', caption: 'Average enterprise account 100+ rules' }}
+			after={{ src: reuseTabsAfter, alt: 'Action-based profile with Allow, Block, Review and Check for 3DS tabs', caption: '~20 rules' }}
+		/>
+		<BeforeAfter
+			before={{ src: riskResultBefore, alt: 'Score-based risk results page with total risk score and triggered rules', caption: 'Score math' }}
+			after={{ src: riskResultAfter, alt: 'Action-based risk result showing the blocking rule and its reasoning', caption: 'Blocked because of X rule' }}
+		/>
+	</Decision>
+
+	<Decision id="decision-2" badge="02" eyebrow="Interaction with and integration of AI" title="AI as just another risk rule">
+		<p>Research showed there would be a small learning curve, but with many advantages. We decided to move forward with AI as just another risk rule, since it could reuse existing interaction patterns, minimizing cognitive load as well as development effort now and in the future (e.g. self-serve analytics could reuse the same patterns).</p>
+	</Decision>
+
+	<Decision id="decision-3" badge="03" eyebrow="Interaction with and integration of AI" title="Introduce sorting by impact">
+		<p>Sorting by impact highlights the outsized effect AI has, visually placing it at the top of the list. This also created a natural path toward a deeper dive into further analytics.</p>
+		<ImageBlock src={sortingByImpact} alt="Impact-sorted rule list with AI rules at the top" variant="hatch" />
+	</Decision>
+
+	<Decision id="decision-4" badge="04" eyebrow="AI configuration" title="Introduce four blocking thresholds">
+		<div>
+			<p>There are five possible AI evaluation levels, but only four can be used as blocking thresholds — a very low option is technically possible, but would block all traffic.</p>
+			<ul>
+				<li>No scores, to avoid confusion with the mental model of the old score-based rules (learning from concept testing)</li>
+				<li>Limited choices, to learn if more are needed</li>
+				<li>Abstract labeling to keep focus on impact, while usable to share AI evaluation after the payment</li>
+			</ul>
+		</div>
+		<ImageBlock src={aiConfiguration} alt="Four-threshold selector with backtest chart" variant="hatch" maxWidth="640px" />
+	</Decision>
+
+	<Decision id="decision-5" badge="05" eyebrow="AI configuration" title="Show expected impact">
+		<p>Users can backtest the AI thresholds on a chosen merchant, starting with block rate and eventually expanding to all relevant metrics. This was essential, since Adyen can't share its "secret sauce" or explain it in a lightweight way.</p>
+		<ImageBlock src={protectHero} alt="Final, polished screens of the rule-management interface" variant="hatch-bleed" />
+	</Decision>
+
+	<Decision id="decision-6" badge="06" eyebrow="AI evaluation explanation — a follow-up initiative I scoped and led" title="Redesign the payment-level AI evaluation explanation">
+		<p>Testing surfaced a second risk beyond the interaction redesign itself: merchants didn't just need to operate the new AI controls, they needed to trust the AI's own output. Just a couple of wrongfully blocked transactions without explanation was enough to make them want to move traffic away. I scoped this into a follow-up initiative to redesign how that evaluation is explained at the payment level.</p>
+		<Columns min="260px">
+			<Quote attribution="Payment Manager X">"I got customer complaints that good users were being blocked by the AI — that's when I took a step back."</Quote>
+			<Quote attribution="E-commerce Manager Y">"At the end of the day, when somebody asks me why, I need to have an answer — if machine learning does something, there needs to be an output of why."</Quote>
+		</Columns>
+		<BeforeAfter
+			before={{ src: aiEvalBefore, alt: 'Fraud signal analysis screen listing raw signals without explanation', caption: 'No explanation' }}
+			after={{ src: aiEvalAfter, alt: 'Machine learning fraud risk level signals grouped by strength', caption: 'Reasoning surfaced' }}
+		/>
+		<Callout tone="surface" heading="Why this had to ship before scale, not after">
+			<Columns min="280px" gap="clamp(24px, 3.4vw, 40px)">
+				<p>Testing and pilot data flagged that unexplained blocks would become a major blocker at scale — so this redesign shipped ahead of that exposure, not in response to an active support crisis.</p>
+				<Stack gap="14px">
+					<p>It unlocked two things for Payment Experts: spot-checking allowed and blocked transactions to fine-tune thresholds or add custom rules for their own business logic, and explaining blocked payments to customers directly, without looping in the risk team. The next problem it surfaced — feeding that feedback back into Protect automatically — was scoped for later.</p>
+					<p>The impact shows up in the rollout numbers below.</p>
+				</Stack>
+			</Columns>
+		</Callout>
+	</Decision>
+</EndProductSection>
+
+<OutcomeSection
+	heading="The Outcomes"
+	intro="The action-based rules and AI-configuration flow shipped to a pilot group of merchants in July 2023. We scaled the new product across 4,000 low usage companies in 2024, to roll it out to all Protect merchants progressively through 2025."
+	stats={frontmatter.stats}
+>
+	<Rollout label={frontmatter.rolloutLabel} narrative="Phased across merchant segments, from a ten-account pilot to 99% of Protect merchants.">
+		<div>
+			| When | Milestone | How many (rounded) | Accumulated |
+			|---|---|---:|---:|
+			| H2 2023 | Pilot | 10 | |
+			| Q1 2024 | Extended pilot | +40 | 50 |
+			| Q2 2024 | Long tail | +3000 | 3500 |
+			| Q3 2024 | AM pool | +500 | 4000 |
+			| Q4 2024 | Net new companies | - | - |
+			| H1 2025 | Self serve | +3000 | 7000 |
+			| H2 2025 | Risk Specialist supported | +3000 | 10000 (99%) |
+		</div>
+	</Rollout>
+</OutcomeSection>

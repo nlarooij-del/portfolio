@@ -6,6 +6,9 @@
 	--coral: #ff6b4a;
 	--leaf: #8bc34a;
 	--lavender: #c9a6ff;
+	--surface: #fff;
+	--muted: #555555;
+	--shadow-color: var(--ink);
 
 	--font-display: "Baloo 2", system-ui, sans-serif;
 	--font-body: "Nunito", system-ui, sans-serif;
@@ -24,6 +27,15 @@
 	--font-size-display-lg: clamp(2.25rem, 1.7rem + 2.75vw, 4rem);
 }
 
+:root[data-theme="dark"] {
+	--ink: #f6efe0;
+	--paper: #1c1c1e;
+	--surface: #2c2c2e;
+	--muted: #c3bcdd;
+	--shadow-color: color-mix(in srgb, var(--ink) 50%, transparent);
+	color-scheme: dark;
+}
+
 * {
 	box-sizing: border-box;
 }
@@ -36,6 +48,10 @@ html {
 	html {
 		scroll-behavior: auto;
 	}
+
+	body {
+		transition: none;
+	}
 }
 
 body {
@@ -44,6 +60,7 @@ body {
 	line-height: 1.5;
 	color: var(--ink);
 	background: var(--paper);
+	transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 section {
@@ -70,6 +87,10 @@ h1 {
 	text-shadow: 4px 4px 0 var(--yellow);
 }
 
+:root[data-theme="dark"] h1 {
+	text-shadow: none;
+}
+
 h2 {
 	position: relative;
 	display: inline-block;
@@ -93,6 +114,10 @@ h2::after {
 	z-index: -1;
 }
 
+:root[data-theme="dark"] h2::after {
+	content: none;
+}
+
 a {
 	color: inherit;
 }
@@ -114,18 +139,18 @@ blockquote {
 	background: var(--yellow);
 	color: var(--ink);
 	text-decoration: none;
-	box-shadow: 4px 4px 0 var(--ink);
+	box-shadow: 4px 4px 0 var(--shadow-color);
 	transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .button:hover {
 	transform: translate(-2px, -2px);
-	box-shadow: 6px 6px 0 var(--ink);
+	box-shadow: 6px 6px 0 var(--shadow-color);
 }
 
 .button:active {
 	transform: translate(2px, 2px);
-	box-shadow: 1px 1px 0 var(--ink);
+	box-shadow: 1px 1px 0 var(--shadow-color);
 }
 
 .button--sky {
@@ -138,8 +163,13 @@ blockquote {
 }
 
 .button--paper {
-	background: #fff;
+	background: var(--surface);
 	color: var(--ink);
+}
+
+:root[data-theme="dark"] .button:not(.button--sky, .button--coral, .button--paper) {
+	color: var(--paper);
+	background: color-mix(in srgb, var(--yellow) 85%, black);
 }
 
 /* Touch-target minimum (~44px tall) on small screens — desktop padding

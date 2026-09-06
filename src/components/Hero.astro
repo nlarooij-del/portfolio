@@ -58,7 +58,7 @@ import NowPlayingContent from "./NowPlayingContent.astro";
 
 		<div class="cta-row">
 			<a href="#work" class="button">Selected works</a>
-			{/* <a href="#about" class="button button--sky">Get to know me</a> — hidden until bio content is filled in */}
+			<a href="#about" class="button button--paper">Get to know me</a>
 			<a href="/resume.pdf" target="_blank" rel="noopener noreferrer" class="button button--paper">View resume <span aria-hidden="true">↗</span></a>
 		</div>
 	</div>
@@ -89,11 +89,15 @@ import NowPlayingContent from "./NowPlayingContent.astro";
 		font-family: var(--font-body);
 		font-weight: 700;
 		font-size: var(--font-size-subheading);
-		color: #555;
+		color: var(--muted);
 		margin-top: 0.5rem;
 	}
 
 	.subhead strong {
+		color: var(--ink);
+	}
+
+	:root[data-theme="dark"] .subhead {
 		color: var(--ink);
 	}
 
@@ -108,7 +112,7 @@ import NowPlayingContent from "./NowPlayingContent.astro";
 		border: 2px solid var(--ink);
 		border-radius: 999px;
 		background: var(--paper);
-		box-shadow: 3px 3px 0 var(--ink);
+		box-shadow: 3px 3px 0 var(--shadow-color);
 	}
 
 	.illustration-placeholder {
@@ -123,6 +127,10 @@ import NowPlayingContent from "./NowPlayingContent.astro";
 		outline: 0px dashed var(--sky);
 		outline-offset: 0px;
 		transition: outline-width 0.2s ease, outline-offset 0.2s ease, transform 0.2s ease;
+	}
+
+	:root[data-theme="dark"] .illustration-placeholder {
+		box-shadow: 6px 6px 0 color-mix(in srgb, var(--yellow) 50%, transparent);
 	}
 
 	.drop-hint {
@@ -203,10 +211,14 @@ import NowPlayingContent from "./NowPlayingContent.astro";
 		display: flex;
 		flex-direction: column;
 		gap: 0.5rem;
-		box-shadow: 5px 5px 0 var(--ink);
+		box-shadow: 5px 5px 0 var(--shadow-color);
 		transform: rotate(var(--rot, 0deg));
 		transition: transform 0.15s ease, box-shadow 0.15s ease;
 		z-index: var(--z, 1);
+	}
+
+	:root[data-theme="dark"] .widget {
+		background: var(--surface);
 	}
 
 	.widget::after {
@@ -223,7 +235,7 @@ import NowPlayingContent from "./NowPlayingContent.astro";
 
 	.widget:hover:not(.dragging) {
 		transform: rotate(var(--rot, 0deg)) translateY(-6px);
-		box-shadow: 7px 9px 0 var(--ink);
+		box-shadow: 7px 9px 0 var(--shadow-color);
 		z-index: 20;
 	}
 
@@ -265,7 +277,7 @@ import NowPlayingContent from "./NowPlayingContent.astro";
 	.widget.dragging {
 		cursor: grabbing;
 		z-index: 10;
-		box-shadow: 8px 8px 0 var(--ink);
+		box-shadow: 8px 8px 0 var(--shadow-color);
 	}
 
 	.widget-label {
@@ -308,6 +320,13 @@ import NowPlayingContent from "./NowPlayingContent.astro";
 		--z: 1;
 		--rot: 2deg;
 		background: #ffccbc;
+	}
+
+	:root[data-theme="dark"] #now-listening,
+	:root[data-theme="dark"] #fun-fact,
+	:root[data-theme="dark"] #location,
+	:root[data-theme="dark"] #quote {
+		background: var(--surface);
 	}
 
 	/* Fan-out coordinates only apply at desktop widths. Below this, JS

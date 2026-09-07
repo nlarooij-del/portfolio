@@ -1,7 +1,11 @@
 ---
+interface Props {
+	title: string;
+}
+const { title } = Astro.props;
 ---
 
-<section data-screen-label="Hero visual" class="section">
+<section data-screen-label={title} class="section">
 	<div class="inner">
 		<slot />
 	</div>

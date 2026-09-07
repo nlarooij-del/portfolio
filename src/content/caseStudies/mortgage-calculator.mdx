@@ -66,10 +66,12 @@ import ImpactGrid from '../../components/case-study/ImpactGrid.astro';
 import ProcessSection from '../../components/case-study/ProcessSection.astro';
 import ProcessNav from '../../components/case-study/ProcessNav.astro';
 import ProcessStep from '../../components/case-study/ProcessStep.astro';
+import Stack from '../../components/case-study/Stack.astro';
 import Callout from '../../components/case-study/Callout.astro';
 import KeyFindings from '../../components/case-study/KeyFindings.astro';
 import EndProductSection from '../../components/case-study/EndProductSection.astro';
 import Decision from '../../components/case-study/Decision.astro';
+import DecisionPair from '../../components/case-study/DecisionPair.astro';
 import BeforeAfter from '../../components/case-study/BeforeAfter.astro';
 import OutcomeSection from '../../components/case-study/OutcomeSection.astro';
 import Rollout from '../../components/case-study/Rollout.astro';
@@ -98,7 +100,7 @@ export const jumpLinks = getJumpLinks(frontmatter);
 	jumpLinks={jumpLinks}
 />
 
-<HeroVisualSection>
+<HeroVisualSection title={frontmatter.title}>
 	<BeforeAfter
 		before={{ src: hypotherBefore, alt: 'The De Hypotheker monthly costs calculator on Funda', caption: 'De Hypotheker' }}
 		after={{ src: ingAfter, alt: 'The redesigned ING monthly costs calculator on Funda', caption: 'ING' }}
@@ -155,10 +157,10 @@ export const jumpLinks = getJumpLinks(frontmatter);
 
 <ProcessStep id="finalize" title="Finalize" last>
 	<p>Based on the research findings, I could finalize all interactions, product visuals, and pixel specifications to get it ready for development.</p>
-	<div>
+	<Stack gap="10px">
 		<Eyebrow>Screenshot research report (N=8, pre-build)</Eyebrow>
 		<ImageBlock src={usabilityReport} alt="Pages from the agency usability report with participant reactions per UI element" />
-	</div>
+	</Stack>
 </ProcessStep>
 
 	</div>
@@ -186,12 +188,19 @@ export const jumpLinks = getJumpLinks(frontmatter);
 	heading="The End Product"
 	intro="Six decisions carry the calculator: what users type in, what they get back, and how they move on with ING from inside someone else's page."
 >
-	<Decision id="decision-a" badge="A" eyebrow="Ask only what the calculation needs" title="Changed all input fields" first>
-		<p>Users struggled with De Hypotheker's input set: several fields weren't needed for the calculation, while a field to enter own money or surplus house value was missing entirely. To fix this, we took out the unneeded fields and split the wanted mortgage input ("gewenste hypotheekbedrag") into two: fictive bid and own money.</p>
-		<ImageBlock src={oldVsNew} alt="Old single mortgage-amount field next to the new split fictief bod and eigen inleg fields" />
-	</Decision>
+	<DecisionPair first>
+		<Decision id="decision-a" badge="A" eyebrow="Ask only what the calculation needs" title="Changed all input fields" first>
+			<p>Users struggled with De Hypotheker's input set: several fields weren't needed for the calculation, while a field to enter own money or surplus house value was missing entirely. To fix this, we took out the unneeded fields and split the wanted mortgage input ("gewenste hypotheekbedrag") into two: fictive bid and own money.</p>
+			<ImageBlock src={oldVsNew} alt="Old single mortgage-amount field next to the new split fictief bod and eigen inleg fields" />
+		</Decision>
 
-	<Decision id="decision-b" badge="B" eyebrow="Keep the CTA in view" title="Branding in calculator">
+		<Decision id="decision-b" badge="B" eyebrow="Answer the question behind the question" title="Add missing information" first>
+			<p>Users wanted to know "kosten koper" — the additional costs that come with buying a house (notary costs, for example) — to judge whether their savings would cover the purchase. Adding this let users see if they had enough savings, or how much was left to put into the house.</p>
+			<ImageBlock src={kostenKoper} alt="Close-up of kosten koper in the result card" variant="hatch" />
+		</Decision>
+	</DecisionPair>
+
+	<Decision id="decision-c" badge="C" eyebrow="Keep the CTA in view" title="Branding in calculator">
 		<p><strong>Technical constraint:</strong> mobile users arrived after a large page header, leaving little room before the primary CTA — on older devices it risked falling out of view entirely. I designed the logo into the result section to keep the CTA visible without adding height. On bigger devices, where space wasn't as tight, I added the option to show a brand image next to the result — I suggested a photo that looks back toward the result, to circle eye movement back to the follow-up actions.</p>
 		<BeforeAfter
 			src={brandingInCalc}
@@ -200,21 +209,18 @@ export const jumpLinks = getJumpLinks(frontmatter);
 		/>
 	</Decision>
 
-	<Decision id="decision-c" badge="C" eyebrow="Answer the question behind the question" title="Add missing information">
-		<p>Users wanted to know "kosten koper" — the additional costs that come with buying a house (notary costs, for example) — to judge whether their savings would cover the purchase. Adding this let users see if they had enough savings, or how much was left to put into the house.</p>
-		<ImageBlock src={kostenKoper} alt="Close-up of kosten koper in the result card" variant="hatch" />
-	</Decision>
+	<DecisionPair>
+		<Decision id="decision-d" badge="D" eyebrow="No dialogs allowed" title="Solving iframe restrictions" first>
+			<p><strong>Technical constraint:</strong> because the calculator was framed into the Funda page, it wasn't possible to make use of dialogs. To work around that, I solved it inline by replacing the content of the card and adding back navigation — making it feel like a side-step navigation, so users don't lose direction.</p>
+			<ImageBlock src={iframeNav} alt="Disclaimer and contact form states replacing the base card, each with back navigation" />
+		</Decision>
 
-	<Decision id="decision-d" badge="D" eyebrow="No dialogs allowed" title="Solving iframe restrictions">
-		<p><strong>Technical constraint:</strong> because the calculator was framed into the Funda page, it wasn't possible to make use of dialogs. To work around that, I solved it inline by replacing the content of the card and adding back navigation — making it feel like a side-step navigation, so users don't lose direction.</p>
-		<ImageBlock src={iframeNav} alt="Disclaimer and contact form states replacing the base card, each with back navigation" />
-	</Decision>
-
-	<Decision id="decision-e" badge="E" eyebrow="Lead quality vs. user friction" title="Contact form">
-		<p><strong>Business constraint:</strong> the business was wary of the new form generating more calls than the team could handle, so (too) much qualification logic was requested. Together with the core team, I kept the logic to a minimum, and we agreed on: sending ING customers to the logged-in environment, where they could plan it in themselves, and letting non-ING customers fill in a form and be called back at a moment an ING employee had time, with a single urgency question to sort incoming requests.</p>
-		<ImageBlock src={interviewForm} alt="ING-customer self-plan path next to the non-ING callback form with its urgency question" variant="hatch" maxWidth="536px" />
-		<Note>Update: On Funda you will now find an even more simplified contact form. I wasn't involved in that part.</Note>
-	</Decision>
+		<Decision id="decision-e" badge="E" eyebrow="Lead quality vs. user friction" title="Contact form" first>
+			<p><strong>Business constraint:</strong> the business was wary of the new form generating more calls than the team could handle, so (too) much qualification logic was requested. Together with the core team, I kept the logic to a minimum, and we agreed on: sending ING customers to the logged-in environment, where they could plan it in themselves, and letting non-ING customers fill in a form and be called back at a moment an ING employee had time, with a single urgency question to sort incoming requests.</p>
+			<ImageBlock src={interviewForm} alt="ING-customer self-plan path next to the non-ING callback form with its urgency question" variant="hatch" maxWidth="536px" />
+			<Note>Update: On Funda you will now find an even more simplified contact form. I wasn't involved in that part.</Note>
+		</Decision>
+	</DecisionPair>
 
 	<Decision id="decision-f" badge="F" eyebrow="Orientation, not conversion" title="Down the rabbit hole">
 		<p>The 0-measurement showed most Funda visitors were still in their orientation phase, not ready to make an appointment on the spot. Rather than pushing for immediate conversion, we kept them moving down the funnel with ING: giving them the option to calculate if they could actually afford the house they spotted and did a monthly cost calculation for.</p>

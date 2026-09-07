@@ -70,6 +70,7 @@ import HeroVisualSection from '../../components/case-study/HeroVisualSection.ast
 import ImageBlock from '../../components/case-study/ImageBlock.astro';
 import ProjectSection from '../../components/case-study/ProjectSection.astro';
 import Columns from '../../components/case-study/Columns.astro';
+import Stack from '../../components/case-study/Stack.astro';
 import ChallengeCards from '../../components/case-study/ChallengeCards.astro';
 import ImpactSection from '../../components/case-study/ImpactSection.astro';
 import ImpactGrid from '../../components/case-study/ImpactGrid.astro';
@@ -109,7 +110,7 @@ export const jumpLinks = getJumpLinks(frontmatter);
 	jumpLinks={jumpLinks}
 />
 
-<HeroVisualSection>
+<HeroVisualSection title={frontmatter.title}>
 	<ImageBlock src={heroImg} alt={frontmatter.heroAlt} variant="hatch-bleed" />
 </HeroVisualSection>
 
@@ -127,14 +128,14 @@ export const jumpLinks = getJumpLinks(frontmatter);
 		hmw="Redesign the category and product pages into a scalable system that works for any current or future product category, while fixing the usability issues blocking growth now."
 	/>
 	<Columns min="260px">
-		<div>
-			<Eyebrow color="blue">Old category page</Eyebrow>
+		<Stack gap="10px">
+			<Eyebrow>Old category page</Eyebrow>
 			<ImageBlock src={oldCategoryPage} alt="Old alphabetical, single-select category page" />
-		</div>
-		<div>
-			<Eyebrow color="blue">Old detail page</Eyebrow>
+		</Stack>
+		<Stack gap="10px">
+			<Eyebrow>Old detail page</Eyebrow>
 			<ImageBlock src={oldDetailPage} alt="Old partner-branded detail page with pricing buried mid-page" />
-		</div>
+		</Stack>
 	</Columns>
 </ProjectSection>
 

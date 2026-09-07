@@ -1,4 +1,5 @@
 interface CaseStudyNavData {
+	number: string;
 	projectHeading: string;
 	projectSectionId: string;
 	processHeading: string;
@@ -24,12 +25,13 @@ export function getJumpLinks(data: CaseStudyNavData) {
 	return links;
 }
 
-/** The compact-nav mobile menu: jump links (title case) + a trailing "All work" link. */
+/** The compact-nav mobile menu: jump links (title case) + a trailing back link,
+ *  pointing at the same landing-page anchor as the in-page "← Back" link. */
 export function getMenuItems(data: CaseStudyNavData) {
 	const items = getJumpLinks(data).map((l) => ({
 		label: l.label.charAt(0).toUpperCase() + l.label.slice(1),
 		href: l.href,
 	}));
-	items.push({ label: 'All work', href: '/#work' });
+	items.push({ label: '← Back', href: `/#case-${data.number}` });
 	return items;
 }

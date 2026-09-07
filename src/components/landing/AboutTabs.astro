@@ -25,7 +25,7 @@ const photos = [
 ];
 ---
 
-<section id="about" data-screen-label="About details" class="about">
+<section id="about" data-screen-label="About me" class="about">
 	<div class="inner">
 		<h2>About me</h2>
 
@@ -366,6 +366,13 @@ const photos = [
 				buttons.forEach((b) => b.classList.toggle('active', b === btn));
 				panels.forEach((p) => (p.hidden = p.dataset.panel !== index));
 				measure();
+				// Scroll the clicked tab as far left as the row allows (not just
+				// "nearest visible edge") — that's what makes it obvious there
+				// are more tabs to the right when the row overflows.
+				const max = root.scrollWidth - root.clientWidth;
+				if (max > 0) {
+					root.scrollTo({ left: Math.min(btn.offsetLeft, max), behavior: 'smooth' });
+				}
 			});
 		});
 

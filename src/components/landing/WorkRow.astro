@@ -78,12 +78,33 @@ const Tag = href ? 'a' : 'div';
 		border-top: 1px solid var(--color-border);
 		color: var(--color-ink);
 	}
+	/* Force the stack to trigger at the same breakpoint the rest of the page
+	   uses for "mobile mode", instead of leaving it to auto-fit's own organic
+	   collapse point (~480px). */
+	@media (max-width: 760px) {
+		.row {
+			grid-template-columns: 1fr;
+		}
+	}
 	.row.first {
 		padding-top: 0;
 		border-top: none;
 	}
 	.row.linkable:hover {
 		background: #f7f9fd;
+	}
+	/* The compact teaser row uses flex, not grid, so the text column hugs
+	   the narrower (max-width-capped) visual instead of sitting in a fixed
+	   50/50 grid track like the real case-study rows do. */
+	.row.compact {
+		display: flex;
+		flex-wrap: wrap;
+	}
+	.row.compact .visual {
+		flex: 1 1 200px;
+	}
+	.row.compact .text {
+		flex: 3 1 340px;
 	}
 
 	.visual {
@@ -95,10 +116,13 @@ const Tag = href ? 'a' : 'div';
 		align-items: flex-start;
 		justify-content: center;
 	}
-	@media (max-width: 479px) {
+	@media (max-width: 760px) {
 		.visual.hide-mobile {
 			display: none;
 		}
+	}
+	.row.compact .visual {
+		max-width: 340px;
 	}
 
 	.mock {
@@ -226,5 +250,20 @@ const Tag = href ? 'a' : 'div';
 		border-radius: 50%;
 		background: var(--color-dot);
 		align-self: center;
+	}
+
+	/* Once the row stacks, title/summary switch to a single shared measure
+	   instead of the side-by-side ch caps above. Selectors mirror the ones
+	   being overridden so specificity ties resolve to this (later)
+	   declaration rather than the earlier unconditional one. */
+	@media (max-width: 760px) {
+		h3,
+		.row.compact h3 {
+			max-width: 30ch;
+		}
+		.text p,
+		.row.compact .text p {
+			max-width: 60ch;
+		}
 	}
 </style>

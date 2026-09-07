@@ -26,7 +26,7 @@ const principles = [
 ];
 ---
 
-<section id="philosophy" data-screen-label="Philosophy" class="philosophy">
+<section id="philosophy" data-screen-label="Design philosophy" class="philosophy">
 	<div class="inner">
 		<div class="side">
 			<h2>Design philosophy</h2>
@@ -73,6 +73,11 @@ const principles = [
 		height: auto;
 		display: block;
 		align-self: flex-start;
+	}
+	@media (max-width: 760px) {
+		.side :global(img) {
+			display: none;
+		}
 	}
 	h2 {
 		margin: 0;

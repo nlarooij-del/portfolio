@@ -1,0 +1,33 @@
+---
+// Two lighter decisions side by side above 760px, sharing one border/rhythm
+// unit instead of each taking a full-width row; stacked below it.
+interface Props {
+	first?: boolean;
+}
+const { first = false } = Astro.props;
+---
+
+<div class="pair" class:list={{ first }}>
+	<slot />
+</div>
+
+<style>
+	.pair {
+		padding: 56px 0;
+		border-top: 1px solid var(--color-border);
+		display: flex;
+		flex-direction: column;
+		gap: 40px;
+	}
+	.pair.first {
+		padding-top: 0;
+		border-top: none;
+	}
+	@media (min-width: 760px) {
+		.pair {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 0 40px;
+		}
+	}
+</style>

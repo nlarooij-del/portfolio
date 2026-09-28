@@ -1,0 +1,88 @@
+---
+// A condensed case-study-style section (heading + prose in a 2-col head,
+// then arbitrary body content) — for snapshots with more to say than the
+// multi-project SnapshotProject pattern but less than a full case study.
+interface Props {
+	id: string;
+	heading: string;
+	label?: string;
+	align?: 'start' | 'end';
+	headPad?: string;
+	alt?: boolean;
+	selfContained?: boolean;
+	bodyGap?: string;
+}
+const {
+	id,
+	heading,
+	label,
+	align = 'start',
+	headPad = '40px',
+	alt = false,
+	selfContained = false,
+	bodyGap = '40px',
+} = Astro.props;
+---
+
+<section
+	id={id}
+	data-screen-label={label ?? heading}
+	class="section"
+	class:list={{ alt, 'self-contained': selfContained }}
+>
+	<div class="inner">
+		<div class="head" style={`--align:${align}; --pad:${headPad}`}>
+			<h2>{heading}</h2>
+			<div class="prose"><slot name="head" /></div>
+		</div>
+		<div class="body" style={`--gap:${bodyGap}`}><slot /></div>
+	</div>
+</section>
+
+<style>
+	.section {
+		padding: var(--space-section-block) var(--space-section-inline) 0;
+	}
+	.section.self-contained {
+		padding-bottom: var(--space-section-block);
+		margin-top: var(--space-section-block);
+	}
+	.section.alt {
+		background: var(--color-surface);
+	}
+	.inner {
+		max-width: var(--content-max-width);
+		margin: 0 auto;
+	}
+	.head {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+		gap: var(--gap-prose-lg);
+		align-items: var(--align);
+		padding-bottom: var(--pad);
+	}
+	h2 {
+		margin: 0;
+		font-size: var(--text-h2);
+		line-height: 1.06;
+		font-weight: 600;
+		letter-spacing: -0.03em;
+	}
+	.prose {
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+	}
+	.prose :global(p) {
+		font-family: var(--font-serif);
+		font-size: var(--text-body);
+		line-height: 1.6;
+		color: var(--color-body);
+		margin: 0;
+	}
+	.body {
+		display: flex;
+		flex-direction: column;
+		gap: var(--gap);
+	}
+</style>

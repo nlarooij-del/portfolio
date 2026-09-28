@@ -6,11 +6,12 @@ interface Props {
 	/** "yellow" = proud-moment / highlight box. "surface" = the light-grey "why it shipped" box. */
 	tone?: 'yellow' | 'surface';
 	heading?: string;
+	maxWidth?: string;
 }
-const { eyebrow, tone = 'yellow', heading } = Astro.props;
+const { eyebrow, tone = 'yellow', heading, maxWidth } = Astro.props;
 ---
 
-<div class="callout" class:list={[tone]}>
+<div class="callout" class:list={[tone]} style={maxWidth ? `max-width:${maxWidth}` : undefined}>
 	{eyebrow && <Eyebrow color={tone === 'yellow' ? 'yellow-ink' : 'muted'}>{eyebrow}</Eyebrow>}
 	{heading && <h4>{heading}</h4>}
 	<div class="body">

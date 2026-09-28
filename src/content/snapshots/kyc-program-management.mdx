@@ -1,0 +1,144 @@
+---
+title: "Consolidating KYC program management, when Excel sheets couldn't keep up"
+client: Adyen
+number: "001"
+intro: "Redesigning Adyen's KYC program management from a patchwork of Excel sheets into a single, trustworthy source Product teams could find, configure, and compare by scope."
+tags: ["KYC", "Internal tooling", "Compliance", "Framework design"]
+seoDescription: "Consolidating Adyen's KYC program management from scattered Excel sheets into one trustworthy source — cutting the time to assemble a KYC program by an estimated 95%."
+---
+
+import CaseIntro from '../../components/case-study/CaseIntro.astro';
+import HeroVisualSection from '../../components/case-study/HeroVisualSection.astro';
+import ImageBlock from '../../components/case-study/ImageBlock.astro';
+import Stack from '../../components/case-study/Stack.astro';
+import Columns from '../../components/case-study/Columns.astro';
+import Eyebrow from '../../components/case-study/Eyebrow.astro';
+import Callout from '../../components/case-study/Callout.astro';
+import SubFeatureGrid from '../../components/case-study/SubFeatureGrid.astro';
+import Decision from '../../components/case-study/Decision.astro';
+import OutcomeSection from '../../components/case-study/OutcomeSection.astro';
+import LiteSection from '../../components/snapshot/LiteSection.astro';
+import StepCard from '../../components/snapshot/StepCard.astro';
+
+import heroVisual from '../../assets/snapshot-001/hero-visual.png';
+import excelSheet from '../../assets/snapshot-001/excel-sheet.png';
+import matrixFiltered from '../../assets/snapshot-001/matrix-filtered.png';
+import programsOverview from '../../assets/snapshot-001/programs-overview.png';
+import matrix from '../../assets/snapshot-001/matrix.png';
+import showAllFilterSpecific from '../../assets/snapshot-001/show-all-filter-specific.png';
+import comparePrograms from '../../assets/snapshot-001/compare-programs.png';
+
+<CaseIntro
+	title={frontmatter.title}
+	backHref="/#snapshot-1"
+	meta={[
+		{ label: 'Company', value: 'Adyen' },
+		{ label: 'When', value: 'June 2025 – Dec 2025' },
+		{ label: 'Role', value: 'End-to-end design and writing, at ~1 day/week' },
+		{ label: 'Tools', value: 'Figma, Gemini' },
+	]}
+	inShort={{
+		lead: "Redesigned Adyen's KYC program management from a patchwork of Excel sheets into a single, trustworthy source Product teams could find, configure, and compare by scope.",
+		boldClaim: 'Cut the estimated time needed to assemble a KYC program from about an hour to a couple of minutes (~95%).',
+	}}
+	jumpLinks={[
+		{ label: 'the Problem', href: '#problem' },
+		{ label: 'the Approach', href: '#approach' },
+		{ label: 'the End Product', href: '#product' },
+		{ label: 'the Outcome', href: '#outcome' },
+	]}
+/>
+
+<HeroVisualSection title={frontmatter.title}>
+	<ImageBlock
+		src={heroVisual}
+		alt="Program management list, multi-select for comparison, a KYC program detail page and the comparison view"
+		variant="hatch"
+	/>
+</HeroVisualSection>
+
+<LiteSection id="problem" heading="The Problem" headPad="36px">
+	<Fragment slot="head">
+		<p>A KYC program is the combination of identity, ownership and risk checks a merchant needs to pass, based on its scope: the combination of legal entity types involved in a merchant's business.</p>
+		<p>At the start of this project, KYC programs were built and maintained across a patchwork of Excel sheets, often several combined just to produce the final list of checks for a single merchant. The process was slow and easy to get wrong.</p>
+	</Fragment>
+
+	<Columns min="320px" gap="20px" align="stretch">
+		<Stack gap="10px">
+			<Eyebrow>Excel sheet example</Eyebrow>
+			<ImageBlock src={excelSheet} alt="Spreadsheet listing checks per entity type across KYC risk levels" />
+		</Stack>
+		<Callout eyebrow="How Might We">
+			How might we make the KYC program for any scope something Product Managers can find, trust, and act on in one place, instead of a picture they have to reconstruct every time they release, manage, or troubleshoot?
+		</Callout>
+	</Columns>
+</LiteSection>
+
+<LiteSection id="approach" heading="The Approach" headPad="40px" alt selfContained>
+	<Fragment slot="head">
+		<p>My default process wasn't going to fit here. Time was short, and running the full version risked blocking development within a quarter. The risk of cutting corners was low too: this was internal tooling, not merchant-facing, and one of the actual end users, the PM I worked with, was part of the process from day one.</p>
+	</Fragment>
+
+	<Columns min="230px" gap="clamp(24px, 3vw, 32px)">
+		<StepCard label="01 · Understand">
+			<p>Two sessions to understand the broader context: one on the current way of working, one on the wider business context.</p>
+		</StepCard>
+		<StepCard label="02 · Co-create framework">
+			<p>A working session with the PM in Gemini. Sketching eight variations (Crazy 8s) led us to a matrix, over single-dimension or capability-based structures.</p>
+		</StepCard>
+		<StepCard label="03 · Job stories loop">
+			<p>With no PRD, the PM brought 1 to 3 job stories at a time. I refined them and generated ideas, looping until we'd covered enough ground, validated with fellow PMs and the dev team.</p>
+		</StepCard>
+	</Columns>
+
+	<Stack gap="10px">
+		<Eyebrow>A job story next to the screen that answers it</Eyebrow>
+		<ImageBlock src={matrixFiltered} alt="Job story card beside the KYC program detail page filtered down to the checks it asks for" />
+	</Stack>
+
+	<Callout eyebrow="Important note" maxWidth="66ch">
+		We split the work into two phases based on the key jobs to be done: investigating a single KYC program, and comparing KYC programs. That let development start sooner, at the accepted risk of some rework later.
+	</Callout>
+</LiteSection>
+
+<LiteSection id="product" heading="The End Product" headPad="48px" bodyGap="0">
+	<Fragment slot="head">
+		<p>Four moves carry the product: where a Product Manager starts, the matrix that gives the overview, the drill-down to a merchant-specific list, and the comparison between two programs.</p>
+	</Fragment>
+
+	<Decision id="product-a" badge="A" title="KYC programs overview" first>
+		<p>Where the journey starts: many KYC programs to maintain and manage, searchable and filterable by version.</p>
+		<ImageBlock src={programsOverview} alt="KYC programs list filtered to onboarding version 3" variant="hatch" />
+	</Decision>
+
+	<Decision id="product-b" badge="B" title="Matrix">
+		<p>A complex interaction pattern, kept for four reasons:</p>
+		<SubFeatureGrid>
+			<p><strong>Familiarity:</strong> it matched what Product Managers were already used to.</p>
+			<p><strong>Overview:</strong> a high-level view of the full program, including the impact of configuration or filter changes.</p>
+			<p><strong>Progressive disclosure:</strong> a quick overview before diving into a long list of checks.</p>
+			<p><strong>Risk-level impact:</strong> quickly seeing the implications of changes in KYC risk levels.</p>
+		</SubFeatureGrid>
+		<ImageBlock src={matrix} alt="Matrix filtered to RESIDENCY_STATE_CHECK, by entity type and KYC risk level" variant="hatch" />
+	</Decision>
+
+	<Decision id="product-c" badge="C" title="Show all, filter to a merchant-specific list">
+		<p>I didn't go for configuration first, where co-creation had ended. Leading with configuration would lose the total overview and the option to discover, drilling down is the more natural interaction, and there was no real harm in showing everything from the start.</p>
+		<ImageBlock src={showAllFilterSpecific} alt="Program page showing all checks, then the same page filtered by check scope, entity type and KYC risk level" variant="hatch" />
+	</Decision>
+
+	<Decision id="product-d" badge="D" title="Compare KYC programs">
+		<p>Merchants sometimes needed to switch KYC programs altogether. To assess and communicate the impact, I added a reference-versus-comparison setup, a comparison data point in each matrix cell, and a status column in the table showing which checks changed.</p>
+		<ImageBlock src={comparePrograms} alt="Reference and comparison program selectors, comparison values in the matrix, and a status column marking removed, added, changed and unchanged checks" variant="hatch" />
+	</Decision>
+</LiteSection>
+
+<OutcomeSection
+	heading="The Outcome"
+	intro="A single source replaced the Excel sheets, and the work that used to take about an hour now takes minutes."
+	stats={[
+		{ figure: '~95%', caption: 'Less time to assemble a KYC program, per an estimate from the PM.' },
+		{ figure: '~95%', caption: 'Less time to assess the impact of switching a merchant between programs.' },
+		{ figure: '0', caption: "Errors from manually assembling a merchant's risk-check list, closing the compliance gap." },
+	]}
+/>

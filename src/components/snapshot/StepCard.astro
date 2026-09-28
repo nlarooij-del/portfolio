@@ -1,0 +1,35 @@
+---
+// One numbered step in a condensed-snapshot "Approach" section.
+interface Props {
+	label: string;
+}
+const { label } = Astro.props;
+---
+
+<div class="step">
+	<span class="label">{label}</span>
+	<div class="body"><slot /></div>
+</div>
+
+<style>
+	.step {
+		padding-top: 16px;
+		border-top: 2px solid var(--color-accent-blue);
+	}
+	.label {
+		font-family: var(--font-mono);
+		font-size: 12px;
+		letter-spacing: 0.05em;
+		color: var(--color-accent-blue);
+	}
+	.body {
+		margin-top: 12px;
+		font-family: var(--font-serif);
+		font-size: var(--text-body);
+		line-height: 1.55;
+		color: var(--color-body);
+	}
+	.body :global(p) {
+		margin: 0;
+	}
+</style>

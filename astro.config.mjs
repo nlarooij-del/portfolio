@@ -7,6 +7,7 @@ import remarkGfm from 'remark-gfm';
 // https://astro.build/config
 export default defineConfig({
 	// Fully static: no server islands, no client-side framework runtime.
+	site: 'https://portfolio-wine-gamma-49.vercel.app',
 	output: 'static',
 	adapter: vercel(),
 	integrations: [mdx()],
